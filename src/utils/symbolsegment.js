@@ -1,0 +1,1 @@
+export const symbolSegment = ['FOREX', 'CRYPTO', 'COMEX'];  

@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme{
+  --color-custom-border : #00000011;
+  --color-custom-primary : #010A18;
+  --color-custom-green : #28936b;
+  --color-custom-red : #D3012D;
+  --color-custom-grey : #787878;
+  --color-custom-text : #1A232F;
+}
+
+/* Chrome, Safari, Edge */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* IE 10+ (still haunting enterprise apps) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+}
