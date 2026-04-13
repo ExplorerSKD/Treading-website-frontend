@@ -23,11 +23,11 @@
                     <!-- Profile Header -->
                     <div class="profile-header">
                         <div class="profile-avatar">
-                            {{ (profile?.full_name || 'U').charAt(0).toUpperCase() }}
+                            {{ (profile?.username || 'D').charAt(0).toUpperCase() }}
                         </div>
                         <div class="profile-info">
-                            <h2>{{ profile?.username }}</h2>
-                            <p>Member Since {{ formatDate(profile?.created_at) }}</p>
+                            <h2>{{ profile?.username?.toUpperCase() || 'DEMOACCOUNT' }}</h2>
+                            <p>Member Since {{ formatDate(profile?.created_at) || 'Jan 2026' }}</p>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@
                             <i class="fab fa-whatsapp wa-icon-large"></i>
                             <div class="wa-details">
                                 <h4>WhatsApp Support</h4>
-                                <p>+91 {{ profile?.parent_number || '- -' }}</p>
+                                <p>+91 {{ profile?.parent_number || '9667066657' }}</p>
                             </div>
                         </div>
                         <div class="wa-btn" @click="openWhatsApp">Chat Now</div>
@@ -92,8 +92,10 @@
 
                     <!-- Logout -->
                     <div class="logout-item" @click="showLogoutModal = true">
-                        <i class="fas fa-sign-out-alt logout-icon"></i>
-                        <span class="logout-text">Logout</span>
+                        <div class="logout-content">
+                            <i class="fas fa-sign-out-alt logout-icon"></i>
+                            <span class="logout-text">Logout</span>
+                        </div>
                     </div>
 
                 </div>
@@ -187,10 +189,10 @@ onMounted(() => {
 
 /* JADE RED + WHITE + BLACK + SILVER THEME */
 :root {
-    --bg-body: #F0F2F5;
+    --bg-body: #FFFFFF;
     --container-bg: #FFFFFF;
     --card-bg: #FFFFFF;
-    --card-alt-bg: #F8F9FB;
+    --card-alt-bg: #FFFFFF;
     --border-light: #E8ECF0;
     --border-card: #E2E6EA;
     --text-primary: #1A1A1A;
@@ -233,7 +235,7 @@ onMounted(() => {
 .app-container {
     width: 100%;
     margin: 0 auto;
-    background: var(--container-bg);
+    background: #FFFFFF;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
@@ -293,85 +295,85 @@ onMounted(() => {
 
 /* ===== PROFILE HEADER ===== */
 .profile-header {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    border-radius: 28px;
-    padding: 24px 20px;
+    background: #1E2331;
+    border-radius: 45px;
+    padding: 24px 28px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     margin-bottom: 24px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 .profile-avatar {
-    width: 56px;
-    height: 56px;
+    width: 70px;
+    height: 70px;
     background: #FFFFFF;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: #0f172a;
+    color: #1E2331;
 }
 .profile-info h2 {
     color: #FFFFFF;
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 800;
     margin-bottom: 4px;
+    letter-spacing: 0.5px;
 }
 .profile-info p {
-    color: #94a3b8;
-    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
     font-weight: 500;
 }
 
 /* ===== SETTINGS LIST GROUP ===== */
 .settings-group {
-    background: var(--card-bg);
-    border-radius: 28px;
-    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    border-radius: 45px;
     overflow: hidden;
     margin-bottom: 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    padding: 12px 0;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 .settings-item {
-    padding: 18px 20px;
+    padding: 18px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: none;
     cursor: pointer;
 }
 .settings-item:last-child {
     border-bottom: none;
 }
 .settings-item:active {
-    background-color: var(--card-alt-bg);
+    background-color: rgba(0, 0, 0, 0.02);
 }
 .settings-left {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
 }
 .settings-icon {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    width: 24px;
+    color: #1E2331;
+    font-size: 1.25rem;
+    width: 28px;
     text-align: center;
-    opacity: 0.8;
 }
 .settings-text {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1E2331;
 }
 
 /* ===== WHATSAPP SUPPORT CARD ===== */
 .wa-card {
-    background: #E8ECEF;
-    border-radius: 20px;
-    padding: 16px 20px;
+    background: #F1F6F9;
+    border-radius: 35px;
+    padding: 18px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -381,32 +383,44 @@ onMounted(() => {
 .wa-info {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
+    min-width: 0;
 }
 .wa-icon-large {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     color: #25D366;
+    flex-shrink: 0;
+}
+.wa-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 .wa-details h4 {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #5B677E;
+    color: #8E96A4;
     margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .wa-details p {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1E2331;
+    white-space: nowrap;
 }
 .wa-btn {
     background: #25D366;
     color: #FFFFFF;
-    padding: 8px 16px;
-    border-radius: 24px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 35px;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.15);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+    flex-shrink: 0;
 }
 .wa-btn:active {
     transform: scale(0.96);
@@ -414,27 +428,131 @@ onMounted(() => {
 
 /* ===== LOGOUT BUTTON ===== */
 .logout-item {
-    padding: 16px 20px;
+    padding: 16px 32px;
     display: flex;
     align-items: center;
-    gap: 16px;
     cursor: pointer;
-    border-radius: 24px;
+    border-radius: 30px;
     margin-bottom: 20px;
 }
+.logout-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 .logout-item:active {
-    background-color: rgba(220, 38, 38, 0.05);
+    background-color: rgba(0, 0, 0, 0.02);
 }
 .logout-icon {
-    color: var(--danger-color);
-    font-size: 1.1rem;
-    width: 24px;
+    color: #1E2331;
+    font-size: 1.25rem;
+    width: 28px;
     text-align: center;
 }
 .logout-text {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--danger-color);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1E2331;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 600px) {
+    .content-padded {
+        padding: 12px 14px 0 14px;
+    }
+    
+    .profile-header {
+        border-radius: 30px;
+        padding: 20px;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+    }
+    
+    .profile-info h2 {
+        font-size: 1.15rem;
+    }
+    
+    .settings-group {
+        border-radius: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .settings-item {
+        padding: 16px 24px;
+    }
+    
+    .settings-icon {
+        font-size: 1.1rem;
+        width: 24px;
+    }
+    
+    .settings-text {
+        font-size: 0.95rem;
+    }
+    
+    .wa-card {
+        border-radius: 28px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        gap: 12px;
+    }
+    
+    .wa-info {
+        gap: 12px;
+    }
+    
+    .wa-icon-large {
+        font-size: 2rem;
+    }
+    
+    .wa-details h4 {
+        font-size: 0.75rem;
+    }
+    
+    .wa-details p {
+        font-size: 0.95rem;
+    }
+    
+    .wa-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        border-radius: 25px;
+    }
+    
+    .logout-item {
+        padding: 14px 24px;
+        border-radius: 20px;
+    }
+    
+    .logout-icon {
+        font-size: 1.1rem;
+        width: 24px;
+    }
+    
+    .logout-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .wa-card {
+        padding: 14px 16px;
+    }
+    
+    .wa-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .wa-details p {
+        font-size: 0.85rem;
+    }
 }
 
 /* ===== LOGOUT CONFIRMATION MODAL ===== */

@@ -13,69 +13,55 @@
         </div>
 
         <!-- LEDGER CARD -->
-        <div v-else v-for="item in transactions" :key="item.id" class="bg-white rounded-lg ">
+        <div v-else v-for="item in transactions" :key="item.id" class="bg-white rounded-2xl p-4 shadow-sm border border-custom-border mb-4 transition-all hover:shadow-md">
 
             <!-- TOP ROW -->
-            <div class="flex justify-between items-center">
-                <div class="flex gap-4 w-full">
-                    <div class="bg-[#F5F5F5] rounded-lg p-4 h-fit ">
-                        <img src="/svg/arrow-dark.svg" :class="{ 'rotate-180': item.type == 'WITHDRAWAL' }" alt="">
+            <div class="flex items-start gap-4">
+                <div class="bg-gray-50 rounded-xl p-3 h-fit flex-shrink-0">
+                    <img src="/svg/arrow-dark.svg" :class="{ 'rotate-180': item.type == 'WITHDRAWAL' }" class="w-4 h-4" alt="">
+                </div>
+                
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-start mb-1">
+                        <div class="min-w-0">
+                            <p class="text-[15px] font-bold text-custom-primary truncate">
+                                {{ item.type }}
+                            </p>
+                            <p class="text-[11px] text-gray-500 font-medium">
+                                {{ formatDate(item.created_at) }}
+                            </p>
+                        </div>
+
+                        <div class="text-right flex-shrink-0 ml-2">
+                            <p class="font-black text-[15px] text-custom-primary leading-tight">
+                                ₹{{ formatAmount(item.amount) }}
+                            </p>
+                            <p class="text-[10px] font-black uppercase tracking-wider mt-0.5" :class="statusClass(item.status)">
+                                {{ item.status }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="w-full space-y-2 border-b border-custom-border pb-6">
 
-                        <div class="flex flex-1 items-center w-full justify-between">
+                    <!-- REMARK (ONLY IF PRESENT) -->
+                    <div v-if="item.admin_remark" class="mt-3 text-[11px] text-custom-red bg-red-50/50 p-2.5 rounded-xl border border-red-100/50">
+                        <span class="font-bold opacity-70">Remark:</span> {{ item.admin_remark }}
+                    </div>
 
-                            <div class="text-[14px] font-medium text-custom-text">
-                                <p>
-                                    {{ item.type }}
-                                </p>
-                                <p class="text-[11px] text-custom-grey font-medium">
-                                    {{ formatDate(item.created_at) }}
-                                </p>
+                    <!-- SCREENSHOT AND EDIT BUTTON -->
+                    <div class="mt-4 flex flex-wrap items-center gap-2">
+                        <a v-if="item.screenshot_url" :href="getScreenshotUrl(item.screenshot_url)" target="_blank"
+                            class="text-[12px] px-4 py-2 bg-custom-primary text-white rounded-xl font-bold transition-all hover:bg-black active:scale-95">
+                            View Screenshot
+                        </a>
 
-
-                            </div>
-
-                            <div>
-
-                                <div>
-
-                                    <span class="font-semibold text-[14px] text-custom-primary">
-                                        ₹{{ item.amount }}
-                                    </span>
-                                    <p class=" text-[11px] font-semibold text-end " :class="statusClass(item.status)">
-                                        {{ item.status }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- REMARK (ONLY IF PRESENT) -->
-                        <div v-if="item.admin_remark" class="text-[11px] text-custom-red bg-red-50 p-2 rounded">
-                            <strong>Remark:</strong> {{ item.admin_remark }}
-                        </div>
+                        <!-- EDIT BUTTON (Only for PENDING transactions) -->
+                        <button v-if="item.status === 'PENDING'" @click="editTransaction(item)"
+                            class="text-[12px] px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-xl font-bold transition-all hover:bg-blue-100 active:scale-95">
+                            Edit Request
+                        </button>
                     </div>
                 </div>
-
-
-
             </div>
-
-
-
-            <!-- SCREENSHOT AND EDIT BUTTON -->
-            <div class="pt-2 flex items-center gap-3">
-                <a v-if="item.screenshot_url" :href="getScreenshotUrl(item.screenshot_url)" target="_blank"
-                    class="text-sm rounded-full px-4 py-2 bg-custom-primary text-white hover:bg-custom-text font-semibold">
-                    View Screenshot
-                </a>
-
-                <!-- EDIT BUTTON (Only for PENDING transactions) -->
-                <button v-if="item.status === 'PENDING'" @click="editTransaction(item)"
-                    class="text-sm rounded-full px-4 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 font-semibold transition-colors duration-150">
-                    Edit Request
-                </button>
-            </div>
-
         </div>
 
     </div>
@@ -101,6 +87,13 @@ const formatDate = (date) => {
     })
 }
 
+const formatAmount = (amount) => {
+    return new Intl.NumberFormat('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(amount)
+}
+
 const statusClass = (status) => {
     switch (status) {
         case 'COMPLETED':
@@ -108,9 +101,9 @@ const statusClass = (status) => {
         case 'REJECTED':
             return 'text-custom-red'
         case 'PENDING':
-            return ' text-yellow-700'
+            return 'text-yellow-600'
         default:
-            return 'text-gray-700'
+            return 'text-gray-500'
     }
 }
 

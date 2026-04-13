@@ -12,7 +12,7 @@
             </header>
 
             <div class="brand-logo">
-                <i class="fas fa-chart-line"></i>
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
                 <h1>Bull Margin</h1>
             </div>
             
@@ -108,6 +108,12 @@
                 <div class="login-link">
                     Already have an account?
                     <a href="#" @click.prevent="$emit('goTologin')">Login here</a>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <button type="button" @click="$emit('demoLogin')" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
+                        <i class="fas fa-play-circle"></i> Try Demo Account
+                    </button>
                 </div>
             </form>
         </div>

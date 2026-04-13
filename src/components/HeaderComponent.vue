@@ -1,10 +1,11 @@
 <template>
     <div class="flex items-center justify-between w-full mb-6">
-        <div class="md:hidden">
-            <img src="/logo.png" class="w-24" alt="">
+        <div class="md:hidden flex items-center gap-2">
+            <img src="/logo.png" class="w-8 h-8 rounded-lg" alt="">
+            <span class="text-base font-semibold text-custom-text">Hello, {{ profile.full_name || 'User' }}</span>
         </div>
         <div class="hidden md:block">
-            <h2 class="text-2xl font-bold text-custom-primary">Bull Margin</h2>
+            <h2 class="text-2xl font-bold text-custom-primary">Hello, {{ profile.full_name || 'User' }}</h2>
         </div>
         <div class="flex items-center gap-4">
             <button @click="showNotificationModal = true"
@@ -19,12 +20,17 @@
 
 <script setup>
 import { useNotificationStore } from '@/stores/notifications';
+import { useProfileStore } from '@/stores/profile';
 import { storeToRefs } from 'pinia';
 import NotificationModal from './NotificationModal.vue';
 
 
 const notificationStore = useNotificationStore();
 const { showNotificationModal, isUnread } = storeToRefs(notificationStore)
+
+const profileStore = useProfileStore();
+const { profile } = storeToRefs(profileStore)
+
 const props = defineProps({
     title: {
         type: String,

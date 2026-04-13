@@ -126,7 +126,7 @@ fs.writeFileSync(files.orders, ord);
 let pos = fs.readFileSync(files.positions, 'utf8');
 pos = pos.replace(/(<script setup>\n)/, `$1import { useThemeStore } from '@/stores/theme'\n`);
 pos = pos.replace(/(const positionStore = usePositionStore\(\)\n)/, `$1const themeStore = useThemeStore()\n`);
-pos = pos.replace(/(<div class="page-title">\n\s*<i class="fas fa-chart-line"><\/i> MARGIN APEX\n\s*<\/div>)/, 
+pos = pos.replace(/(<div class="page-title">\n\s*<i class="fas fa-chart-line"><\/i> BULL MARGIN\n\s*<\/div>)/, 
 `$1\n          <button style="background:transparent;border:none;font-size:1.1rem;margin-left:8px;cursor:pointer;" @click="themeStore.toggleTheme()">
             <i class="fas" :class="themeStore.isDark ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
           </button>`);

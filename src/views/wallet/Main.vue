@@ -1,96 +1,82 @@
 <template>
-    <div class="px-4">
-        <div class="sticky top-0 bg-white pb-2">
-
-            <header class="bg-white py-4 flex items-center justify-between ">
-                <div class="flex items-center gap-4">
-                    <button @click="$router.push({ name: 'profile' })"
-                        class="rounded-full w-10 h-10 flex items-center justify-center bg-[#F5F5F5]">
-
-                        <img class="w-6 -rotate-90" src="/svg/chevron-up.svg" />
-
-                    </button>
-                    <h1 class="text-lg font-semibold text-custom-text">Wallet</h1>
-                </div>
+    <div class="px-4 pb-10">
+        <div class="sticky top-0 bg-white z-10">
+            <header class="py-4 flex items-center gap-4">
+                <button @click="$router.push({ name: 'profile' })"
+                    class="rounded-full w-10 h-10 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-all active:scale-95">
+                    <img class="w-6 -rotate-90" src="/svg/chevron-up.svg" />
+                </button>
+                <h1 class="text-xl font-bold text-custom-primary">Wallet</h1>
             </header>
-
-
         </div>
-        <div class="bg-custom-primary rounded-2xl p-4 text-white text-[14px]">
 
-            <div class="flex justify-between mb-6">
-                <div class="min-w-35">
-                    <div class="text-custom-grey text-[11px] mb-1">Ledger Balance</div>
-                    <div class="text-[14px] font-semibold">
+        <!-- Balance Card -->
+        <div class="bg-custom-primary rounded-[2rem] p-6 text-white shadow-xl shadow-black/10">
+            <div class="grid grid-cols-2 gap-y-6 gap-x-4 mb-8">
+                <div>
+                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Ledger Balance</p>
+                    <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(Number(wallet.balance || 0))) }}
-                    </div>
+                    </p>
                 </div>
 
-                <div class="min-w-35">
-                    <div class="text-custom-grey text-[11px] mb-1">Available Margin</div>
-                    <div class="text-[14px] font-semibold">
+                <div>
+                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Available Margin</p>
+                    <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(availableMargin)) }}
-                    </div>
+                    </p>
                 </div>
 
-            </div>
-
-            <div class="flex justify-between mb-6">
-                <div class="min-w-35">
-                    <div class="text-custom-grey text-[11px] mb-1">Utilised Fund</div>
-                    <div class="text-[14px] font-semibold">
+                <div>
+                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Utilised Fund</p>
+                    <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(utilizedFunds)) }}
-                    </div>
+                    </p>
                 </div>
 
-                <div class="min-w-35">
-                    <div class="text-custom-grey text-[11px] mb-1">MTM</div>
-                    <div class="text-[14px] font-semibold">
-                        ₹{{
-                            openPositions.length
-                                ? formatCurrency(
-                                    Math.round(
-                                        Number(totalPnl || 0)
-                                    )
-                                )
-                                : 0
-                        }}
-                    </div>
+                <div>
+                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">MTM (P&L)</p>
+                    <p class="text-lg font-bold" :class="{ 'text-green-400': totalPnl > 0, 'text-red-400': totalPnl < 0 }">
+                        ₹{{ formatCurrency(Math.round(totalPnl || 0)) }}
+                    </p>
                 </div>
             </div>
-            <div class=" grid grid-cols-2 gap-4">
+
+            <div class="grid grid-cols-2 gap-4">
                 <button @click="() => { showRequestModal = true; requestMode = 'deposit' }"
-                    class="rounded-lg bg-white  py-2 text-custom-primary flex items-center justify-center text-[14px] gap-2 font-semibold cursor-pointer ">
+                    class="rounded-2xl bg-white py-4 text-custom-primary flex items-center justify-center text-sm gap-2 font-bold shadow-lg transition-all active:scale-95">
                     <img src="/svg/arrow-dark.svg" alt="" class="w-3">
                     Add Funds
                 </button>
                 <button @click="() => { showRequestModal = true; requestMode = 'withdraw' }"
-                    class="rounded-lg bg-white/10  py-2 text-white flex items-center justify-center gap-2 font-semibold text-[14px] cursor-pointer">
+                    class="rounded-2xl bg-white/10 py-4 text-white flex items-center justify-center gap-2 font-bold text-sm border border-white/10 transition-all active:scale-95">
                     <img src="/svg/arrow-light.svg" alt="" class="w-3">
                     Withdrawal
                 </button>
             </div>
         </div>
-        <h1 class="text-[27.2px] font-bold my-4 text-custom-primary">
-            Fund Analytics
-        </h1>
-        <div
-            class="overflow-x-auto bg-white border-b no-scrollbar border-custom-border flex gap-2 items-center max-w-[90vw] my-4 mb-8">
+
+        <div class="mt-10 mb-6">
+            <h2 class="text-2xl font-bold text-custom-primary mb-1">Fund Analytics</h2>
+            <p class="text-sm text-gray-500 font-medium">Track your deposit and withdrawal history</p>
+        </div>
+
+        <!-- Custom Tabs -->
+        <div class="bg-gray-100 p-1.5 rounded-2xl flex items-center mb-8 border border-gray-200/50">
             <button @click="transactionType = 'DEPOSIT'"
-                :class="{ 'border-b-2  border-custom-primary text-custom-primary': transactionType == 'DEPOSIT', 'bg-white border-b-2 border-white text-custom-primary': transactionType != 'DEPOSIT' }"
-                class=" flex-1 py-1 text-[14px] px-3">
-                Deposit
+                class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-200"
+                :class="transactionType == 'DEPOSIT' ? 'bg-white text-custom-primary shadow-sm ring-1 ring-black/5' : 'text-gray-500 hover:text-gray-700'">
+                Deposits
             </button>
             <button @click="transactionType = 'WITHDRAWAL'"
-                :class="{ 'border-b-2  border-custom-primary text-custom-primary': transactionType == 'WITHDRAWAL', 'bg-white border-b-2 border-white text-custom-primary': transactionType != 'WITHDRAWAL' }"
-                class=" flex-1 py-1 text-[14px] px-3">
-                Withdrawal
+                class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-200"
+                :class="transactionType == 'WITHDRAWAL' ? 'bg-white text-custom-primary shadow-sm ring-1 ring-black/5' : 'text-gray-500 hover:text-gray-700'">
+                Withdrawals
             </button>
-
         </div>
+
         <ProfileLedger />
         <RequestModal />
-
     </div>
 </template>
 

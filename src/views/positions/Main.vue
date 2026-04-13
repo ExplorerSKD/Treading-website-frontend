@@ -5,7 +5,7 @@
     <div class="page-header">
       <div class="header-left">
         <div class="page-title">
-          <i class="fas fa-chart-line"></i> MARGIN APEX
+          <i class="fas fa-chart-line"></i> BULL MARGIN
         </div>
         <div class="page-subtitle">Position Management • P&L</div>
       </div>
@@ -419,7 +419,7 @@ const realizedPnl = computed(() => {
 .main-nav {
   display: flex;
   margin: 12px 16px 0 16px;
-  background: #F8FAFE;
+  background: #FFFFFF;
   border-radius: 44px;
   padding: 4px;
   flex-shrink: 0;

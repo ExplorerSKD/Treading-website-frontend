@@ -1,4 +1,4 @@
-# 🐂 Bull Margin (Margin Apex) - User Frontend
+# 🐂 Bull Margin - User Frontend
 
 A modern, responsive, mobile-first trading platform interface built with Vue 3, Vite, and Pinia.
 

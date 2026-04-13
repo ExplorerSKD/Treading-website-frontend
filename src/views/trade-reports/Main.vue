@@ -213,7 +213,7 @@ const exportTradeReport = () => {
     min-height: 100vh;
     width: 100%;
     margin: 0 auto;
-    background: #F5F7FB;
+    background: #FFFFFF;
     position: relative;
     font-family: 'Inter', sans-serif;
     color: #1A1E2B;
@@ -343,7 +343,7 @@ const exportTradeReport = () => {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
-    background: #F8FAFF;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
 }

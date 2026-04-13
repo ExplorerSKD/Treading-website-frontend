@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-h-screen bg-[#F8F9FA]">
+    <div class="flex min-h-screen layout-bg">
         <!-- Desktop Sidebar -->
         <aside class="hidden md:flex flex-col w-72 bg-white border-r border-custom-border fixed h-full z-50">
             <div class="p-8">
@@ -35,7 +35,7 @@
 
         <!-- Main Content Area -->
         <div class="flex-1 md:ml-72 flex flex-col min-w-0">
-            <main class="w-full pb-24 md:pb-8 mx-auto">
+            <main class="w-full pb-24 md:pb-8 mx-auto flex-1 content-bg">
                 <div class="max-w-[1600px] mx-auto">
                     <RouterView />
                 </div>
@@ -113,56 +113,84 @@ const navItems = [
         path: '/profile',
         label: 'Profile',
         darkIcon: '/bottombar/user-dark.svg',
-        lightIcon: '/bottombar/user-light.svg',
+        lightIcon: '/bottombar/user-dark.svg',
     },
 ]
 </script>
 
 <style>
+.layout-bg {
+    background: #FFFFFF;
+}
+
+.content-bg {
+    background: #FFFFFF;
+}
+
 /* ===== DARK MODE FOR MAIN LAYOUT ===== */
-[data-theme="dark"] .flex.min-h-screen {
-    background: #0F1117 !important;
+[data-theme="dark"] .layout-bg,
+[data-theme="dark"] .content-bg,
+[data-theme="dark"] .flex.min-h-screen,
+body.dark .layout-bg,
+body.dark .content-bg,
+body.dark .flex.min-h-screen {
+    background: #000000 !important;
+}
+
+[data-theme="dark"] body,
+body.dark {
+    background-color: #000000 !important;
 }
 
 /* Desktop Sidebar */
-[data-theme="dark"] aside {
+[data-theme="dark"] aside,
+body.dark aside {
     background: #161A23 !important;
     border-color: #1E2230 !important;
 }
 
-[data-theme="dark"] aside nav a {
+[data-theme="dark"] aside nav a,
+body.dark aside nav a {
     color: #9AA4BF !important;
 }
 
-[data-theme="dark"] aside nav a:hover {
+[data-theme="dark"] aside nav a:hover,
+body.dark aside nav a:hover {
     background: #1A1F2D !important;
     color: #E8EAED !important;
 }
 
 [data-theme="dark"] aside nav a.router-link-active,
-[data-theme="dark"] aside nav a.bg-custom-primary {
+[data-theme="dark"] aside nav a.bg-custom-primary,
+body.dark aside nav a.router-link-active,
+body.dark aside nav a.bg-custom-primary {
     color: #FFFFFF !important;
 }
 
 /* Sidebar footer card */
-[data-theme="dark"] aside .border-t {
+[data-theme="dark"] aside .border-t,
+body.dark aside .border-t {
     border-color: #1E2230 !important;
 }
 
-[data-theme="dark"] aside .bg-gray-50 {
+[data-theme="dark"] aside .bg-gray-50,
+body.dark aside .bg-gray-50 {
     background: #1A1F2D !important;
 }
 
-[data-theme="dark"] aside .text-custom-primary {
+[data-theme="dark"] aside .text-custom-primary,
+body.dark aside .text-custom-primary {
     color: #E8EAED !important;
 }
 
-[data-theme="dark"] aside .text-gray-500 {
+[data-theme="dark"] aside .text-gray-500,
+body.dark aside .text-gray-500 {
     color: #6D758D !important;
 }
 
 /* Main content area background */
-[data-theme="dark"] main {
+[data-theme="dark"] main,
+body.dark main {
     background: #0F1117 !important;
 }
 </style>

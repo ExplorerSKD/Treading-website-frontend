@@ -1,25 +1,40 @@
 <template>
-    <div class="portfolio-card">
-        <div class="portfolio-header">Portfolio</div>
-        <div class="portfolio-stats">
-            <div class="stat-col">
-                <span class="stat-label">Invested</span>
-                <span class="stat-val">₹{{ formatNumber(Math.round(utilizedFunds)) }}</span>
-            </div>
-            <div class="stat-col right">
-                <span class="stat-label">Current</span>
-                <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'">
-                    ₹{{ formatNumber(Math.round(utilizedFunds + totalPnl)) }}
-                </span>
-            </div>
-        </div>
-        <div class="pnl-row">
-            <span class="stat-label">Total PNL</span>
-            <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'">
-                <span v-if="totalPnl > 0">+</span>{{ formatNumber(Math.round(totalPnl)) }}
-            </span>
-        </div>
+  <div class="portfolio-card">
+    <div class="portfolio-title">Portfolio</div>
+
+    <!-- Ledger Balance & Available Margin row -->
+    <div class="portfolio-stats" style="margin-bottom: 16px;">
+      <div class="stat-group">
+        <span class="stat-label">Ledger Balance</span>
+        <span class="stat-val">₹{{ formatNumber(Math.round(Number(wallet.balance || 0))) }}</span>
+      </div>
+      <div class="stat-group right">
+        <span class="stat-label">Available Margin</span>
+        <span class="stat-val">₹{{ formatNumber(Math.round(availableMargin)) }}</span>
+      </div>
     </div>
+
+    <!-- Invested & Current row -->
+    <div class="portfolio-stats">
+      <div class="stat-group">
+        <span class="stat-label">Invested</span>
+        <span class="stat-val">₹{{ formatNumber(Math.round(utilizedFunds)) }}</span>
+      </div>
+      <div class="stat-group right">
+        <span class="stat-label">Current</span>
+        <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'">
+          ₹{{ formatNumber(Math.round(utilizedFunds + totalPnl)) }}
+        </span>
+      </div>
+    </div>
+
+    <div class="portfolio-bottom">
+      <span class="stat-label">Total PNL</span>
+      <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'" style="font-size: 1.25rem;">
+        <span v-if="totalPnl > 0">+</span>{{ formatNumber(Math.round(totalPnl)) }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -43,7 +58,6 @@ const { scriptSettings } = storeToRefs(scriptSettingStore)
 const { wallet } = storeToRefs(walletStore);
 const { profile } = storeToRefs(profileStore)
 const { openPositions } = storeToRefs(positionStore);
-
 
 const activeSegmentSettigs = (pos) => {
     if (!pos?.segment || !pos?.side) return null
@@ -114,6 +128,55 @@ const totalPnl = computed(() => {
     return sum
 })
 
+const availableMargin = computed(() => {
+    const balance = Number(wallet.value.balance || 0)
+    return balance - utilizedFunds.value + (totalPnl.value >= 0 ? 0 : totalPnl.value)
+})
+
+
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.portfolio-card {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--container-bg, #FFFFFF);
+  border: 1px solid var(--border-accent, rgba(6, 95, 70, 0.15));
+  border-radius: 30px; padding: 24px; margin-bottom: 24px;
+  cursor: pointer; box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.04));
+  position: relative; overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+:global(body.dark) .portfolio-card { 
+  background: #252b36; 
+  border: 1px solid #3e4859; 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4); 
+}
+
+.portfolio-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-dark-green, #1F4529); opacity: 0.8;
+}
+:global(body.dark) .portfolio-card::before { background: #10B981; }
+
+.portfolio-card:active { transform: scale(0.98); box-shadow: var(--shadow-soft, 0 12px 32px rgba(0, 0, 0, 0.08)); }
+.portfolio-title { font-size: 1.25rem; font-weight: 800; color: var(--text-main, #1F4529); margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase; }
+:global(body.dark) .portfolio-title { color: #10B981; }
+
+.portfolio-stats { display: flex; justify-content: space-between; margin-bottom: 28px; gap: 4px; }
+.stat-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.stat-group.right { align-items: flex-end; }
+.stat-label { font-size: clamp(0.7rem, 3vw, 0.78rem); font-weight: 600; color: var(--text-sub, #64748B); white-space: nowrap; }
+:global(body.dark) .stat-label { color: #9AA4BF; }
+
+.stat-val { font-size: clamp(0.85rem, 3.8vw, 1.05rem); font-weight: 800; color: var(--text-main, #0F172A); letter-spacing: 0px; white-space: nowrap; }
+:global(body.dark) .stat-val { color: #E8EAED; }
+.stat-val.green { color: #10B981; }
+.stat-val.red { color: #DC2626; }
+
+.portfolio-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px; border-top: 1px dashed var(--border-light, #E5E7EB);
+}
+:global(body.dark) .portfolio-bottom { border-color: rgba(255, 255, 255, 0.12); }
+</style>

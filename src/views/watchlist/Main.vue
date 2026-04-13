@@ -767,7 +767,7 @@ onMounted(() => {
     min-height: 100vh;
     width: 100%;
     margin: 0 auto;
-    background: #F5F7FB;
+    background: #FFFFFF;
     font-family: 'Inter', sans-serif;
     position: relative;
     overflow-x: hidden;
@@ -873,7 +873,7 @@ onMounted(() => {
 .main-content {
     flex: 1;
     padding: 16px;
-    background: #F8FAFF;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
 }

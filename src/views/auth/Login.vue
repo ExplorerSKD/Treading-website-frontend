@@ -5,14 +5,9 @@
     <div v-show="!showForgotPassword" class="login-container">
         <!-- Left Section: Login Form -->
         <div class="login-form-section">
-            <header class="mb-4">
-              <button @click="$emit('goBack')" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back
-              </button>
-            </header>
 
             <div class="brand-logo">
-                <i class="fas fa-chart-line"></i>
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
                 <h1>Bull Margin</h1>
             </div>
 
@@ -48,6 +43,22 @@
                     <span v-if="loading"><i class="fas fa-spinner fa-spin"></i> Authenticating...</span>
                     <span v-else><i class="fas fa-sign-in-alt"></i> Sign In</span>
                 </button>
+
+                <div class="divider" style="margin: 25px 0 15px 0; display: flex; align-items: center; color: #999;">
+                    <span style="flex: 1; height: 1px; background: #e0e0e0;"></span>
+                    <span style="padding: 0 15px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">OR</span>
+                    <span style="flex: 1; height: 1px; background: #e0e0e0;"></span>
+                </div>
+
+                <div class="action-links" style="text-align: center; margin-top: 15px;">
+                    <button type="button" @click="$emit('goToRegister')" style="width: 100%; border: 1.5px solid #0b3200; border-radius: 10px; background: transparent; color: #0b3200; padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                        <i class="fas fa-user-plus"></i> Create New Account
+                    </button>
+                    
+                    <button type="button" @click="handleDemoLogin" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
+                        <i class="fas fa-play-circle"></i> Try Demo Account
+                    </button>
+                </div>
 
                 <div class="security-note">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -102,7 +113,7 @@
         <!-- Left Section: Forgot Password Form -->
         <div class="forgot-form-section">
             <div class="brand-logo">
-                <i class="fas fa-chart-line"></i>
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
                 <h1>Bull Margin</h1>
             </div>
             
@@ -279,8 +290,8 @@
             </ul>
 
             <div class="security-note">
-                <i class="fas fa-exclamation-triangle"></i>
-                <strong>Security Alert:</strong> Never share your password or verification codes with anyone. Bull Margin will never ask for your password via email or phone.
+                <i class="fas fa-exclamation-triangle" style="color: #ff4d4d;"></i>
+                <strong style="color: #ff4d4d;">Security Alert:</strong> <span style="color: #ffffff;">Never share your password or verification codes with anyone. Bull Margin will never ask for your password via email or phone.</span>
             </div>
         </div>
     </div>
@@ -963,6 +974,26 @@ function resetForgotPasswordForm() {
     .features-title {
         font-size: 28px;
     }
+
+    .login-button {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .input-with-icon input {
+        padding: 12px 15px 12px 45px;
+        font-size: 14px;
+    }
+
+    .input-with-icon i:not(.password-toggle i) {
+        left: 15px;
+        font-size: 16px;
+    }
+
+    .password-toggle {
+        right: 15px;
+        font-size: 16px;
+    }
 }
 </style>
 
@@ -1352,8 +1383,36 @@ function resetForgotPasswordForm() {
     .security-title {
         font-size: 28px;
     }
-    
+
+    .forgot-header {
+        margin-bottom: 25px;
+    }
+
+    .forgot-header h2 {
+        font-size: 24px;
+    }
+
+    .forgot-header p {
+        font-size: 13px;
+    }
+
+    .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-width: 2px;
+    }
+
+    .step-text {
+        font-size: 10px;
+    }
+
+    .step-indicator {
+        margin-bottom: 30px;
+    }
+
     .step-indicator::before {
+        top: 15px;
         left: 5%;
         right: 5%;
     }
@@ -1362,6 +1421,23 @@ function resetForgotPasswordForm() {
         width: 40px;
         height: 50px;
         font-size: 20px;
+    }
+
+    .action-button {
+        padding: 10px 8px;
+        font-size: 13px;
+        border-radius: 8px;
+        line-height: 1.3;
+    }
+
+    .button-group {
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .back-to-login {
+        margin-top: 20px;
+        font-size: 14px;
     }
 }
 </style>

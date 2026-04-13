@@ -249,7 +249,7 @@ const getStatusIcon = (status) => {
 
 .order-app {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -314,7 +314,7 @@ const getStatusIcon = (status) => {
 .search-box {
   display: flex;
   align-items: center;
-  background: #F8FAFE;
+  background: #FFFFFF;
   border-radius: 40px;
   padding: 6px 14px;
   border: 1px solid #E8EDF2;

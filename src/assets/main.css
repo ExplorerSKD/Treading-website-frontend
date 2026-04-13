@@ -9,6 +9,36 @@
   --color-custom-text : #1A232F;
 }
 
+/* Light mode global background */
+[data-theme="light"], 
+[data-theme="light"] body,
+body:not(.dark) {
+    background-color: #FFFFFF !important;
+    color: #1A232F;
+}
+
+[data-theme="light"] .layout-bg,
+[data-theme="light"] .content-bg,
+body:not(.dark) .layout-bg,
+body:not(.dark) .content-bg {
+    background-color: #FFFFFF !important;
+}
+
+/* Dark mode global background */
+[data-theme="dark"], 
+[data-theme="dark"] body,
+body.dark {
+    background-color: #000000 !important;
+    color: #E8EAED;
+}
+
+[data-theme="dark"] .layout-bg,
+[data-theme="dark"] .content-bg,
+body.dark .layout-bg,
+body.dark .content-bg {
+    background-color: #000000 !important;
+}
+
 /* Chrome, Safari, Edge */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
