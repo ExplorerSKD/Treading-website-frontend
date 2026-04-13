@@ -38,7 +38,7 @@ const navItems = [
   height: 64px; width: 100%; position: relative;
   box-shadow: 0 -4px 20px rgba(0,0,0,0.015);
 }
-:global(body.dark) .bottom-nav { background: #000000; border-color: #374151; }
+:global(body.dark) .bottom-nav { background: #1a1f2d; border-color: #374151; }
 
 .nav-item {
   display: flex; flex-direction: column; align-items: center; justify-content: center;

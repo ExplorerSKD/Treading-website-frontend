@@ -341,11 +341,11 @@ function getChangeIcon(item) {
   min-height: 100%;
 }
 :global(body.dark) .app-container {
-  background: #000000;
-  --container-bg: #000000;
+  background: #1a1f2d;
+  --container-bg: #1a1f2d;
   --text-main: #E8EAED;
   --text-sub: #9AA4BF;
-  --border-light: #1E2230;
+  --border-light: #404047;
   --icon-bg-gray: #1A1F2D;
   --icon-color: #E8EAED;
 }
@@ -358,7 +358,7 @@ function getChangeIcon(item) {
   padding-bottom: 0px;
   background: var(--container-bg, #FFFFFF);
 }
-:global(body.dark) .main-content { background: #000000; }
+:global(body.dark) .main-content { background: #1a1f2d; }
 .main-content::-webkit-scrollbar { display: none; }
 .main-content { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -374,7 +374,7 @@ function getChangeIcon(item) {
   z-index: 20;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-:global(body.dark) .top-nav { background: #000000; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+:global(body.dark) .top-nav { background: #1a1f2d; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
 
 .nav-left { display: flex; align-items: center; gap: 12px; }
 .nav-icon {
@@ -504,8 +504,8 @@ function getChangeIcon(item) {
 }
 :global(body.dark) .quick-actions-bar {
   background: #252b36;
-  border: 1px solid #3e4859;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   --icon-bg-gray: #Edfdf4;
   --brand-dark-green: #16a34a;
 }
@@ -562,7 +562,7 @@ function getChangeIcon(item) {
   gap: 6px;
   border: 1px solid var(--border-light, #E5E7EB);
 }
-:global(body.dark) .chain-segment { background: #252b36; border: 1px solid #3e4859; }
+:global(body.dark) .chain-segment { background: #252b36; border: 1px solid rgba(255, 255, 255, 0.1); }
 
 .chain-tab {
   padding: 8px 18px;
@@ -599,7 +599,7 @@ function getChangeIcon(item) {
   display: flex; align-items: center; justify-content: center;
   font-size: 1.5rem; color: var(--brand-dark-green, #1F4529);
 }
-:global(body.dark) .inst-circle { background: #252b36; border: 1px solid #3e4859; color: #10B981; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+:global(body.dark) .inst-circle { background: #252b36; border: 1px solid rgba(255, 255, 255, 0.1); color: #10B981; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .inst-item:hover .inst-circle { border-color: var(--brand-dark-green, #1F4529); }
 :global(body.dark) .inst-item:hover .inst-circle { border-color: #10B981; }
 
@@ -621,7 +621,11 @@ function getChangeIcon(item) {
   margin-bottom: 24px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.02);
 }
-:global(body.dark) .lmo-wrapper { background: #252b36; border: 1px solid #3e4859; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+:global(body.dark) .lmo-wrapper { 
+  background: #252b36; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+}
 
 .market-grid {
   display: grid;
@@ -644,7 +648,11 @@ function getChangeIcon(item) {
   cursor: pointer;
   min-width: 0;
 }
-:global(body.dark) .market-card-compact { background: #252b36; border: 1px solid #3e4859; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+:global(body.dark) .market-card-compact { 
+  background: #252b36; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
 .market-card-compact:active { transform: scale(0.97); }
 
 .mkt-cmp-icon {

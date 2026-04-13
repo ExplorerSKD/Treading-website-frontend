@@ -594,26 +594,26 @@ const getStatusIcon = (status) => {
 </style>
 <style>
 /* Dark Mode Overrides for Orders */
-[data-theme="dark"] .order-app { background: #0A0D14; color: #E8EAED; }
-[data-theme="dark"] .order-header { background: #131722; border-bottom-color: #1E2230; }
+[data-theme="dark"] .order-app { background: #1a1f2d; color: #E8EAED; }
+[data-theme="dark"] .order-header { background: #1a1f2d; border-bottom-color: #2D3748; }
 [data-theme="dark"] .logo { color: #E8EAED; -webkit-text-fill-color: #E8EAED; background: none;}
 [data-theme="dark"] .logo span { -webkit-text-fill-color: #B22234; }
-[data-theme="dark"] .search-box { background: #1A1F2D; border-color: #272C3D; }
+[data-theme="dark"] .search-box { background: #252b36; border-color: #2D3748; }
 [data-theme="dark"] .search-box input { color: #E8EAED; }
-[data-theme="dark"] .search-box input::placeholder { color: #5B677E; }
-[data-theme="dark"] .order-tabs { background: #131722; }
-[data-theme="dark"] .tab.active { background: #1A1F2D; color: #FCA5A5; }
-[data-theme="dark"] .order-card { background: #131722; border-color: #1E2230; }
-[data-theme="dark"] .order-card:active { background: #1A1F2D; }
+[data-theme="dark"] .search-box input::placeholder { color: #9AA4BF; }
+[data-theme="dark"] .order-tabs { background: #252b36; }
+[data-theme="dark"] .tab.active { background: #1a1f2d; color: #FCA5A5; }
+[data-theme="dark"] .order-card { background: #252b36; border-color: #2D3748; }
+[data-theme="dark"] .order-card:active { background: #1a1f2d; }
 [data-theme="dark"] .pair { color: #E8EAED; }
 [data-theme="dark"] .position-badge.sell { background: #2A1D20; color: #FCA5A5; }
 [data-theme="dark"] .position-badge.buy { background: #122921; color: #34D399; }
 [data-theme="dark"] .info-value-sm { color: #E8EAED; }
-[data-theme="dark"] .order-type-badge-sm { background: #1C212E; color: #9AA4BF; }
+[data-theme="dark"] .order-type-badge-sm { background: #1a1f2d; color: #9AA4BF; }
 [data-theme="dark"] .rejection-reason { background: #2A2111; color: #FBBF24; border-left-color: #F59E0B; }
-[data-theme="dark"] .status-row { border-top-color: #1E2230; }
+[data-theme="dark"] .status-row { border-top-color: #2D3748; }
 [data-theme="dark"] .status-badge.open { color: #FCA5A5; }
 [data-theme="dark"] .status-badge.completed { color: #34D399; }
-[data-theme="dark"] .cancel-btn { border-color: #272C3D; color: #9AA4BF; }
-[data-theme="dark"] .empty-state { background: #131722; color: #6D758D; }
+[data-theme="dark"] .cancel-btn { border-color: #2D3748; color: #9AA4BF; }
+[data-theme="dark"] .empty-state { background: #252b36; color: #9AA4BF; }
 </style>

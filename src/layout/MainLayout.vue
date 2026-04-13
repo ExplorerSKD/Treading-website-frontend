@@ -134,12 +134,12 @@ const navItems = [
 body.dark .layout-bg,
 body.dark .content-bg,
 body.dark .flex.min-h-screen {
-    background: #000000 !important;
+    background: #1a1f2d !important;
 }
 
 [data-theme="dark"] body,
 body.dark {
-    background-color: #000000 !important;
+    background-color: #1a1f2d !important;
 }
 
 /* Desktop Sidebar */
@@ -156,7 +156,7 @@ body.dark aside nav a {
 
 [data-theme="dark"] aside nav a:hover,
 body.dark aside nav a:hover {
-    background: #1A1F2D !important;
+    background: #252b36 !important;
     color: #E8EAED !important;
 }
 
@@ -175,7 +175,7 @@ body.dark aside .border-t {
 
 [data-theme="dark"] aside .bg-gray-50,
 body.dark aside .bg-gray-50 {
-    background: #1A1F2D !important;
+    background: #1a1f2d !important;
 }
 
 [data-theme="dark"] aside .text-custom-primary,
@@ -191,6 +191,6 @@ body.dark aside .text-gray-500 {
 /* Main content area background */
 [data-theme="dark"] main,
 body.dark main {
-    background: #0F1117 !important;
+    background: #1a1f2d !important;
 }
 </style>

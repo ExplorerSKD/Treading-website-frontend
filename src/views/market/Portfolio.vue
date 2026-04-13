@@ -150,8 +150,8 @@ const availableMargin = computed(() => {
 }
 :global(body.dark) .portfolio-card { 
   background: #252b36; 
-  border: 1px solid #3e4859; 
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
 }
 
 .portfolio-card::before {

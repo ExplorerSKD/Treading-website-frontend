@@ -212,22 +212,22 @@ onMounted(() => {
 
 /* DARK THEME SUPPORT via global body.dark */
 :global(body.dark) {
-    --bg-body: #121212;
-    --container-bg: #1E1E1E;
-    --card-bg: #252525;
-    --card-alt-bg: #2A2A2A;
-    --border-light: #333333;
-    --border-card: #3A3A3A;
+    --bg-body: #1a1f2d;
+    --container-bg: #1a1f2d;
+    --card-bg: #252b36;
+    --card-alt-bg: #252b36;
+    --border-light: #2D3748;
+    --border-card: #2D3748;
     --text-primary: #F5F5F5;
     --text-secondary: #B0B0B0;
     --text-muted: #888888;
-    --icon-bg: #2A2A2A;
-    --wallet-bg: #2D2D2D;
+    --icon-bg: #252b36;
+    --wallet-bg: #252b36;
     --wallet-text: #F5F5F5;
-    --nav-bg: #1E1E1E;
+    --nav-bg: #1a1f2d;
     --nav-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    --nav-border: #333333;
-    --footer-bg: #1E1E1E;
+    --nav-border: #2D3748;
+    --footer-bg: #1a1f2d;
     --footer-active: #EF5350;
     --danger-color: #EF4444;
 }
@@ -235,7 +235,7 @@ onMounted(() => {
 .app-container {
     width: 100%;
     margin: 0 auto;
-    background: #FFFFFF;
+    background: var(--bg-body);
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
@@ -304,6 +304,10 @@ onMounted(() => {
     margin-bottom: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+:global(body.dark) .profile-header {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+}
 .profile-avatar {
     width: 70px;
     height: 70px;
@@ -338,6 +342,10 @@ onMounted(() => {
     padding: 12px 0;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
+:global(body.dark) .settings-group {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+}
 .settings-item {
     padding: 18px 32px;
     display: flex;
@@ -352,6 +360,9 @@ onMounted(() => {
 .settings-item:active {
     background-color: rgba(0, 0, 0, 0.02);
 }
+:global(body.dark) .settings-item:active {
+    background-color: rgba(255, 255, 255, 0.05);
+}
 .settings-left {
     display: flex;
     align-items: center;
@@ -363,10 +374,16 @@ onMounted(() => {
     width: 28px;
     text-align: center;
 }
+:global(body.dark) .settings-icon {
+    color: var(--text-primary);
+}
 .settings-text {
     font-size: 1.05rem;
     font-weight: 700;
     color: #1E2331;
+}
+:global(body.dark) .settings-text {
+    color: var(--text-primary);
 }
 
 /* ===== WHATSAPP SUPPORT CARD ===== */
@@ -379,6 +396,10 @@ onMounted(() => {
     justify-content: space-between;
     margin-bottom: 24px;
     border: none;
+}
+:global(body.dark) .wa-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
 }
 .wa-info {
     display: flex;
@@ -411,6 +432,9 @@ onMounted(() => {
     color: #1E2331;
     white-space: nowrap;
 }
+:global(body.dark) .wa-details p {
+    color: var(--text-primary);
+}
 .wa-btn {
     background: #25D366;
     color: #FFFFFF;
@@ -435,6 +459,10 @@ onMounted(() => {
     border-radius: 30px;
     margin-bottom: 20px;
 }
+:global(body.dark) .logout-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+}
 .logout-content {
     display: flex;
     align-items: center;
@@ -443,16 +471,25 @@ onMounted(() => {
 .logout-item:active {
     background-color: rgba(0, 0, 0, 0.02);
 }
+:global(body.dark) .logout-item:active {
+    background-color: rgba(255, 255, 255, 0.05);
+}
 .logout-icon {
     color: #1E2331;
     font-size: 1.25rem;
     width: 28px;
     text-align: center;
 }
+:global(body.dark) .logout-icon {
+    color: var(--text-primary);
+}
 .logout-text {
     font-size: 1.05rem;
     font-weight: 700;
     color: #1E2331;
+}
+:global(body.dark) .logout-text {
+    color: var(--text-primary);
 }
 
 /* ===== RESPONSIVE MEDIA QUERIES ===== */
@@ -672,5 +709,18 @@ body.dark .wa-details h4 {
 [data-theme="dark"] .wa-details p,
 body.dark .wa-details p {
     color: #E8EAED !important;
+}
+
+[data-theme="dark"] .logout-item,
+body.dark .logout-item {
+    background: #1E2230 !important;
+    border: 1px solid #2D3748 !important;
+}
+
+[data-theme="dark"] .logout-text,
+body.dark .logout-text,
+[data-theme="dark"] .logout-icon,
+body.dark .logout-icon {
+    color: #FFFFFF !important;
 }
 </style>
