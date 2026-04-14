@@ -5,15 +5,9 @@
     <div class="register-container">
         <!-- Left Section: Registration Form -->
         <div class="register-form-section">
-            <header class="mb-4">
-              <button @click="$emit('goBack')" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back
-              </button>
-            </header>
 
-            <div class="brand-logo">
-                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
-                <h1>Bull Margin</h1>
+            <div class="brand-logo" style="justify-content: center;">
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 90px; height: 90px; border-radius: 16px; object-fit: contain;">
             </div>
             
             <div class="register-header">
@@ -305,24 +299,6 @@ const handleSubmit = async () => {
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
 }
 
-.back-btn {
-    background: none;
-    border: none;
-    color: #555;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 0;
-    transition: color 0.3s;
-}
-
-.back-btn:hover {
-    color: #0b3200;
-}
-
 /* Left side: Registration Form */
 .register-form-section {
     flex: 1.2;
@@ -372,7 +348,7 @@ const handleSubmit = async () => {
 }
 
 .register-header {
-    text-align: left;
+    text-align: center;
     margin-bottom: 30px;
 }
 

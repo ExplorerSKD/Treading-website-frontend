@@ -6,10 +6,31 @@
         <div class="logo-area">
           <div class="logo-text">Watchlist</div>
         </div>
-        <div class="folder-btn" @click="showDrawer = true">
-          <i class="fas fa-folder"></i>
-          <span>Trading Segments</span>
-          <i class="fas fa-chevron-right"></i>
+        <div class="nav-right">
+          <div class="wallet-pill" @click="handleWalletClick">
+            <i class="fas fa-wallet"></i><span class="hidden sm:inline ml-1">Wallet</span>
+          </div>
+          <div class="nav-icon theme-toggle-icon" @click="toggleTheme">
+            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+          </div>
+          <div class="nav-icon" @click="showNotificationModal = true">
+            <i class="fas fa-bell"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segments Tab Navigation -->
+      <div class="segments-container" v-if="filteredSegments.length">
+        <div class="segments-scroll">
+          <div 
+            v-for="segment in filteredSegments" 
+            :key="segment" 
+            class="segment-tab" 
+            :class="{ active: activeSegment === segment }"
+            @click="selectWatchlist(segment)"
+          >
+            {{ segment }}
+          </div>
         </div>
       </div>
       
@@ -20,7 +41,7 @@
           type="text" 
           class="search-input" 
           v-model="searchQueryInput"
-          placeholder="Search stocks, futures, options..." 
+          placeholder="Search stocks, futures, crypto from library..." 
           autocomplete="off"
         >
         <i 
@@ -61,37 +82,24 @@
             
             <button 
                v-if="!isAlreadyAdded(inst)" 
-               class="add-smart-btn"
+               class="add-smart-btn-icon"
                @click="addScript(inst)"
-            >Add</button>
+            >
+              <i class="fas fa-plus"></i>
+            </button>
             <button 
                v-else 
                disabled
-               class="add-smart-btn opacity-50 bg-gray-400"
-            >Added</button>
+               class="add-smart-btn-icon added"
+            >
+              <i class="fas fa-check"></i>
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Main Watchlist Area -->
       <div class="watchlist-section" v-show="!searchQueryInput">
-        <div class="watchlist-header">
-          <div class="watchlist-title-section">
-            <div class="watchlist-title">
-               <i class="fas fa-chart-line"></i> {{ activeSegment || 'MY WATCHLIST' }}
-            </div>
-            <div class="watchlist-count">{{ selectedWatchlist?.symbols?.length || 0 }} items</div>
-          </div>
-          <div class="action-hint">
-             <i class="fas fa-arrows-left-right"></i> Swipe | 
-             <i class="fas fa-fingerprint"></i> Hold | 
-             <i class="fas fa-tap"></i> Tap
-          </div>
-        </div>
-        
-        <div style="margin-bottom: 12px;">
-            <span class="add-hint"><i class="fas fa-plus-circle"></i> Add scripts by searching above</span>
-        </div>
         
         <!-- Multi-select Menu Bar -->
         <div id="multiSelectBar" v-show="isDeleteMode">
@@ -127,9 +135,16 @@
              <LoaderComponent :show="true" />
           </div>
           <div v-else-if="!selectedWatchlist?.symbols?.length" class="empty-watchlist">
+            <div style="margin-bottom: 20px;">
+                <span class="action-hint" style="text-align: center;">
+                    ↔ Swipe | 🤏 Hold to select | Tap to trade
+                </span>
+            </div>
             <i class="fas fa-plus-circle text-2xl mb-2"></i>
             <p style="font-weight:600;">Your watchlist is empty</p>
-            <p style="font-size:12px; margin-top:8px;">🔍 Search above to add instruments</p>
+            <p style="font-size:12px; margin-top:8px;">
+                🔍 Search above or tap <strong>Scripts Library</strong> ➕ to add instruments
+            </p>
           </div>
           
           <div v-else class="watchlist-card-list">
@@ -168,9 +183,9 @@
 
                     <!-- Info -->
                     <div class="instrument-info flex-1">
-                        <div class="instrument-symbol flex items-center gap-2">
-                           {{ item.symbol }}
-                           <span v-if="!symbolSegment.includes(item.segment)" class="text-[0.6rem] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">
+                        <div class="instrument-symbol">
+                           <span class="symbol-text">{{ item.symbol }}</span>
+                           <span v-if="!symbolSegment.includes(item.segment)" class="exchange-badge">
                               {{ item.exchange }}
                            </span>
                         </div>
@@ -202,6 +217,7 @@
     </div>
 
     <place-order-modal />
+    <NotificationModal />
 
     <!-- Trade Sheet Bottom Modal -->
     <div class="trade-sheet-overlay" :class="{ 'active': showTradeSheet }" @click="closeTradeSheet"></div>
@@ -284,62 +300,6 @@
             <button class="sheet-btn-sell" @click="executeTrade('SELL')"><i class="fas fa-arrow-down"></i> SELL</button>
         </div>
     </div>
-
-        <!-- Folder Drawer (Segments) -->
-    <div class="drawer-overlay" :class="{ 'active': showDrawer }" @click="showDrawer = false"></div>
-    <div class="folder-drawer" :class="{ 'open': showDrawer }">
-        <div class="drawer-header">
-            <h3><i class="fas fa-folder"></i> Scripts Library</h3>
-            <button class="close-drawer" @click="showDrawer = false"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="folder-tree-scroll">
-            <ul class="tree-node-ul">
-                <li v-for="(seg, idx) in tradingSegments" :key="idx" class="tree-item-li border-b border-gray-100 pb-2 mb-2">
-                    <div class="tree-label-row flex justify-between" @click="toggleSegment(idx)">
-                       <div class="flex items-center gap-3">
-                           <i class="fas text-gray-400 w-3" :class="expandedSegments.includes(idx) ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
-                           <i class="fas text-custom-primary" :class="seg.icon"></i>
-                           <span class="font-bold text-gray-700 text-sm">{{ seg.name }}</span>
-                       </div>
-                       <span class="text-xs bg-gray-100 px-2 py-0.5 rounded-full text-gray-500 font-bold">{{ getTotalCount(seg) }}</span>
-                    </div>
-                    
-                    <ul v-if="expandedSegments.includes(idx)" class="pl-8 mt-2">
-                        <!-- Direct Instruments -->
-                        <li v-for="inst in seg.instruments || []" :key="inst.symbol" class="py-2 flex justify-between items-center px-2 hover:bg-gray-50 rounded">
-                             <div class="flex items-center gap-3 text-xs font-semibold text-gray-600">
-                                 <i class="fas fa-chart-line text-gray-400"></i>
-                                 <span>{{ inst.symbol }}</span>
-                             </div>
-                             <button @click.stop="addMockScript(inst)" class="add-smart-btn text-white w-16" style="padding: 4px 10px; font-size: 0.65rem;">+ Add</button>
-                        </li>
-                        
-                        <!-- SubCategories -->
-                        <li v-for="(sub, sidx) in seg.subCategories || []" :key="sidx" class="mt-2">
-                             <div class="flex items-center gap-2 text-xs font-semibold text-gray-700 px-2 py-1" @click="toggleSubcat(idx, sidx)">
-                                 <i class="fas text-gray-400 w-3" :class="expandedSubcats.includes(idx+'-'+sidx) ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
-                                 <i class="fas fa-building text-gray-400"></i>
-                                 <span>{{ sub.name }}</span>
-                             </div>
-                             <ul v-if="expandedSubcats.includes(idx+'-'+sidx)" class="pl-6 mt-1 border-l mx-3 border-gray-200">
-                                 <li v-for="sinst in sub.instruments || []" :key="sinst.symbol" class="py-2 flex justify-between items-center pl-2 pr-1 hover:bg-gray-50 rounded">
-                                     <div class="flex items-center gap-2 text-[11px] font-semibold text-gray-600">
-                                         <span>{{ sinst.symbol }}</span>
-                                     </div>
-                                     <button @click.stop="addMockScript(sinst)" class="add-smart-btn text-white w-16" style="padding: 4px 8px; font-size: 0.6rem;">+ Add</button>
-                                 </li>
-                             </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="drawer-footer flex justify-between items-center mt-auto">
-             <div class="text-[0.65rem] text-gray-500 font-medium">
-                <i class="fas fa-plus-circle text-custom-primary"></i> Tap Add to put in Watchlist.
-             </div>
-        </div>
-    </div>
   </div>
 </template>
 
@@ -356,13 +316,20 @@ import { formatNumber } from '@/utils/pnl'
 import LoaderComponent from '@/components/LoaderComponent.vue'
 import { useToastStore } from "@/stores/utils/toast"
 
+import { useNotificationStore } from '@/stores/notifications'
+import { useWalletStore } from '@/stores/wallet'
+import NotificationModal from '@/components/NotificationModal.vue'
+
 const watchlistStore = useWatchlistStore()
 const tickerStore = useTickerStore()
 const profileStore = useProfileStore()
 const router = useRouter()
 const toastStore = useToastStore()
+const notificationStore = useNotificationStore()
+const walletStore = useWalletStore()
 
 const { profile } = storeToRefs(profileStore)
+const { showNotificationModal } = storeToRefs(notificationStore)
 const {
     activeSegment,
     selectedWatchlist,
@@ -374,9 +341,26 @@ const {
 } = storeToRefs(watchlistStore)
 
 /* ---------------- UI STATE ---------------- */
-const showDrawer = ref(false)
 const showTradeSheet = ref(false)
 const currentTradeScript = ref(null)
+const isDark = ref(localStorage.getItem('app-theme') === 'dark')
+
+const applyTheme = (dark) => {
+    document.body.classList.toggle('dark', dark)
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+    localStorage.setItem('marginApexTheme', dark ? 'dark' : 'light')
+    localStorage.setItem('app-theme', dark ? 'dark' : 'light')
+}
+
+const toggleTheme = () => {
+    isDark.value = !isDark.value
+    applyTheme(isDark.value)
+    toastStore.addToast("Theme", isDark.value ? "Dark Mode Enabled" : "Light Mode Enabled", "info", 2000)
+}
+
+const handleWalletClick = () => {
+    router.push({ name: 'wallet' })
+}
 
 /* ---------------- SEARCH FUNCTIONALITY ---------------- */
 const searchQueryInput = ref('')
@@ -420,7 +404,6 @@ const addScript = async (item) => {
     strike: item.strike
   }
   await watchlistStore.addSymbolToWatchlist(payload)
-  toastStore.addToast("Success", `${item.tradingsymbol} added to watchlist`, "success", 2000)
 }
 
 /* ---------------- DELETE FUNCTIONALITY (HOLD TO INTERACT) ---------------- */
@@ -471,7 +454,6 @@ const deleteSelected = async () => {
     if (selectedItems.value.length === 0) return
 
     await watchlistStore.deleteScripts(selectedItems.value)
-    toastStore.addToast("Success", `Removed ${selectedItems.value.length} items`, "success", 2000)
 
     selectedItems.value = []
     isDeleteMode.value = false
@@ -526,7 +508,6 @@ const handleEnd = async (e, id) => {
     if (Math.abs(swipeStates.value[id].currentX) > 45) {
         // Trigger delete
         await watchlistStore.deleteScripts([id])
-        toastStore.addToast("Success", `Instrument removed`, "success", 2000)
     }
     
     if (swipeStates.value[id]) {
@@ -582,125 +563,12 @@ const executeTrade = (type) => {
     closeTradeSheet();
 }
 
-/* ---------------- DEMO LIBRARY DRAWER STATE ---------------- */
-const expandedSegments = ref([0])
-const expandedSubcats = ref([])
-
-const toggleSegment = (idx) => {
-    const pos = expandedSegments.value.indexOf(idx);
-    if(pos > -1) expandedSegments.value.splice(pos, 1);
-    else expandedSegments.value.push(idx);
-}
-
-const toggleSubcat = (idx, sidx) => {
-    const key = idx + '-' + sidx;
-    const pos = expandedSubcats.value.indexOf(key);
-    if(pos > -1) expandedSubcats.value.splice(pos, 1);
-    else expandedSubcats.value.push(key);
-}
-
-const getTotalCount = (seg) => {
-    let count = 0;
-    if (seg.instruments) count += seg.instruments.length;
-    if (seg.subCategories) {
-        seg.subCategories.forEach(sub => {
-            if (sub.instruments) count += sub.instruments.length;
-        });
-    }
-    return count;
-}
-
-const tradingSegments = [
-    { name: "INDEX - FUTURE", icon: "fa-chart-line", instruments: [
-        { name: "NIFTY FUT", symbol: "NIFTY FUT", segment: "INDEX-FUT" },
-        { name: "SENSEX FUT", symbol: "SENSEX FUT", segment: "INDEX-FUT" },
-        { name: "BANKNIFTY", symbol: "BANKNIFTY FUT", segment: "INDEX-FUT" },
-        { name: "FINNIFTY", symbol: "FINNIFTY FUT", segment: "INDEX-FUT" },
-        { name: "MIDCAP", symbol: "MIDCAP NIFTY", segment: "INDEX-FUT" }
-    ]},
-    { name: "INDEX - OPTIONS", icon: "fa-chart-pie", subCategories: [
-        { name: "NIFTY Options", instruments: [
-             { name: "22500 CE", symbol: "NIFTY 22500 CE", segment: "INDEX-OPT" },
-             { name: "22500 PE", symbol: "NIFTY 22500 PE", segment: "INDEX-OPT" }
-        ]},
-        { name: "BANKNIFTY Options", instruments: [
-             { name: "47500 CE", symbol: "BNF 47500 CE", segment: "INDEX-OPT" },
-             { name: "47500 PE", symbol: "BNF 47500 PE", segment: "INDEX-OPT" }
-        ]}
-    ]},
-    { name: "STOCKS - FUTURE", icon: "fa-building", instruments: [
-        { name: "HDFC BANK", symbol: "HDFCBANK FUT", segment: "STOCK-FUT" },
-        { name: "RELIANCE", symbol: "RELIANCE FUT", segment: "STOCK-FUT" },
-        { name: "INFY", symbol: "INFY FUT", segment: "STOCK-FUT" }
-    ]},
-    { name: "STOCKS - OPTIONS", icon: "fa-cubes", instruments: [
-        { name: "HDFC 1500 CE", symbol: "HDFC 1500 CE", segment: "STOCK-OPT" },
-        { name: "RELIANCE 2900 CE", symbol: "RELIANCE 2900 CE", segment: "STOCK-OPT" }
-    ]},
-    { name: "MCX - FUTURE", icon: "fa-coins", instruments: [
-        { name: "GOLD FUT", symbol: "GOLD FUT", segment: "MCX-FUT" },
-        { name: "SILVER FUT", symbol: "SILVER FUT", segment: "MCX-FUT" },
-        { name: "CRUDEOIL FUT", symbol: "CRUDEOIL FUT", segment: "MCX-FUT" }
-    ]},
-    { name: "NSE - EQ", icon: "fa-chart-area", instruments: [
-        { name: "TATA MOTORS", symbol: "TATAMOTORS", segment: "NSE-EQ" },
-        { name: "STATE BANK", symbol: "SBIN", segment: "NSE-EQ" },
-        { name: "ICICI BANK", symbol: "ICICIBANK", segment: "NSE-EQ" },
-        { name: "ITC LTD", symbol: "ITC", segment: "NSE-EQ" }
-    ]},
-    { name: "CRYPTO", icon: "fa-bitcoin", instruments: [
-        { name: "BITCOIN", symbol: "BTCUSDT", segment: "CRYPTO" },
-        { name: "ETHEREUM", symbol: "ETHUSDT", segment: "CRYPTO" },
-        { name: "SOLANA", symbol: "SOLUSDT", segment: "CRYPTO" }
-    ]}
-];
-
-const addMockScript = async (inst) => {
-    // Make sure we have an active watchlist configured
-    let currentList = selectedWatchlist.value;
-    if(!currentList) {
-        if(watchlists.value && watchlists.value.length > 0) {
-            currentList = watchlists.value[0];
-            selectedWatchlist.value = currentList;
-            activeSegment.value = currentList.name;
-        } else {
-             // Create a fallback DEMO list if absolutely none exist
-             watchlists.value = [{ name: 'DEMO', symbols: [] }];
-             currentList = watchlists.value[0];
-             selectedWatchlist.value = currentList;
-             activeSegment.value = 'DEMO';
-        }
-    }
-
-    if(!currentList.symbols) currentList.symbols = [];
-    
-    // Prevent duplicates
-    const isAdded = currentList.symbols.find(s => s.symbol === inst.symbol);
-    if(isAdded) {
-       toastStore.addToast("Notice", `${inst.symbol} is already in Watchlist.`, "error", 2000);
-       return;
-    }
-
-    // Push into the UI reactive state array
-    currentList.symbols.push({
-         name: inst.name,
-         symbol: inst.symbol,
-         segment: inst.segment,
-         exchange: inst.segment.split('-')[0],
-         token: "demo_" + Math.random().toString(36),
-         instrument_type: "EQ"
-    });
-    
-    toastStore.addToast("Success", `${inst.symbol} added (Demo Mode).`, "success", 2000);
-}
-
 /* ---------------- WATCHLIST SEGMENTS ---------------- */
 const selectWatchlist = (segment) => {
     activeSegment.value = segment
     selectedWatchlist.value = watchlists.value.find(w => w.name === segment) || null
     isDeleteMode.value = false
     selectedItems.value = []
-    showDrawer.value = false
 }
 
 const segments = [
@@ -791,6 +659,51 @@ onMounted(() => {
     margin-bottom: 12px;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4B5563;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+:global(body.dark) .nav-icon {
+    background: #1A1F2D !important;
+    color: #E8EAED !important;
+}
+
+.wallet-pill {
+    background: #065F46;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(6, 95, 70, 0.2);
+}
+
+:global(body.dark) .wallet-pill {
+    background: #10B981;
+    color: #111827;
+}
+
 .logo-area {
     display: flex;
     align-items: center;
@@ -801,6 +714,59 @@ onMounted(() => {
     font-weight: 700;
     font-size: 1.2rem;
     color: #1A1E2B;
+}
+
+/* Segments Tabs */
+.segments-container {
+    margin-bottom: 12px;
+    margin-top: 4px;
+}
+
+.segments-scroll {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    padding: 0;
+}
+
+.segments-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.segment-tab {
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6B7280;
+    white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.segment-tab:first-child {
+    padding-left: 0;
+}
+
+.segment-tab.active {
+    color: #1A1E2B;
+}
+
+.segment-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 16px;
+    height: 2px;
+    background: #1A1E2B;
+    border-radius: 2px;
+}
+
+.segment-tab:first-child.active::after {
+    right: 16px;
 }
 
 .folder-btn {
@@ -827,6 +793,7 @@ onMounted(() => {
 .search-wrapper {
     position: relative;
     width: 100%;
+    margin-top: 4px;
 }
 
 .search-icon {
@@ -934,15 +901,39 @@ onMounted(() => {
     margin-top: 2px;
 }
 
-.add-smart-btn {
-    background: var(--custom-primary);
+.add-smart-btn-icon {
+    width: 32px;
+    height: 32px;
+    background: #F0F2F5;
     border: none;
-    color: white;
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    color: var(--custom-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-smart-btn-icon:active {
+    transform: scale(0.9);
+}
+
+.add-smart-btn-icon.added {
+    background: #E9F6EF;
+    color: #2C8E5A;
+    cursor: default;
+}
+
+:global(body.dark) .add-smart-btn-icon {
+    background: #252B3B;
+    color: #10B981;
+}
+
+:global(body.dark) .add-smart-btn-icon.added {
+    background: #064E3B;
+    color: #10B981;
 }
 
 .no-results {
@@ -958,50 +949,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     min-height: 0;
-}
-
-.watchlist-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    padding: 0 4px;
-    flex-wrap: wrap;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.watchlist-title-section {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-}
-
-.watchlist-title {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    color: #8E95A8;
-}
-
-.watchlist-count {
-    font-size: 0.7rem;
-    background: #F0F2F5;
-    padding: 4px 10px;
-    border-radius: 20px;
-    color: var(--custom-primary);
-    font-weight: 600;
-}
-
-.add-hint {
-    font-size: 0.6rem;
-    color: var(--custom-primary);
-    background: #FEF0F0;
-    padding: 4px 12px;
-    border-radius: 30px;
-    display: inline-block;
-    font-weight: 500;
 }
 
 .action-hint {
@@ -1147,6 +1094,9 @@ onMounted(() => {
     position: relative;
     z-index: 2;
     cursor: pointer;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .instrument-card.selected-mode {
@@ -1203,14 +1153,35 @@ onMounted(() => {
 }
 
 .instrument-info {
-    flex: 2;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .instrument-symbol {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.72rem;
     color: #1A1E2B;
     margin-bottom: 4px;
+    min-width: 0;
+}
+
+.symbol-text {
+    white-space: nowrap;
+}
+
+.exchange-badge {
+    flex-shrink: 0;
+    font-size: 0.6rem;
+    font-weight: 600;
+    background: #F0F2F5;
+    color: #6B7280;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
 }
 
 .instrument-name {
@@ -1220,7 +1191,8 @@ onMounted(() => {
 
 .instrument-price-area {
     text-align: right;
-    min-width: 85px;
+    min-width: 80px;
+    flex-shrink: 0;
 }
 
 .price-value {
@@ -1595,15 +1567,23 @@ onMounted(() => {
 /* Dark Mode Overrides for Watchlist */
 [data-theme="dark"] .mobile-app { background: #1a1f2d; }
 [data-theme="dark"] .app-header { background: #1a1f2d; border-color: #2D3748; }
+[data-theme="dark"] .segments-container { border-color: transparent; }
+[data-theme="dark"] .segment-tab { color: #8C99B9; }
+[data-theme="dark"] .segment-tab.active { color: #E8EAED; }
+[data-theme="dark"] .segment-tab.active::after { background: #10B981; }
 [data-theme="dark"] .logo-text { color: #E8EAED; }
 [data-theme="dark"] .theme-toggle-btn { background: transparent; border: none; font-size: 1.1rem; margin-left: 10px; cursor:pointer;}
 [data-theme="dark"] .folder-btn { background: #252b36; border-color: #374151; color: #8C99B9; }
-[data-theme="dark"] .search-input { background: #13161f; border-color: #374151; color: #E8EAED; }
+[data-theme="dark"] .search-input { background: #252B3B !important; border-color: #374151 !important; color: #FFFFFF !important; }
+[data-theme="dark"] .search-input::placeholder { color: #8C99B9; }
+[data-theme="dark"] .search-icon { color: #8C99B9; }
 [data-theme="dark"] .main-content { background: #1a1f2d; }
-[data-theme="dark"] .search-results-section { background: #252b36; border-color: #374151; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+[data-theme="dark"] .search-results-section { background: #13161f; border-color: #2D3748; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
 [data-theme="dark"] .section-subtitle { color: #8F9BB3; }
-[data-theme="dark"] .search-result-item { background: #1a1f2d; border-color: #374151; }
+[data-theme="dark"] .search-result-item { background: #1a1f2d; border-color: #2D3748; }
 [data-theme="dark"] .search-result-name { color: #E8EAED; }
+[data-theme="dark"] .add-smart-btn-icon { background: #374151 !important; color: #10B981 !important; }
+[data-theme="dark"] .add-smart-btn-icon.added { background: #064E3B !important; color: #10B981 !important; }
 [data-theme="dark"] .watchlist-title { color: #6D758D; }
 [data-theme="dark"] .watchlist-count { background: #252b36; color: #8C99B9; }
 [data-theme="dark"] .action-hint { background: #1a1f2d; color: #6D758D; }
@@ -1617,7 +1597,7 @@ onMounted(() => {
 [data-theme="dark"] .instrument-card.selected-mode { background: #1E1515; border-color: #C62E2E; }
 [data-theme="dark"] .custom-checkbox { background: #252b36; border-color: #3B445B; }
 [data-theme="dark"] .instrument-symbol { color: #E8EAED; }
-[data-theme="dark"] .instrument-symbol span { background: #1a1f2d; color: #9AA4BF; }
+[data-theme="dark"] .exchange-badge { background: #374151; color: #9AA4BF; }
 [data-theme="dark"] .empty-watchlist { background: #252b36; border-color: #374151; }
 
 /* Watchlist Drawer */

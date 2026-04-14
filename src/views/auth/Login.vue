@@ -6,9 +6,8 @@
         <!-- Left Section: Login Form -->
         <div class="login-form-section">
 
-            <div class="brand-logo">
-                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
-                <h1>Bull Margin</h1>
+            <div class="brand-logo" style="justify-content: center;">
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 90px; height: 90px; border-radius: 16px; object-fit: contain;">
             </div>
 
             <form @submit.prevent="handleLogin" id="loginForm">
@@ -112,9 +111,8 @@
     <div v-if="showForgotPassword" class="forgot-container">
         <!-- Left Section: Forgot Password Form -->
         <div class="forgot-form-section">
-            <div class="brand-logo">
-                <img src="/logo.png" alt="Bull Margin Logo" style="width: 55px; height: 55px; margin-right: 15px; border-radius: 12px; object-fit: contain;">
-                <h1>Bull Margin</h1>
+            <div class="brand-logo" style="justify-content: center;">
+                <img src="/logo.png" alt="Bull Margin Logo" style="width: 90px; height: 90px; border-radius: 16px; object-fit: contain;">
             </div>
             
             <div class="forgot-header">
