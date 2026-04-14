@@ -23,7 +23,7 @@
             <div class="p-6 border-t border-custom-border">
                 <div class="bg-gray-50 rounded-2xl p-4 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-custom-primary/10 flex items-center justify-center">
-                        <img src="/bottombar/user-dark.svg" class="w-5 h-5 opacity-50" alt="">
+                        <img src="/bottombar/user-dark.svg" class="w-5 h-5 opacity-50 trader-profile-icon" alt="">
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-bold text-custom-primary truncate">Trader Account</p>
@@ -113,7 +113,7 @@ const navItems = [
         path: '/profile',
         label: 'Profile',
         darkIcon: '/bottombar/user-dark.svg',
-        lightIcon: '/bottombar/user-dark.svg',
+        lightIcon: '/bottombar/user-light.svg',
     },
 ]
 </script>
@@ -192,5 +192,12 @@ body.dark aside .text-gray-500 {
 [data-theme="dark"] main,
 body.dark main {
     background: #1a1f2d !important;
+}
+
+/* Trader Profile Icon in Dark Mode */
+[data-theme="dark"] .trader-profile-icon,
+body.dark .trader-profile-icon {
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
 }
 </style>

@@ -142,12 +142,13 @@ const availableMargin = computed(() => {
 .portfolio-card {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--container-bg, #FFFFFF);
-  border: 1px solid var(--border-accent, rgba(6, 95, 70, 0.15));
+  border: 1px solid var(--border-light, #E5E7EB);
   border-radius: 30px; padding: 24px; margin-bottom: 24px;
   cursor: pointer; box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.04));
   position: relative; overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+[data-theme="dark"] .portfolio-card,
 :global(body.dark) .portfolio-card { 
   background: #252b36; 
   border: 1px solid rgba(255, 255, 255, 0.1); 
