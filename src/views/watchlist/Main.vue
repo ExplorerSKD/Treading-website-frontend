@@ -181,6 +181,10 @@
                    @touchstart="(e) => handleStart(e, getItemId(item))"
                    @touchmove="(e) => handleMove(e, getItemId(item))"
                    @touchend="(e) => handleEnd(e, getItemId(item))"
+                   @mousedown="(e) => handleStart(e, getItemId(item))"
+                   @mousemove="(e) => handleMove(e, getItemId(item))"
+                   @mouseup="(e) => handleEnd(e, getItemId(item))"
+                   @mouseleave="(e) => handleEnd(e, getItemId(item))"
                    @click="onCardClick(item)"
                 >
                     <!-- Checkbox (Shown in Delete Mode) -->
@@ -1205,6 +1209,7 @@ onMounted(() => {
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
+    user-select: none; /* Desktop-e mouse drag prevent korbe */
 }
 
 .instrument-card.selected-mode {

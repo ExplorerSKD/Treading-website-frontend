@@ -1,27 +1,35 @@
 <template>
   <teleport to="body">
-    <div class="toast-container fixed top-5 right-5 flex flex-col items-end gap-2"
+    <div class="toast-container fixed bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       :style="{ zIndex: Math.max(zIndexValue + 1, currZindex + 1) }">
       <template v-if="toastsArray.length > 0">
         <div v-for="(item, index) in toastsArray" :key="item.id"
-          class="relative text-gray-100 toast w-fit max-w-[90vw] sm:max-w-md transform transition-transform ease-out duration-300 flex items-center justify-start gap-6 px-4 py-3 min-w-[200px] border-l-4 rounded-r shadow-lg"
+          class="relative capsule-toast animate-capsule flex items-center gap-1.5 px-3 py-1 min-w-fit shadow-md transition-all duration-300"
           :class="{
-            'border-[#ed5f4b] bg-[#ad2c1b]': item.severity === 'error',
-            'border-[#ffbb01] bg-[#b18a1d]': item.severity === 'warn',
-            'border-[#22a94f] bg-[#189341]': item.severity === 'success',
-            'border-[#0483e1] bg-[#165a8e]': item.severity === 'info'
-          }">
-          <button @click="hideToast(item.id)"
-            class="absolute top-2 right-2 pi pi-times hover:opacity-75 transition-opacity"></button>
-
-          <div class="text-gray-200 pr-6">
-            <h4 class="text-[16px] font-bold mb-1">
-              {{ item.summary }}
-            </h4>
-            <p class="text-[14px]">
-              {{ item.detail }}
-            </p>
+            'bg-[#065F46]': item.severity === 'success',
+            'bg-[#C62E2E]': item.severity === 'error',
+            'bg-[#B18A1D]': item.severity === 'warn',
+            'bg-[#165A8E]': item.severity === 'info'
+          }"
+          @click="hideToast(item.id)">
+          
+          <!-- Icon -->
+          <div class="flex-shrink-0 flex items-center justify-center">
+             <svg v-if="item.severity === 'success'" class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+             </svg>
+             <svg v-else-if="item.severity === 'error'" class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+             </svg>
+             <svg v-else class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+             </svg>
           </div>
+
+          <!-- Message -->
+          <span class="text-white text-[12px] font-medium whitespace-nowrap tracking-wide">
+            {{ item.detail || item.summary }}
+          </span>
         </div>
       </template>
     </div>
@@ -83,33 +91,22 @@ const getIcon = (type) => {
 </script>
 
 <style scoped>
-.glow {
-  box-shadow: 0 0 15px;
+.capsule-toast {
+    border-radius: 50px;
 }
 
-.toast {
-  animation: slideInBottom 0.2s ease-in-out, slideOutBottom 0.2s ease-in-out 1s forwards;
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@keyframes slideInBottom {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutBottom {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+.animate-capsule {
+    animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 </style>
