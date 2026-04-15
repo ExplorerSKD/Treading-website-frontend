@@ -114,7 +114,7 @@ const addScript = async (item) => {
   };
 
 
-  await watchlistStore.addSymbolToWatchlist(payload);
+  await watchlistStore.addSymbolToWatchlist(payload, { successMessage: `${item.tradingsymbol} added to watchlist` });
 };
 
 const goBack = () => {

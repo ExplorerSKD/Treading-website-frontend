@@ -54,53 +54,71 @@
 
     <div class="main-content">
       <!-- Search Results Area -->
-      <div v-show="searchQueryInput" class="search-results-section relative z-10 bg-white">
-        <div class="section-subtitle">
-            <i class="fas fa-search"></i> SEARCH RESULTS 
-            <span class="text-[0.6rem] ml-auto">
-                {{ searchedInstruments.length }} results
-            </span>
+      <div v-show="searchQueryInput" class="search-results-frame">
+        <div class="search-results-header">
+            <span class="search-results-title"><i class="fas fa-search"></i> SEARCH RESULTS</span>
+            <span class="search-results-count">{{ searchedInstruments.length }} RESULTS</span>
         </div>
         
-        <div v-if="loading" class="py-6 flex justify-center">
-            <LoaderComponent :show="true" />
-        </div>
-        <div v-else-if="searchedInstruments.length === 0" class="no-results">
-            <i class="fas fa-search"></i> No matching scripts found
-        </div>
-        
-        <div v-else class="search-result-list">
-          <div 
-             v-for="inst in searchedInstruments" 
-             :key="inst.id" 
-             class="search-result-item"
-          >
-            <div class="search-result-info">
-              <div class="search-result-name">{{ inst.tradingsymbol }}</div>
-              <div class="search-result-symbol">{{ inst.segment }} • {{ inst.expiry || 'N/A' }}</div>
+        <div v-if="loading" class="search-results-body">
+            <div class="search-loader-wrap">
+                <LoaderComponent :show="true" />
             </div>
-            
-            <button 
-               v-if="!isAlreadyAdded(inst)" 
-               class="add-smart-btn-icon"
-               @click="addScript(inst)"
+        </div>
+        <div v-else-if="searchedInstruments.length === 0" class="search-results-body">
+            <div class="no-results">
+                <i class="fas fa-search"></i> No matching scripts found
+            </div>
+        </div>
+        
+        <div v-else class="search-results-body">
+          <div class="search-result-scroll">
+            <div 
+               v-for="inst in searchedInstruments" 
+               :key="inst.id" 
+               class="search-result-item"
             >
-              <i class="fas fa-plus"></i>
-            </button>
-            <button 
-               v-else 
-               disabled
-               class="add-smart-btn-icon added"
-            >
-              <i class="fas fa-check"></i>
-            </button>
+              <div class="search-result-info">
+                <div class="search-result-name">{{ inst.tradingsymbol }}</div>
+                <div class="search-result-meta">{{ inst.name }} • {{ inst.segment }} - {{ inst.instrument_type || 'N/A' }}</div>
+              </div>
+              
+              <div class="search-result-right">
+                <span class="search-result-price">{{ inst.last_price || '' }}</span>
+                <button 
+                   v-if="!isAlreadyAdded(inst)" 
+                   class="add-pill-btn"
+                   @click="addScript(inst)"
+                >
+                  Add
+                </button>
+                <button 
+                   v-else 
+                   disabled
+                   class="add-pill-btn added"
+                >
+                  <i class="fas fa-check"></i> Added
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Main Watchlist Area -->
-      <div class="watchlist-section" v-show="!searchQueryInput">
+      <!-- MY WATCHLIST Section (always visible) -->
+      <div class="watchlist-section">
         
+        <!-- Watchlist Header -->
+        <div class="watchlist-header-bar">
+          <div class="watchlist-header-left">
+            <i class="fas fa-chart-line wl-icon"></i>
+            <span class="wl-title">MY WATCHLIST</span>
+            <span class="wl-count">{{ selectedWatchlist?.symbols?.length || 0 }} items</span>
+          </div>
+        </div>
+
+
+
         <!-- Multi-select Menu Bar -->
         <div id="multiSelectBar" v-show="isDeleteMode">
           <div class="multi-select-bar">
@@ -135,11 +153,6 @@
              <LoaderComponent :show="true" />
           </div>
           <div v-else-if="!selectedWatchlist?.symbols?.length" class="empty-watchlist">
-            <div style="margin-bottom: 20px;">
-                <span class="action-hint" style="text-align: center;">
-                    ↔ Swipe | 🤏 Hold to select | Tap to trade
-                </span>
-            </div>
             <i class="fas fa-plus-circle text-2xl mb-2"></i>
             <p style="font-weight:600;">Your watchlist is empty</p>
             <p style="font-size:12px; margin-top:8px;">
@@ -403,7 +416,7 @@ const addScript = async (item) => {
     lot_size: item.lot_size,
     strike: item.strike
   }
-  await watchlistStore.addSymbolToWatchlist(payload)
+  await watchlistStore.addSymbolToWatchlist(payload, { successMessage: `${item.tradingsymbol} added to watchlist` })
 }
 
 /* ---------------- DELETE FUNCTIONALITY (HOLD TO INTERACT) ---------------- */
@@ -453,7 +466,10 @@ const toggleSelectAll = () => {
 const deleteSelected = async () => {
     if (selectedItems.value.length === 0) return
 
-    await watchlistStore.deleteScripts(selectedItems.value)
+    const count = selectedItems.value.length;
+    await watchlistStore.deleteScripts(selectedItems.value, { 
+        successMessage: `${count} script${count > 1 ? 's' : ''} removed from watchlist` 
+    })
 
     selectedItems.value = []
     isDeleteMode.value = false
@@ -486,10 +502,10 @@ const handleMove = (e, id) => {
     if (!swipeStates.value[id]?.swiping || isDeleteMode.value) return;
     
     const deltaX = (e.touches ? e.touches[0].clientX : e.clientX) - swipeStates.value[id].startX
-    let offset = Math.min(Math.max(deltaX, -80), 80)
+    let offset = Math.min(Math.max(deltaX, -80), 0)
     
-    if (Math.abs(offset) > 70) {
-        offset = offset * 0.8 + (offset > 0 ? 14 : -14)
+    if (offset < -70) {
+        offset = offset * 0.8 - 14
     }
     
     swipeStates.value[id].currentX = offset
@@ -505,9 +521,9 @@ const handleEnd = async (e, id) => {
     
     swipeStates.value[id].swiping = false;
     
-    if (Math.abs(swipeStates.value[id].currentX) > 45) {
-        // Trigger delete
-        await watchlistStore.deleteScripts([id])
+    if (swipeStates.value[id].currentX < -45) {
+        // Trigger delete only on left swipe
+        await watchlistStore.deleteScripts([id], { successMessage: `${id} removed from watchlist` })
     }
     
     if (swipeStates.value[id]) {
@@ -758,7 +774,7 @@ onMounted(() => {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 16px;
     right: 16px;
     height: 2px;
     background: #1A1E2B;
@@ -766,6 +782,7 @@ onMounted(() => {
 }
 
 .segment-tab:first-child.active::after {
+    left: 0;
     right: 16px;
 }
 
@@ -845,95 +862,146 @@ onMounted(() => {
     flex-direction: column;
 }
 
-/* Search Results */
-.search-results-section {
-    margin-bottom: 20px;
+/* Search Results Frame */
+.search-results-frame {
+    margin-bottom: 16px;
     background: #FFFFFF;
-    border-radius: 20px;
-    padding: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
     border: 1px solid #EEF2F8;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
-.section-subtitle {
+.search-results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid #F0F2F8;
+}
+
+.search-results-title {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--custom-primary);
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.search-result-list {
+.search-results-count {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #3B82F6;
+    text-transform: uppercase;
+}
+
+.search-results-body {
+    padding: 0;
+}
+
+.search-loader-wrap {
+    padding: 24px;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 400px;
+    justify-content: center;
+}
+
+.search-result-scroll {
+    max-height: 320px;
     overflow-y: auto;
+    padding: 6px 0;
+}
+
+.search-result-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.search-result-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.search-result-scroll::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 4px;
 }
 
 .search-result-item {
-    background: #F8F9FC;
-    border-radius: 14px;
-    padding: 10px 12px;
+    padding: 12px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #EFF2F8;
+    border-bottom: 1px solid #F5F6FA;
+    transition: background 0.15s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: #FAFBFD;
 }
 
 .search-result-info {
     flex: 1;
+    min-width: 0;
 }
 
 .search-result-name {
-    font-weight: 600;
-    font-size: 0.85rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #1A1E2B;
+    margin-bottom: 2px;
+}
+
+.search-result-meta {
+    font-size: 0.65rem;
+    color: #8F9BB3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.search-result-price {
+    font-weight: 700;
+    font-size: 0.9rem;
     color: #1A1E2B;
 }
 
-.search-result-symbol {
-    font-size: 0.65rem;
-    color: #8F9BB3;
-    margin-top: 2px;
-}
-
-.add-smart-btn-icon {
-    width: 32px;
-    height: 32px;
-    background: #F0F2F5;
+.add-pill-btn {
+    background: #C62E2E;
+    color: white;
     border: none;
-    color: var(--custom-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
-.add-smart-btn-icon:active {
-    transform: scale(0.9);
+.add-pill-btn:active {
+    transform: scale(0.93);
+    background: #A82222;
 }
 
-.add-smart-btn-icon.added {
+.add-pill-btn.added {
     background: #E9F6EF;
     color: #2C8E5A;
     cursor: default;
-}
-
-:global(body.dark) .add-smart-btn-icon {
-    background: #252B3B;
-    color: #10B981;
-}
-
-:global(body.dark) .add-smart-btn-icon.added {
-    background: #064E3B;
-    color: #10B981;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .no-results {
@@ -951,15 +1019,55 @@ onMounted(() => {
     min-height: 0;
 }
 
-.action-hint {
-    font-size: 0.6rem;
-    color: #9AA4BF;
-    text-align: right;
-    padding: 6px 12px;
-    background: #F8F9FC;
-    border-radius: 30px;
-    display: inline-block;
+.watchlist-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 4px 10px;
+    flex-wrap: wrap;
+    gap: 6px;
 }
+
+.watchlist-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wl-icon {
+    font-size: 0.85rem;
+    color: #6B7280;
+}
+
+.wl-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1A1E2B;
+    letter-spacing: 0.5px;
+}
+
+.wl-count {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #6B7280;
+    background: #F0F2F5;
+    padding: 3px 10px;
+    border-radius: 30px;
+}
+
+.watchlist-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.action-hint {
+    font-size: 0.55rem;
+    color: #9AA4BF;
+    white-space: nowrap;
+}
+
+
 
 /* Multi-Select Bar */
 .multi-select-bar {
@@ -1578,16 +1686,24 @@ onMounted(() => {
 [data-theme="dark"] .search-input::placeholder { color: #8C99B9; }
 [data-theme="dark"] .search-icon { color: #8C99B9; }
 [data-theme="dark"] .main-content { background: #1a1f2d; }
-[data-theme="dark"] .search-results-section { background: #13161f; border-color: #2D3748; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-[data-theme="dark"] .section-subtitle { color: #8F9BB3; }
-[data-theme="dark"] .search-result-item { background: #1a1f2d; border-color: #2D3748; }
+[data-theme="dark"] .search-results-frame { background: #13161f; border-color: #2D3748; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+[data-theme="dark"] .search-results-header { border-bottom-color: #2D3748; }
+[data-theme="dark"] .search-results-title { color: #8F9BB3; }
+[data-theme="dark"] .search-results-count { color: #60A5FA; }
+[data-theme="dark"] .search-result-item { border-bottom-color: #2D3748; }
+[data-theme="dark"] .search-result-item:hover { background: #1a1f2d; }
 [data-theme="dark"] .search-result-name { color: #E8EAED; }
-[data-theme="dark"] .add-smart-btn-icon { background: #374151 !important; color: #10B981 !important; }
-[data-theme="dark"] .add-smart-btn-icon.added { background: #064E3B !important; color: #10B981 !important; }
-[data-theme="dark"] .watchlist-title { color: #6D758D; }
-[data-theme="dark"] .watchlist-count { background: #252b36; color: #8C99B9; }
-[data-theme="dark"] .action-hint { background: #1a1f2d; color: #6D758D; }
-[data-theme="dark"] .add-hint { background: #252b36; color: #8F9BB3; }
+[data-theme="dark"] .search-result-meta { color: #6D758D; }
+[data-theme="dark"] .search-result-price { color: #E8EAED; }
+[data-theme="dark"] .add-pill-btn { background: #C62E2E; }
+[data-theme="dark"] .add-pill-btn.added { background: #064E3B; color: #10B981; }
+[data-theme="dark"] .watchlist-header-bar { border-color: transparent; }
+[data-theme="dark"] .wl-title { color: #8C99B9; }
+[data-theme="dark"] .wl-icon { color: #6D758D; }
+[data-theme="dark"] .wl-count { background: #252b36; color: #8C99B9; }
+[data-theme="dark"] .action-hint { color: #6D758D; }
+
+[data-theme="dark"] .search-result-scroll::-webkit-scrollbar-thumb { background: #374151; }
 [data-theme="dark"] .multi-select-bar { background: #252b36; border-color: #374151; }
 [data-theme="dark"] .multi-select-row.top-row { background: #252b36; border-color: #374151; }
 [data-theme="dark"] .multi-select-row.bottom-row { background: #252b36; }

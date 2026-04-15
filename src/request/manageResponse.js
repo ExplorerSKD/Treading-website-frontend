@@ -74,6 +74,11 @@ function ManageApiResponse(response, endpoint, method) {
     let title = statusMessages[response.status] || '';
     let type = response.status >= 200 && response.status < 300 ? 'success' : 'error';
 
+    // Use custom success message if provided in config
+    if (type === 'success' && response.config?.successMessage) {
+      message = response.config.successMessage;
+    }
+
     // Special case
     if (response.status === 404 && response.data === "404 page not found") {
       message = 'Internal Server Error: Something went wrong';

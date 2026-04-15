@@ -60,9 +60,9 @@ const useWatchlistStore = defineStore('watchlist', () => {
         }
     }
 
-    const deleteScripts = async (arr) => {
+    const deleteScripts = async (arr, config = {}) => {
         try {
-            const res = await makeRequest(endpoint, 'POST', { id: selectedWatchlist.value.id, symbols: arr }, {}, {}, 'symbols/remove')
+            const res = await makeRequest(endpoint, 'POST', { id: selectedWatchlist.value.id, symbols: arr }, config, {}, 'symbols/remove')
             if (res.data) {
                 getWatchlists();
             }
@@ -73,11 +73,11 @@ const useWatchlistStore = defineStore('watchlist', () => {
 
 
 
-    const addSymbolToWatchlist = async (symbol) => {
+    const addSymbolToWatchlist = async (symbol, config = {}) => {
         try {
 
 
-            const res = await makeRequest(endpoint, 'POST', symbol, {}, {}, 'add');
+            const res = await makeRequest(endpoint, 'POST', symbol, config, {}, 'add');
 
             if (res.data) {
                 getWatchlists()
