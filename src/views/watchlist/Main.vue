@@ -124,8 +124,11 @@
           <div class="multi-select-bar">
             <div class="multi-select-row top-row">
               <div class="select-actions">
-                  <button class="select-all-btn" @click="toggleSelectAll">
-                      <i class="fas fa-check-double"></i> {{ isAllSelected ? 'Unselect All' : 'Select All' }}
+                  <button class="select-all-btn" @click="selectAllItems">
+                      <i class="fas fa-check-double"></i> Select All
+                  </button>
+                  <button class="select-all-btn" @click="unselectAllItems" v-show="selectedItems.length > 0">
+                      <i class="fas fa-minus-square"></i> Unselect All
                   </button>
               </div>
               <span class="selected-count">{{ selectedItems.length }} selected</span>
@@ -427,6 +430,12 @@ const addScript = async (item) => {
 const isDeleteMode = ref(false)
 const selectedItems = ref([])
 
+watch(isDeleteMode, (val) => {
+    if (val) {
+        toastStore.addToast("Selection", "Selection mode active - tap items to select", "success", 3000)
+    }
+})
+
 const toggleDeleteMode = () => {
     isDeleteMode.value = !isDeleteMode.value
     if (!isDeleteMode.value) {
@@ -459,12 +468,12 @@ const isAllSelected = computed(() => {
     return selectedItems.value.length === selectedWatchlist.value.symbols.length
 })
 
-const toggleSelectAll = () => {
-    if (isAllSelected.value) {
-        selectedItems.value = []
-    } else {
-        selectedItems.value = selectedWatchlist.value.symbols.map(item => getItemId(item))
-    }
+const selectAllItems = () => {
+    selectedItems.value = selectedWatchlist.value.symbols.map(item => getItemId(item))
+}
+
+const unselectAllItems = () => {
+    selectedItems.value = []
 }
 
 const deleteSelected = async () => {
@@ -494,18 +503,22 @@ const handleStart = (e, id) => {
     }, 500);
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    swipeStates.value[id] = { startX: clientX, currentX: 0, swiping: true }
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    swipeStates.value[id] = { startX: clientX, startY: clientY, currentX: 0, swiping: true }
 }
 
 const handleMove = (e, id) => {
-    if (longPressTimer) {
+    const deltaX = (e.touches ? e.touches[0].clientX : e.clientX) - swipeStates.value[id].startX;
+    const deltaY = (e.touches ? e.touches[0].clientY : e.clientY) - (swipeStates.value[id].startY || 0);
+
+    // Cancel long press if user moves more than 10px
+    if (longPressTimer && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
     }
 
     if (!swipeStates.value[id]?.swiping || isDeleteMode.value) return;
     
-    const deltaX = (e.touches ? e.touches[0].clientX : e.clientX) - swipeStates.value[id].startX
     let offset = Math.min(Math.max(deltaX, -80), 0)
     
     if (offset < -70) {
@@ -1256,13 +1269,14 @@ onMounted(() => {
 }
 
 .custom-checkbox.selected {
-    background: var(--custom-primary);
-    border-color: var(--custom-primary);
+    background: #C62E2E;
+    border-color: #C62E2E;
 }
 
 .custom-checkbox.selected i {
-    color: white;
+    color: #FFFFFF !important;
     font-size: 11px;
+    font-weight: 900;
 }
 
 .instrument-info {
@@ -1714,6 +1728,7 @@ onMounted(() => {
 [data-theme="dark"] .multi-select-row.bottom-row { background: #252b36; }
 [data-theme="dark"] .select-all-btn { background: #374151; color: #E8EAED; }
 [data-theme="dark"] .exit-selection-btn { background: #374151; color: #E8EAED; }
+[data-theme="dark"] .selected-count { background: #374151; color: #60A5FA; }
 [data-theme="dark"] .instrument-card { background: #252b36; border: 1px solid rgba(255, 255, 255, 0.1); }
 [data-theme="dark"] .instrument-card.selected-mode { background: #1E1515; border-color: #C62E2E; }
 [data-theme="dark"] .custom-checkbox { background: #252b36; border-color: #3B445B; }
