@@ -46,17 +46,8 @@
                 </div>
             </div>
 
-            <div class="h-[1px] w-full bg-[#F0F2F8] dark:bg-[#2A3143]"></div>
 
-            <!-- OHLC -->
-            <div class="flex justify-between px-5 py-3 text-[12px]">
-                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">O: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.open) }}</span></div>
-                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">H: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.high) }}</span></div>
-                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">L: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.low) }}</span></div>
-                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">C: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.close) }}</span></div>
-            </div>
 
-            <div class="h-[1px] w-full bg-[#F0F2F8] dark:bg-[#2A3143]"></div>
 
             <!-- MAX LOTS INFO -->
             <div v-if="activeSegmentSettings" class="flex justify-between px-5 py-3 text-[11.5px] font-bold text-[#1A1E2B] dark:text-[#E8EAED]">

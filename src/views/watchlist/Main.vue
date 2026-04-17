@@ -308,11 +308,7 @@
             </div>
         </div>
         
-        <!-- Contract -->
-        <div class="sheet-contract" v-if="currentTradeScript && !symbolSegment.includes(currentTradeScript.segment)">
-            <span class="sheet-contract-label"><i class="fas fa-calendar-alt"></i> CONTRACT DATE</span>
-            <span class="sheet-contract-value">{{ formatDateFull(currentTradeScript.expiry_date) }}</span>
-        </div>
+
         
         <!-- Buttons -->
         <div class="sheet-actions">
@@ -1691,10 +1687,10 @@ onMounted(() => {
 }
 .sheet-btn-buy, .sheet-btn-sell {
     flex: 1;
-    padding: 10px;
+    padding: 14px;
     border: none;
-    border-radius: 40px;
-    font-size: 0.85rem;
+    border-radius: 12px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
