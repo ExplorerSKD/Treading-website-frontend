@@ -1,160 +1,173 @@
 <template>
     <Modal v-model="showOrderModal" @close="close">
-        <div class="rounded-xl w-full mx-auto text-custom-text">
-            <!-- HEADER -->
-            <div v-if="side" class="flex items-center gap-4 p-2 justify-between">
-                <button @click="side = ''" class="rounded-full w-10 h-10 flex items-center justify-center bg-[#F5F5F5]">
-                    <img class="w-6 -rotate-90" src="/svg/chevron-up.svg" />
+        <div class="w-full mx-auto text-[#1A1E2B] dark:text-[#E8EAED] rounded-[24px] overflow-hidden bg-white dark:bg-[#1A1F2D]" 
+             style="font-family: 'Inter', sans-serif;">
+            
+            <!-- HEADER: Back + SL/TP -->
+            <div v-if="side" class="flex items-center justify-between p-4 pb-2">
+                <button @click="close" class="w-10 h-10 rounded-full bg-[#F3F5F9] dark:bg-[#252B3B] flex items-center justify-center text-[#5B677E] dark:text-[#E8EAED] transition-transform active:scale-95">
+                    <i class="fas fa-chevron-left text-[14px]"></i>
                 </button>
 
-                <div class="flex items-center gap-2">
-                    <span class="text-xs font-semibold text-custom-grey">
+                <div class="flex items-center gap-3">
+                    <span class="text-[13px] font-semibold text-[#8C94A8] dark:text-[#9AA4BF]">
                         Enable Stoploss & Target
                     </span>
                     <ButtonSwitch
                         @click="() => { if (orderType == 'LIMIT') useToastStore().addToast('Error', 'Cannot add SL-TP in limit orders', 'error') }"
                         v-model="enableSLTP" :disabled="orderType === 'LIMIT'" />
                 </div>
-
             </div>
-            <div class="border-b border-custom-border px-4 py-3">
-                <div class="flex justify-between items-center">
-                    <p class="text-base font-semibold">{{ currentScript?.symbol }}</p>
-                    <span class="text-xs text-custom-grey">{{ currentScript?.expiry_date }}</span>
+
+            <!-- SCRIPT INFO SECTION -->
+            <div class="px-5 pt-2 pb-3">
+                <div class="flex justify-between items-baseline mb-1">
+                    <h2 class="text-[17px] font-bold tracking-tight text-[#1A1E2B] dark:text-white">{{ currentScript?.symbol }}</h2>
+                    <span class="text-[12px] font-medium text-[#8C94A8]">{{ currentScript?.expiry_date }}</span>
                 </div>
-                <div class="flex justify-between items-center mt-1">
-                    <div>
-                        <p class="text-xs text-custom-grey">
-                            {{ currentScript?.segment }}
-                        </p>
-                        <div class="flex gap-3 text-xs mt-1">
-                            <p :class="getBidClass(currentScript)" class="font-semibold">
-                                Bid: {{ formatNumber(live.bid) || '-' }}
-                            </p>
-                            <p :class="getAskClass(currentScript)" class="font-semibold">
-                                Ask: {{ formatNumber(live.ask) || '-' }}
-                            </p>
+                
+                <div class="flex justify-between items-end mb-1">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[11px] font-bold text-[#8C94A8] uppercase">{{ currentScript?.segment }}</span>
+                        <div class="flex gap-3 text-[13px] font-semibold mt-0.5">
+                            <span :class="getBidClass(currentScript)">Bid: {{ formatNumber(live.bid) || '-' }}</span>
+                            <span :class="getAskClass(currentScript)">Ask: {{ formatNumber(live.ask) || '-' }}</span>
                         </div>
                     </div>
+                    
                     <div class="text-right">
-                        <p class="text-base font-semibold" :class="priceColor">
-                            {{ side ? side == 'BUY' ? formatNumber(live.ask) : formatNumber(live.bid) :
-                                formatNumber(live.ltp) }}
-                        </p>
-                        <p class="text-[12px]" :class="priceColor">
+                        <div class="text-[20px] font-bold leading-none mb-1 text-custom-green" :class="priceColor">
+                            {{ side ? (side == 'BUY' ? formatNumber(live.ask) : formatNumber(live.bid)) : formatNumber(live.ltp) }}
+                        </div>
+                        <div class="text-[12px] font-semibold text-custom-green" :class="priceColor">
                             {{ formatNumber(live.change) }} ({{ formatNumber(live.changeP) }}%)
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <div class="h-[1px] w-full bg-[#F0F2F8] dark:bg-[#2A3143]"></div>
+
             <!-- OHLC -->
-            <div class="flex justify-between px-2 py-1 text-[12px] text-custom-grey border-b border-custom-border">
-                <div class="font-semibold">O: {{ formatNumber(live.open) }}</div>
-                <div class="font-semibold">H: {{ formatNumber(live.high) }}</div>
-                <div class="font-semibold">L: {{ formatNumber(live.low) }}</div>
-                <div class="font-semibold">C: {{ formatNumber(live.close) }}</div>
+            <div class="flex justify-between px-5 py-3 text-[12px]">
+                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">O: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.open) }}</span></div>
+                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">H: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.high) }}</span></div>
+                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">L: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.low) }}</span></div>
+                <div class="text-[#5B677E] dark:text-[#9AA4BF] font-semibold">C: <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(live.close) }}</span></div>
             </div>
 
-            <div v-if="activeSegmentSettings"
-                class="flex justify-between px-2 py-1 text-[12px] bg-custom-border/30 rounded">
-                <p class="font-semibold">Max Lot: {{ activeSegmentSettings.max_lot }}</p>
-                <p class="font-semibold">Order Lot: {{ activeSegmentSettings.max_order_lot }}</p>
-                <p class="font-semibold">Lot Size: {{ lotSize }}</p>
-                <p class="font-semibold">
-                    {{ isLot ? 'Qty' : 'Lots' }}: {{ isLot ? qty : lots?.toFixed(2) }}
-                </p>
+            <div class="h-[1px] w-full bg-[#F0F2F8] dark:bg-[#2A3143]"></div>
+
+            <!-- MAX LOTS INFO -->
+            <div v-if="activeSegmentSettings" class="flex justify-between px-5 py-3 text-[11.5px] font-bold text-[#1A1E2B] dark:text-[#E8EAED]">
+                <div>Max Lot: {{ activeSegmentSettings.max_lot }}</div>
+                <div>Order Lot: {{ activeSegmentSettings.max_order_lot }}</div>
+                <div>Lot Size: {{ lotSize }}</div>
+                <div>{{ isLot ? 'Qty' : 'Lots' }}: {{ isLot ? qty : lots?.toFixed(2) }}</div>
             </div>
 
-            <!-- BODY -->
-            <div class="p-4 space-y-3">
-                <!-- BUY / SELL SELECT -->
-                <div v-if="!side" class="grid grid-cols-2 gap-3 rounded-full">
-                    <button @click="side = 'BUY'"
-                        class="px-4 py-2 rounded-full border text-sm font-semibold transition-all duration-150 border-custom-green"
-                        :class="side === 'BUY' ? 'bg-custom-green text-white' : 'text-custom-green hover:bg-custom-green/10'">
+            <div class="h-[1px] w-full bg-[#F0F2F8] dark:bg-[#2A3143]"></div>
+
+            <div class="px-5 py-4">
+                <!-- BUY / SELL SELECT (ONLY SHOWN IF NO SIDE SELECTED) -->
+                <div v-if="!side" class="grid grid-cols-2 gap-4">
+                    <button @click="side = 'BUY'" class="py-3.5 rounded-xl border border-custom-green text-custom-green font-bold text-[14px] transition-all hover:bg-custom-green/10">
                         BUY
                     </button>
-                    <button @click="side = 'SELL'"
-                        class="px-4 py-2 rounded-full border text-sm font-semibold transition-all duration-150 border-custom-red"
-                        :class="side === 'SELL' ? 'bg-custom-red text-white' : 'text-custom-red hover:bg-custom-red/10'">
+                    <button @click="side = 'SELL'" class="py-3.5 rounded-xl border border-custom-red text-custom-red font-bold text-[14px] transition-all hover:bg-custom-red/10">
                         SELL
                     </button>
                 </div>
-
-                <div v-if="side" class="space-y-3">
-                    <!-- ORDER TYPE -->
-                    <div class="flex text-[14px] justify-between border-b border-custom-border">
-                        <button @click="orderType = 'MARKET'" :class="orderType === 'MARKET' ? activeBtn : inactiveBtn">
+                
+                <div v-if="side" class="space-y-5">
+                    <!-- ORDER TYPE TABS (MARKET / LIMIT) -->
+                    <div class="flex text-[15px] font-bold relative">
+                        <button @click="orderType = 'MARKET'" 
+                                class="flex-1 pb-3 transition-colors duration-200"
+                                :class="orderType === 'MARKET' ? 'text-[#1A1E2B] dark:text-white' : 'text-[#8C94A8] dark:text-[#5B677E]'">
                             Market
                         </button>
-                        <button @click="orderType = 'LIMIT'" :class="orderType === 'LIMIT' ? activeBtn : inactiveBtn">
+                        <button @click="orderType = 'LIMIT'" 
+                                class="flex-1 pb-3 transition-colors duration-200"
+                                :class="orderType === 'LIMIT' ? 'text-[#1A1E2B] dark:text-white' : 'text-[#8C94A8] dark:text-[#5B677E]'">
                             Limit
                         </button>
+                        <!-- Active Indicator -->
+                        <div class="absolute bottom-0 h-[2px] bg-[#1A1E2B] dark:bg-white transition-all duration-300"
+                             :style="{ width: '50%', left: orderType === 'MARKET' ? '0%' : '50%' }"></div>
+                        <!-- Track Line -->
+                        <div class="absolute bottom-0 left-0 w-full h-[1px] bg-[#F0F2F8] dark:bg-[#2A3143] z-[-1]"></div>
                     </div>
 
-                    <!-- PRICE + LOT/QTY -->
-                    <div class="space-y-2">
-                        <div>
-                            <label class="text-xs font-semibold text-custom-grey">Price</label>
+                    <!-- INPUT FIELDS -->
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Price</label>
                             <input v-if="orderType == 'LIMIT'" type="number" v-model.number="price"
                                 :placeholder="side == 'BUY' ? formatNumber(live.ask) : formatNumber(live.bid)"
-                                class="p-4 border w-full border-custom-border rounded-md text-sm" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                             <div v-else class="relative">
                                 <input type="number" disabled :value="side == 'BUY' ? live.ask : live.bid"
-                                    class="p-4 border w-full border-custom-border rounded-md text-sm opacity-50" />
-                                <img src="/svg/lock.svg" class="absolute right-4 top-4 opacity-80 w-5" alt="">
+                                    class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white opacity-60" />
+                                <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-[#4A5568]"></i>
                             </div>
                         </div>
 
                         <div class="relative">
-                            <label class="text-xs font-semibold text-custom-grey">
+                            <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">
                                 {{ isLot ? 'Lots' : 'Quantity' }}
                             </label>
                             <input type="number" v-model="inputValue"
-                                class="p-4 border w-full border-custom-border rounded-md text-sm" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 pr-12 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                             <button @click="toggleLot"
-                                class="absolute top-9 right-2 bg-custom-primary rounded-full p-1">
-                                <img src="/sync.svg" class="w-5 transition-transform" :class="{ 'rotate-90': isLot }" />
+                                class="absolute bottom-[7px] right-[8px] w-[35px] h-[35px] bg-[#010A18] dark:bg-[#E8EAED] rounded-full flex items-center justify-center text-white dark:text-[#010A18] shadow-sm transform transition-transform active:scale-95">
+                                <img src="/sync.svg" class="w-4 h-4 transition-transform filter dark:invert" :class="{ 'rotate-180': isLot }" />
                             </button>
                         </div>
                     </div>
 
                     <!-- SL / TARGET -->
-                    <div v-if="enableSLTP" class="grid grid-cols-2 gap-3">
-                        <input type="number" v-model.number="stoploss" placeholder="Stoploss"
-                            class="p-4 border w-full border-custom-border rounded-md text-sm" />
-                        <input type="number" v-model.number="target" placeholder="Target"
-                            class="p-4 border w-full border-custom-border rounded-md text-sm" />
+                    <div v-if="enableSLTP" class="grid grid-cols-2 gap-3 pt-2">
+                        <div>
+                            <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Stoploss</label>
+                            <input type="number" v-model.number="stoploss" placeholder="0.00"
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                        </div>
+                        <div>
+                           <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Target</label>
+                           <input type="number" v-model.number="target" placeholder="0.00"
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SUBMIT -->
-            <div v-if="side" class="p-4 border-t border-custom-border">
-                <!-- Calculation -->
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center justify-between w-full">
-                        <p class="text-[12px]  font-semibold text-custom-grey">
-                            Intraday : <span class="text-custom-text">{{ formatNumber(fundCalculation.reqFunds)
-                            }}</span>
-                        </p>
-                        <p class="text-[12px] font-semibold text-custom-grey">
-                            Carry : <span class="text-custom-text">{{ formatNumber(fundCalculation.reqCarry) }}</span>
-                        </p>
-                        <p class="text-[12px] font-semibold text-custom-grey">
-                            Avail. Margin = <span class="text-custom-text">{{ formatNumber(availableMargin)
-                            }}</span>
-                        </p>
+            <!-- BOTTOM FOOTER -->
+            <div v-if="side" class="px-5 pt-4 pb-5 border-t border-[#F0F2F8] dark:border-[#2A3143]">
+                <!-- Calculation Info -->
+                <div class="flex justify-between items-center mb-5 text-[12px]">
+                    <div class="flex flex-col gap-1">
+                        <span class="font-bold text-[#8C94A8]">Intraday :</span>
+                        <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(fundCalculation.reqFunds) }}</span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-bold text-[#8C94A8]">Carry :</span>
+                        <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(fundCalculation.reqCarry) }}</span>
+                    </div>
+                    <div class="flex flex-col gap-1 items-end">
+                        <span class="font-bold text-[#8C94A8]">Avail. Margin =</span>
+                        <span class="font-bold text-[#1A1E2B] dark:text-[#E8EAED]">{{ formatNumber(availableMargin) }}</span>
                     </div>
                 </div>
 
-                <button @click="submit" :disabled="!side || inputValue === '' || inputValue <= 0" class="w-full py-3 rounded-lg font-semibold text-white transition
-         disabled:opacity-40 disabled:cursor-not-allowed"
-                    :class="{ 'bg-custom-green': side == 'BUY', 'bg-custom-red': side == 'SELL' }">
+                <button @click="submit" :disabled="!side || inputValue === '' || inputValue <= 0" 
+                    class="w-full py-3.5 rounded-lg font-bold text-white text-[16px] transition-all duration-200 flex justify-center items-center gap-2 active:scale-[0.98] disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
+                    :class="side == 'BUY' ? 'bg-custom-green' : 'bg-custom-red'"
+                >
                     Place Order
                 </button>
             </div>
+            
         </div>
     </Modal>
 </template>
@@ -190,7 +203,7 @@ const { scriptSettings } = storeToRefs(scriptSettingStore)
 const { openPositions } = storeToRefs(positionStore)
 const { wallet } = storeToRefs(walletStore)
 const { profile } = storeToRefs(profileStore)
-const { selectedScript, showOrderModal, activeSegment } = storeToRefs(watchlistStore)
+const { selectedScript, showOrderModal, activeSegment, selectedSide } = storeToRefs(watchlistStore)
 const { openOrders } = storeToRefs(orderStore)
 
 
@@ -461,6 +474,7 @@ const close = () => {
 
 const resetForm = () => {
     side.value = ''
+    watchlistStore.selectedSide = ''
     orderType.value = 'MARKET'
     price.value = 0
 
@@ -533,9 +547,18 @@ const submit = async () => {
     positionStore.getPositions()
     positionStore.getOpenPositions()
 
-    if (res) close()
+    if (res) {
+        watchlistStore.orderPlaced = true;
+        close();
+    }
 }
 
+watch(showOrderModal, (isOpen) => {
+    if (isOpen) {
+        // Automatically jump to the order form if a side was selected
+        side.value = selectedSide.value || ''
+    }
+})
 
 watch(orderType, (v) => {
     if (v === 'LIMIT') {

@@ -1,10 +1,10 @@
 <template>
   <teleport to="body">
-    <div class="toast-container fixed bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+    <div class="toast-container fixed bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-[calc(100%-32px)] max-w-[400px]"
       :style="{ zIndex: Math.max(zIndexValue + 1, currZindex + 1) }">
       <template v-if="toastsArray.length > 0">
         <div v-for="(item, index) in toastsArray" :key="item.id"
-          class="relative capsule-toast animate-capsule flex items-center gap-1.5 px-3 py-1 min-w-fit shadow-md transition-all duration-300"
+          class="relative capsule-toast animate-capsule flex items-center gap-1.5 px-4 py-2 w-full shadow-md transition-all duration-300"
           :class="{
             'bg-[#065F46]': item.severity === 'success',
             'bg-[#C62E2E]': item.severity === 'error',
@@ -27,7 +27,7 @@
           </div>
 
           <!-- Message -->
-          <span class="text-white text-[12px] font-medium whitespace-nowrap tracking-wide">
+          <span class="text-white text-[12px] font-medium tracking-wide break-words">
             {{ item.detail || item.summary }}
           </span>
         </div>

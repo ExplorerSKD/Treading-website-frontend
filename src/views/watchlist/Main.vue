@@ -310,8 +310,8 @@
         
         <!-- Contract -->
         <div class="sheet-contract" v-if="currentTradeScript && !symbolSegment.includes(currentTradeScript.segment)">
-            <span class="sheet-contract-label"><i class="fas fa-calendar-alt"></i> CONTRACT EXPIRY</span>
-            <span class="sheet-contract-value">{{ formatSubtitle(currentTradeScript) }}</span>
+            <span class="sheet-contract-label"><i class="fas fa-calendar-alt"></i> CONTRACT DATE</span>
+            <span class="sheet-contract-value">{{ formatDateFull(currentTradeScript.expiry_date) }}</span>
         </div>
         
         <!-- Buttons -->
@@ -591,10 +591,26 @@ const onSheetTouchMove = (e) => {
 const executeTrade = (type) => {
     // We launch PlaceOrderModal by setting selectedScript and opening it
     selectedScript.value = currentTradeScript.value;
-    // (If PlaceOrderModal doesn't know 'side', we just open it. We can augment order modal to receive predefined sides if necessary)
+    watchlistStore.selectedSide = type;
     showOrderModal.value = true;
-    closeTradeSheet();
+    // Hide trade sheet but keep currentTradeScript so we can reopen it
+    showTradeSheet.value = false;
 }
+
+// When the order modal closes, reopen the trade sheet (back button) or go to watchlist (order placed)
+watch(showOrderModal, (isOpen) => {
+    if (!isOpen) {
+        if (watchlistStore.orderPlaced) {
+            // Order was placed successfully - close everything, go to watchlist
+            watchlistStore.orderPlaced = false;
+            showTradeSheet.value = false;
+            currentTradeScript.value = null;
+        } else if (currentTradeScript.value) {
+            // Back button pressed - reopen trade sheet
+            showTradeSheet.value = true;
+        }
+    }
+})
 
 /* ---------------- WATCHLIST SEGMENTS ---------------- */
 const selectWatchlist = (segment) => {
@@ -627,6 +643,15 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-IN', {
         day: '2-digit',
         month: 'short'
+    })
+}
+
+const formatDateFull = (date) => {
+    if (!date) return 'N/A'
+    return new Date(date).toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
     })
 }
 

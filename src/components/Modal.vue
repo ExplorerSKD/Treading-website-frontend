@@ -7,8 +7,8 @@
 
             <!-- Modal Container -->
             <div class="relative w-full max-w-2xl mx-auto
-               bg-white rounded-t-2xl md:rounded-2xl
-               max-h-[90vh] overflow-y-auto
+               bg-white dark:bg-[#1A1F2D] rounded-t-[24px] md:rounded-[24px]
+               max-h-[90vh] overflow-y-auto overflow-x-hidden
                animate-slide-up" @click.stop>
                 <!-- CONTENT -->
                 <slot />

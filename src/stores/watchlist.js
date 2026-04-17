@@ -14,6 +14,8 @@ const useWatchlistStore = defineStore('watchlist', () => {
     const activeSegment = ref(localStorage.getItem('activeSegment') || '');
     const showOrderModal = ref(false);
     const selectedScript = ref(null);
+    const selectedSide = ref('');
+    const orderPlaced = ref(false);
     const topCommodities = ref(null);
     const loading = ref(false);
 
@@ -138,6 +140,8 @@ const useWatchlistStore = defineStore('watchlist', () => {
         selectedWatchlist,
         activeSegment,
         selectedScript,
+        selectedSide,
+        orderPlaced,
         loading
     }
 })
