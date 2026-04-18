@@ -550,23 +550,23 @@ const getStatusIcon = (status) => {
 </style>
 <style>
 /* Dark Mode Overrides for Orders */
-[data-theme="dark"] .order-app { background: #1a1f2d; color: #E8EAED; }
+[data-theme="dark"] .order-app { background: #071824; color: #E8EAED; }
 [data-theme="dark"] .search-input { background: #252B3B !important; border-color: #374151 !important; color: #FFFFFF !important; }
 [data-theme="dark"] .search-input::placeholder { color: #8C99B9; }
 [data-theme="dark"] .search-icon { color: #8C99B9; }
-[data-theme="dark"] .order-tabs { background: #252b36; }
-[data-theme="dark"] .tab.active { background: #1a1f2d; color: #FFFFFF; }
-[data-theme="dark"] .order-card { background: #252b36; border-color: #2D3748; }
-[data-theme="dark"] .order-card:active { background: #1a1f2d; }
+[data-theme="dark"] .order-tabs { background: #0f212e; }
+[data-theme="dark"] .tab.active { background: #071824; color: #FFFFFF; }
+[data-theme="dark"] .order-card { background: #0f212e; border-color: #2D3748; }
+[data-theme="dark"] .order-card:active { background: #071824; }
 [data-theme="dark"] .pair { color: #E8EAED; }
 [data-theme="dark"] .position-badge.sell { background: #2A1D20; color: #FCA5A5; }
 [data-theme="dark"] .position-badge.buy { background: #122921; color: #34D399; }
 [data-theme="dark"] .info-value-sm { color: #E8EAED; }
-[data-theme="dark"] .order-type-badge-sm { background: #1a1f2d; color: #9AA4BF; }
+[data-theme="dark"] .order-type-badge-sm { background: #071824; color: #9AA4BF; }
 [data-theme="dark"] .rejection-reason { background: #2A2111; color: #FBBF24; border-left-color: #F59E0B; }
 [data-theme="dark"] .status-row { border-top-color: #2D3748; }
 [data-theme="dark"] .status-badge.open { color: #FCA5A5; }
 [data-theme="dark"] .status-badge.completed { color: #34D399; }
 [data-theme="dark"] .cancel-btn { border-color: #2D3748; color: #9AA4BF; }
-[data-theme="dark"] .empty-state { background: #252b36; color: #9AA4BF; }
+[data-theme="dark"] .empty-state { background: #0f212e; color: #9AA4BF; }
 </style>

@@ -7,7 +7,7 @@
 
             <!-- Modal Container -->
             <div class="relative w-full max-w-2xl mx-auto
-               bg-white dark:bg-[#1A1F2D] rounded-t-[24px] md:rounded-[24px]
+               bg-white dark:bg-[#071824] rounded-t-[24px] md:rounded-[24px]
                max-h-[90vh] overflow-y-auto overflow-x-hidden
                animate-slide-up" @click.stop>
                 <!-- CONTENT -->

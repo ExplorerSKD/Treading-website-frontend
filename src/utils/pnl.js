@@ -41,7 +41,7 @@ export function formatNumber(value) {
 
     return num.toLocaleString('en-IN', {
         minimumFractionDigits: 2,
-        maximumFractionDigits: 5,
+        maximumFractionDigits: 2,
     });
 }
 

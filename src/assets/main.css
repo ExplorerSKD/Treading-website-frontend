@@ -30,7 +30,7 @@ body:not(.dark) .content-bg {
 [data-theme="dark"], 
 [data-theme="dark"] body,
 body.dark {
-    background-color: #1a1f2d !important;
+    background-color: #071824 !important;
     color: #E8EAED;
 }
 
@@ -38,7 +38,7 @@ body.dark {
 [data-theme="dark"] .content-bg,
 body.dark .layout-bg,
 body.dark .content-bg {
-    background-color: #1a1f2d !important;
+    background-color: #071824 !important;
 }
 
 /* Chrome, Safari, Edge */

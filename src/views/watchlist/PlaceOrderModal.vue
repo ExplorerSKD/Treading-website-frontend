@@ -1,6 +1,6 @@
 <template>
     <Modal v-model="showOrderModal" @close="close">
-        <div class="w-full mx-auto text-[#1A1E2B] dark:text-[#E8EAED] rounded-[24px] overflow-hidden bg-white dark:bg-[#1A1F2D]" 
+        <div class="w-full mx-auto text-[#1A1E2B] dark:text-[#E8EAED] rounded-[24px] overflow-hidden bg-white dark:bg-[#071824]" 
              style="font-family: 'Inter', sans-serif;">
             
             <!-- HEADER: Back + SL/TP -->
@@ -96,10 +96,10 @@
                             <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Price</label>
                             <input v-if="orderType == 'LIMIT'" type="number" v-model.number="price"
                                 :placeholder="side == 'BUY' ? formatNumber(live.ask) : formatNumber(live.bid)"
-                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#071824] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                             <div v-else class="relative">
                                 <input type="number" disabled :value="side == 'BUY' ? live.ask : live.bid"
-                                    class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white opacity-60" />
+                                    class="w-full bg-[#Fbfbfc] dark:bg-[#071824] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white opacity-60" />
                                 <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-[#4A5568]"></i>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                 {{ isLot ? 'Lots' : 'Quantity' }}
                             </label>
                             <input type="number" v-model="inputValue"
-                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 pr-12 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#071824] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 pr-12 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                             <button @click="toggleLot"
                                 class="absolute bottom-[7px] right-[8px] w-[35px] h-[35px] bg-[#010A18] dark:bg-[#E8EAED] rounded-full flex items-center justify-center text-white dark:text-[#010A18] shadow-sm transform transition-transform active:scale-95">
                                 <img src="/sync.svg" class="w-4 h-4 transition-transform filter dark:invert" :class="{ 'rotate-180': isLot }" />
@@ -122,12 +122,12 @@
                         <div>
                             <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Stoploss</label>
                             <input type="number" v-model.number="stoploss" placeholder="0.00"
-                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#071824] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                         </div>
                         <div>
                            <label class="block text-[12px] font-bold text-[#8C94A8] mb-1.5 ml-1">Target</label>
                            <input type="number" v-model.number="target" placeholder="0.00"
-                                class="w-full bg-[#Fbfbfc] dark:bg-[#1A1F2D] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
+                                class="w-full bg-[#Fbfbfc] dark:bg-[#071824] border border-[#F0F2F8] dark:border-[#2A3143] rounded-xl p-3.5 text-[15px] font-semibold text-[#1A1E2B] dark:text-white focus:outline-none focus:border-[#1A1E2B] dark:focus:border-white transition-colors" />
                         </div>
                     </div>
                 </div>

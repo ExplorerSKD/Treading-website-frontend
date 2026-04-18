@@ -308,12 +308,12 @@ function getChangeIcon(item) {
   min-height: 100%;
 }
 :global(body.dark) .app-container {
-  background: #1a1f2d;
-  --container-bg: #1a1f2d;
+  background: #071824;
+  --container-bg: #071824;
   --text-main: #E8EAED;
   --text-sub: #9AA4BF;
   --border-light: #404047;
-  --icon-bg-gray: #1A1F2D;
+  --icon-bg-gray: #071824;
   --icon-color: #E8EAED;
 }
 
@@ -325,7 +325,7 @@ function getChangeIcon(item) {
   padding-bottom: 0px;
   background: var(--container-bg, #FFFFFF);
 }
-:global(body.dark) .main-content { background: #1a1f2d; }
+:global(body.dark) .main-content { background: #071824; }
 .main-content::-webkit-scrollbar { display: none; }
 .main-content { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -342,7 +342,7 @@ function getChangeIcon(item) {
   font-size: 0.95rem;
   transition: all 0.2s ease;
 }
-:global(body.dark) .nav-icon-profile { background: #1A1F2D !important; color: #E8EAED !important; }
+:global(body.dark) .nav-icon-profile { background: #071824 !important; color: #E8EAED !important; }
 
 .nav-title {
   font-weight: 800;
@@ -433,7 +433,7 @@ function getChangeIcon(item) {
   box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.02));
 }
 :global(body.dark) .quick-actions-bar {
-  background: #252b36;
+  background: #0f212e;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   --icon-bg-gray: #Edfdf4;
@@ -492,7 +492,7 @@ function getChangeIcon(item) {
   gap: 6px;
   border: 1px solid var(--border-light, #E5E7EB);
 }
-:global(body.dark) .chain-segment { background: #252b36; border: 1px solid rgba(255, 255, 255, 0.1); }
+:global(body.dark) .chain-segment { background: #0f212e; border: 1px solid rgba(255, 255, 255, 0.1); }
 
 .chain-tab {
   padding: 8px 18px;
@@ -529,7 +529,7 @@ function getChangeIcon(item) {
   display: flex; align-items: center; justify-content: center;
   font-size: 1.5rem; color: var(--brand-dark-green, #1F4529);
 }
-:global(body.dark) .inst-circle { background: #252b36; border: 1px solid rgba(255, 255, 255, 0.1); color: #10B981; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+:global(body.dark) .inst-circle { background: #0f212e; border: 1px solid rgba(255, 255, 255, 0.1); color: #10B981; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .inst-item:hover .inst-circle { border-color: var(--brand-dark-green, #1F4529); }
 :global(body.dark) .inst-item:hover .inst-circle { border-color: #10B981; }
 
@@ -552,7 +552,7 @@ function getChangeIcon(item) {
   box-shadow: 0 4px 16px rgba(0,0,0,0.02);
 }
 :global(body.dark) .lmo-wrapper { 
-  background: #252b36; 
+  background: #0f212e; 
   border: 1px solid rgba(255, 255, 255, 0.1); 
   box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
 }
@@ -579,7 +579,7 @@ function getChangeIcon(item) {
   min-width: 0;
 }
 :global(body.dark) .market-card-compact { 
-  background: #252b36; 
+  background: #0f212e; 
   border: 1px solid rgba(255, 255, 255, 0.1); 
   box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
 }

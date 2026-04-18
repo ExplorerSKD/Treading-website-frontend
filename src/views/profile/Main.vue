@@ -212,22 +212,22 @@ onMounted(() => {
 
 /* DARK THEME SUPPORT via global body.dark */
 :global(body.dark) {
-    --bg-body: #1a1f2d;
-    --container-bg: #1a1f2d;
-    --card-bg: #252b36;
-    --card-alt-bg: #252b36;
+    --bg-body: #071824;
+    --container-bg: #071824;
+    --card-bg: #0f212e;
+    --card-alt-bg: #0f212e;
     --border-light: #2D3748;
     --border-card: #2D3748;
     --text-primary: #F5F5F5;
     --text-secondary: #B0B0B0;
     --text-muted: #888888;
-    --icon-bg: #252b36;
-    --wallet-bg: #252b36;
+    --icon-bg: #0f212e;
+    --wallet-bg: #0f212e;
     --wallet-text: #F5F5F5;
-    --nav-bg: #1a1f2d;
+    --nav-bg: #071824;
     --nav-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     --nav-border: #2D3748;
-    --footer-bg: #1a1f2d;
+    --footer-bg: #071824;
     --footer-active: #EF5350;
     --danger-color: #EF4444;
 }

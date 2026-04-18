@@ -134,12 +134,12 @@ const navItems = [
 body.dark .layout-bg,
 body.dark .content-bg,
 body.dark .flex.min-h-screen {
-    background: #1a1f2d !important;
+    background: #071824 !important;
 }
 
 [data-theme="dark"] body,
 body.dark {
-    background-color: #1a1f2d !important;
+    background-color: #071824 !important;
 }
 
 /* Desktop Sidebar */
@@ -156,7 +156,7 @@ body.dark aside nav a {
 
 [data-theme="dark"] aside nav a:hover,
 body.dark aside nav a:hover {
-    background: #252b36 !important;
+    background: #0f212e !important;
     color: #E8EAED !important;
 }
 
@@ -175,7 +175,7 @@ body.dark aside .border-t {
 
 [data-theme="dark"] aside .bg-gray-50,
 body.dark aside .bg-gray-50 {
-    background: #1a1f2d !important;
+    background: #071824 !important;
 }
 
 [data-theme="dark"] aside .text-custom-primary,
@@ -191,7 +191,7 @@ body.dark aside .text-gray-500 {
 /* Main content area background */
 [data-theme="dark"] main,
 body.dark main {
-    background: #1a1f2d !important;
+    background: #071824 !important;
 }
 
 /* Trader Profile Icon in Dark Mode */

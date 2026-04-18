@@ -144,7 +144,7 @@ const handleWalletClick = () => {
 
 <style>
 /* Dark Mode for AppHeader */
-[data-theme="dark"] .app-header-bar { background: #1a1f2d; border-bottom-color: #2D3748; }
+[data-theme="dark"] .app-header-bar { background: #071824; border-bottom-color: #2D3748; }
 [data-theme="dark"] .header-bar-title { color: #E8EAED; }
 [data-theme="dark"] .header-nav-icon { background: #F3F4F6; color: #4B5563; }
 [data-theme="dark"] .header-wallet-pill { background: #10B981; color: #111827; }

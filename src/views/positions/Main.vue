@@ -141,10 +141,10 @@
                       </div>
                     </div>
                     <div class="pnl-right-value" style="text-align:right">
-                      <div class="individual-pnl-amount" :class="getPnlClass(getDisplayedPnl(pos))" style="font-size:14px; font-weight:700">
+                      <div class="individual-pnl-amount" :class="getPnlClass(getDisplayedPnl(pos))" style="font-size:1rem; font-weight:700">
                           <span v-if="getDisplayedPnl(pos) >= 0">+</span>{{ formatUSD(getDisplayedPnl(pos)) }}
                       </div>
-                      <div class="order-type-badge-sm" :class="pos.side === 'BUY' ? 'long' : 'short'" style="font-size:8px; font-weight:600; padding:2px 6px; border-radius:30px; display:inline-block; margin-top:4px;">
+                      <div class="order-type-badge-sm" :class="pos.side === 'BUY' ? 'long' : 'short'" style="font-size:0.65rem; font-weight:600; padding:2px 6px; border-radius:30px; display:inline-block; margin-top:4px;">
                           Active
                       </div>
                     </div>
@@ -535,18 +535,18 @@ const realizedPnl = computed(() => {
 }
 
 .pos-symbol {
-  font-weight: 800;
-  font-size: 14px;
-  color: #111827;
-  margin-bottom: 6px;
-}
+    font-weight: 700;
+    font-size: 0.72rem;
+    color: #111827;
+    margin-bottom: 4px;
+  }
 
 .pos-details {
-  display: flex;
-  gap: 16px;
-  font-size: 11px;
-  color: #6B7280;
-}
+    display: flex;
+    gap: 16px;
+    font-size: 0.7rem;
+    color: #6B7280;
+  }
 
 .pos-details span {
   font-weight: 500;
@@ -562,13 +562,13 @@ const realizedPnl = computed(() => {
 }
 
 .order-type-badge {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 8px;
-}
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
 
 .order-type-badge.long {
   background: #E9F6EF;
@@ -581,10 +581,10 @@ const realizedPnl = computed(() => {
 }
 
 .pnl-right-value {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 5px;
-}
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
 
 .pnl-right-value.positive {
   color: #059669;
@@ -595,10 +595,10 @@ const realizedPnl = computed(() => {
 }
 
 .ltp-value {
-  font-size: 11px;
-  font-weight: 500;
-  color: #6B7280;
-}
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #6B7280;
+  }
 
 .ltp-value span {
   font-weight: 700;
@@ -661,30 +661,30 @@ const realizedPnl = computed(() => {
 
 <style>
 /* Dark Mode Overrides for Positions */
-[data-theme="dark"] .positions-app { background: #1a1f2d; color: #E8EAED; }
+[data-theme="dark"] .positions-app { background: #071824; color: #E8EAED; }
 [data-theme="dark"] .exit-all-btn { background: #B22234; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 [data-theme="dark"] .exit-all-btn.disabled { background: #2D3748; }
-[data-theme="dark"] .main-nav { background: #252b36; }
-[data-theme="dark"] .main-tab.active { background: #1a1f2d; color: #FCA5A5; }
-[data-theme="dark"] .pnl-summary-card { background: #252b36; border-color: #2D3748; }
+[data-theme="dark"] .main-nav { background: #0f212e; }
+[data-theme="dark"] .main-tab.active { background: #071824; color: #FCA5A5; }
+[data-theme="dark"] .pnl-summary-card { background: #0f212e; border-color: #2D3748; }
 [data-theme="dark"] .summary-header { border-bottom-color: #2D3748; }
 [data-theme="dark"] .summary-header span { color: #9AA4BF; }
 [data-theme="dark"] .summary-value { color: #E8EAED; }
-[data-theme="dark"] .sub-nav { background: #252b36; }
+[data-theme="dark"] .sub-nav { background: #0f212e; }
 [data-theme="dark"] .sub-tab { color: #9AA4BF; }
-[data-theme="dark"] .sub-tab.active { background: #1a1f2d; color: #FCA5A5; }
-[data-theme="dark"] .empty-state { background: #252b36; color: #9AA4BF; }
-[data-theme="dark"] .compact-position-card { background: #252b36; border-color: #2D3748; }
-[data-theme="dark"] .compact-position-card:active { background: #1a1f2d; }
+[data-theme="dark"] .sub-tab.active { background: #071824; color: #FCA5A5; }
+[data-theme="dark"] .empty-state { background: #0f212e; color: #9AA4BF; }
+[data-theme="dark"] .compact-position-card { background: #0f212e; border-color: #2D3748; }
+[data-theme="dark"] .compact-position-card:active { background: #071824; }
 [data-theme="dark"] .pos-symbol { color: #E8EAED; }
-[data-theme="dark"] .pos-symbol span { background: #1a1f2d; color: #9AA4BF; }
+[data-theme="dark"] .pos-symbol span { background: #071824; color: #9AA4BF; }
 [data-theme="dark"] .pos-details .value { color: #E8EAED; }
 [data-theme="dark"] .order-type-badge.long { background: #122921; color: #34D399; }
 [data-theme="dark"] .order-type-badge.short { background: #2A1D20; color: #FCA5A5; }
 [data-theme="dark"] .ltp-value span { color: #E8EAED; }
-[data-theme="dark"] .individual-pnl-card { background: #252b36; border-color: #2D3748; }
-[data-theme="dark"] .individual-pnl-card:active { background: #1a1f2d; }
-[data-theme="dark"] .order-type-badge-sm { background: #1a1f2d; color: #9AA4BF;}
+[data-theme="dark"] .individual-pnl-card { background: #0f212e; border-color: #2D3748; }
+[data-theme="dark"] .individual-pnl-card:active { background: #071824; }
+[data-theme="dark"] .order-type-badge-sm { background: #071824; color: #9AA4BF;}
 [data-theme="dark"] .order-type-badge-sm.long { background: #122921; color: #34D399; }
 [data-theme="dark"] .order-type-badge-sm.short { background: #2A1D20; color: #FCA5A5; }
 [data-theme="dark"] .section-title-small { color: #9AA4BF; border-bottom-color: #2D3748; }
