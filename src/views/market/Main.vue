@@ -2,28 +2,19 @@
   <div class="app-container relative">
     
     <!-- Top Navigation -->
-    <div class="top-nav">
-      <div class="nav-left">
-        <div class="nav-icon" style="width: 34px; height: 34px;" @click="$router.push('/profile')">
-          <i class="fas fa-user"></i>
+    <AppHeader>
+      <template #title-right>
+        <div class="nav-left">
+          <div class="nav-icon-profile" @click="$router.push('/profile')">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="nav-title" style="display: flex; flex-direction: column; line-height: 1.2;">
+            <span style="font-size: 11px; font-weight: 500; color: #6B7280; text-transform: none; letter-spacing: 0.3px;">Hello 👋</span>
+            <span style="font-size: 16px; font-weight: 700; color: #065F46; text-transform: capitalize; letter-spacing: 0;">{{ profile.full_name || 'User' }}</span>
+          </div>
         </div>
-        <div class="nav-title" style="display: flex; flex-direction: column; line-height: 1.2;">
-          <span style="font-size: 11px; font-weight: 500; color: #6B7280; text-transform: none; letter-spacing: 0.3px;">Hello 👋</span>
-          <span style="font-size: 16px; font-weight: 700; color: #065F46; text-transform: capitalize; letter-spacing: 0;">{{ profile.full_name || 'User' }}</span>
-        </div>
-      </div>
-      <div class="nav-right">
-        <div class="wallet-pill" @click="$router.push('/wallet')">
-          <i class="fas fa-wallet"></i><span class="hidden sm:inline">Wallet</span>
-        </div>
-        <div class="nav-icon theme-toggle-icon" id="navTheme" style="width: 34px; height: 34px;" @click="toggleTheme">
-          <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'" id="themeNavIcon"></i>
-        </div>
-        <div class="nav-icon" @click="showNotificationModal = true">
-          <i class="fas fa-bell"></i>
-        </div>
-      </div>
-    </div>
+      </template>
+    </AppHeader>
 
     <!-- Main Scrollable Content -->
     <div class="main-content" v-if="!loading">
@@ -125,7 +116,6 @@
     <div v-else class="flex flex-col justify-center items-center h-[70vh]">
         <loader-component :show="loading" />
     </div>
-    <NotificationModal />
     <div v-if="toastMsg" class="toast-msg">{{ toastMsg }}</div>
 
   </div>
@@ -141,8 +131,7 @@ import Portfolio from './Portfolio.vue'
 import useWatchlistStore from '@/stores/watchlist'
 import { storeToRefs } from 'pinia'
 import LoaderComponent from '@/components/LoaderComponent.vue'
-import NotificationModal from '@/components/NotificationModal.vue'
-import { useNotificationStore } from '@/stores/notifications'
+import AppHeader from '@/components/AppHeader.vue'
 import { useRouter } from 'vue-router'
 import { useWalletStore } from '@/stores/wallet'
 import { useProfileStore } from '@/stores/profile'
@@ -150,7 +139,6 @@ import { useProfileStore } from '@/stores/profile'
 const tickerStore = useTickerStore()
 const activeSegment = ref('Indices')
 const watchlistStore = useWatchlistStore();
-const notificationStore = useNotificationStore();
 const router = useRouter()
 const walletStore = useWalletStore()
 const profileStore = useProfileStore()
@@ -170,9 +158,7 @@ const handleWithdraw = () => {
 
 const loading = ref(false);
 const { topCommodities } = storeToRefs(watchlistStore)
-const { showNotificationModal } = storeToRefs(notificationStore)
 
-const isDark = ref(false);
 const toastMsg = ref('');
 
 let toastTimer;
@@ -184,19 +170,6 @@ const showToast = (msg) => {
     }, 2000);
 }
 
-const applyTheme = (dark) => {
-    document.body.classList.toggle('dark', dark)
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
-    localStorage.setItem('marginApexTheme', dark ? 'dark' : 'light')
-    localStorage.setItem('app-theme', dark ? 'dark' : 'light')
-}
-
-const toggleTheme = () => {
-    isDark.value = !isDark.value
-    applyTheme(isDark.value)
-    showToast(isDark.value ? "Dark Mode Enabled" : "Light Mode Enabled")
-}
-
 const openSupportWhatsApp = () => {
     const phoneNumber = '919217065816';
     const message = 'Hello, I need support.';
@@ -205,12 +178,6 @@ const openSupportWhatsApp = () => {
 }
 
 onMounted(async () => {
-    const savedTheme = localStorage.getItem('marginApexTheme') || localStorage.getItem('app-theme')
-    if (savedTheme === 'dark') {
-        isDark.value = true
-        applyTheme(true)
-    }
-
     loading.value = true;
     await watchlistStore.getTopCommodities()
     if (topCommodities.value) {
@@ -362,23 +329,10 @@ function getChangeIcon(item) {
 .main-content::-webkit-scrollbar { display: none; }
 .main-content { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ===== TOP NAVIGATION ===== */
-.top-nav {
-  padding: 20px 20px 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background: var(--container-bg, #FFFFFF);
-  z-index: 20;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-:global(body.dark) .top-nav { background: #1a1f2d; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
-
+/* ===== PROFILE ICON IN HEADER ===== */
 .nav-left { display: flex; align-items: center; gap: 12px; }
-.nav-icon {
-  width: 38px; height: 38px;
+.nav-icon-profile {
+  width: 34px; height: 34px;
   border-radius: 50%;
   background: #F3F4F6;
   display: flex; align-items: center; justify-content: center;
@@ -388,16 +342,7 @@ function getChangeIcon(item) {
   font-size: 0.95rem;
   transition: all 0.2s ease;
 }
-:global(body.dark) .nav-icon { background: #1A1F2D !important; color: #E8EAED !important; }
-:global(body.dark) .theme-toggle-icon { background: #1A1F2D !important; color: #E8EAED !important; }
-:global(body.dark) .nav-icon i { color: #E8EAED !important; }
-:global(body.dark) #navTheme { background: #1A1F2D !important; }
-:global(body.dark) #themeNavIcon { color: #E8EAED !important; }
-
-.nav-icon:hover {
-  background: var(--icon-hover, #E5E7EB);
-}
-:global(body.dark) .nav-icon:hover { background: #252B3B !important; }
+:global(body.dark) .nav-icon-profile { background: #1A1F2D !important; color: #E8EAED !important; }
 
 .nav-title {
   font-weight: 800;
@@ -405,21 +350,6 @@ function getChangeIcon(item) {
 }
 :global(body.dark) .nav-title span:nth-child(1) { color: #10B981 !important; }
 :global(body.dark) .nav-title span:nth-child(2) { color: #E8EAED !important; }
-
-.nav-right { display: flex; align-items: center; gap: 10px; }
-.wallet-pill {
-  background: var(--brand-dark-green, #1F4529);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  display: flex; align-items: center; gap: 6px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(6, 95, 70, 0.2);
-}
-.wallet-pill:active { transform: scale(0.96); }
-:global(body.dark) .wallet-pill { background: #10B981; color: #111827; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
 
 .content-padded { padding: 16px 20px 0px 20px; }
 

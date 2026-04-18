@@ -1,29 +1,23 @@
 <template>
   <div class="order-app">
-    <!-- Header -->
-    <div class="order-header">
-      <div class="brand-status">
-        <div class="logo">
-          <i class="fas fa-chart-line"></i> MARGIN<span style="color:#B22234;"> APEX</span>
-        </div>
-      </div>
-      <div class="header-sub">
-        <i class="fas fa-exchange-alt"></i> Open & Closed Orders
-      </div>
-    </div>
+    <AppHeader title="Orders" />
 
     <!-- Search -->
     <div class="search-container">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
         <input 
           type="text" 
-          v-model="searchQuery" 
-          placeholder="Search symbol..."
+          class="search-input" 
+          v-model="searchQuery"
+          placeholder="Search symbol..." 
+          autocomplete="off"
         >
-        <button v-show="searchQuery" @click="searchQuery = ''" class="clear-search visible">
-            <i class="fas fa-times-circle"></i>
-        </button>
+        <i 
+          class="fas fa-times-circle clear-search" 
+          :class="{ 'visible': searchQuery.length > 0 }"
+          @click="searchQuery = ''"
+        ></i>
       </div>
     </div>
 
@@ -157,6 +151,7 @@ import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import ModifyOrderModal from './ModifyOrderModal.vue';
 import LoaderComponent from '@/components/LoaderComponent.vue';
+import AppHeader from '@/components/AppHeader.vue';
 
 const orderStore = useOrderStore();
 const activeOrderTab = computed({
@@ -189,10 +184,12 @@ watch(activeOrderTab, (tab) => {
 const goToNextPage = () => {
     orderStore.params.page += 1;
     orderStore.getOrders()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 const goToPreviousPage = () => {
     orderStore.params.page -= 1;
     orderStore.getOrders()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 const handleOrderClick = (order) => {
@@ -249,112 +246,72 @@ const getStatusIcon = (status) => {
 
 .order-app {
   width: 100%;
-  height: 100dvh;
+  min-height: 100vh;
   background: #FFFFFF;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  position: relative;
   font-family: 'Inter', sans-serif;
   padding-bottom: 20px; /* buffer for bottom nav if any */
 }
 
-.order-header {
-  padding: 16px 18px 10px 18px;
-  background: #FFFFFF;
-  border-bottom: 1px solid #EEF2F8;
-  flex-shrink: 0;
-}
-
-.brand-status {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.logo {
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.3px;
-  background: linear-gradient(135deg, #0A0A0F 0%, #1A1A24 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.logo i {
-  background: none;
-  -webkit-background-clip: unset;
-  color: #B22234;
-  font-size: 18px;
-}
-
-.header-sub {
-  font-size: 10px;
-  color: #8B98A9;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: 400;
-}
-
-.header-sub i {
-  color: #B22234;
-  font-size: 9px;
-}
 
 .search-container {
   padding: 6px 16px 4px 16px;
   flex-shrink: 0;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  background: #FFFFFF;
-  border-radius: 40px;
-  padding: 6px 14px;
-  border: 1px solid #E8EDF2;
-  transition: all 0.2s;
+/* Search Bar */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 4px;
 }
 
-.search-box:focus-within {
-  border-color: #B22234;
-  background: #FFFFFF;
-  box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.08);
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9AA4BF;
+    font-size: 0.9rem;
 }
 
-.search-box i.fa-search {
-  color: #9CA3AF;
-  font-size: 12px;
-  margin-right: 8px;
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 42px;
+    background: #F8F9FC;
+    border: 1px solid #E8ECF0;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    color: #1F2937;
 }
 
-.search-box input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  outline: none;
-  color: #1F2937;
-  font-weight: 500;
+.search-input::placeholder {
+    color: #9CA3AF;
 }
 
-.search-box input::placeholder {
-  color: #B9C1CC;
+.search-input:focus {
+    outline: none;
+    border-color: #1F2937;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.08);
 }
 
 .clear-search {
-  background: none;
-  border: none;
-  color: #9CA3AF;
-  cursor: pointer;
-  font-size: 11px;
-  padding: 0 4px;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9AA4BF;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: none;
+}
+
+.clear-search.visible {
+    display: block;
 }
 
 .order-tabs {
@@ -380,7 +337,7 @@ const getStatusIcon = (status) => {
 
 .tab.active {
   background: #FFFFFF;
-  color: #B22234;
+  color: #111827;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   font-weight: 700;
 }
@@ -388,8 +345,6 @@ const getStatusIcon = (status) => {
 .orders-container {
   padding: 0 14px 12px 14px;
   flex: 1;
-  overflow-y: auto;
-  min-height: 0;
 }
 
 /* Ultra compact professional card */
@@ -591,18 +546,16 @@ const getStatusIcon = (status) => {
   margin-top: 16px;
   font-weight: 500;
 }
+
 </style>
 <style>
 /* Dark Mode Overrides for Orders */
 [data-theme="dark"] .order-app { background: #1a1f2d; color: #E8EAED; }
-[data-theme="dark"] .order-header { background: #1a1f2d; border-bottom-color: #2D3748; }
-[data-theme="dark"] .logo { color: #E8EAED; -webkit-text-fill-color: #E8EAED; background: none;}
-[data-theme="dark"] .logo span { -webkit-text-fill-color: #B22234; }
-[data-theme="dark"] .search-box { background: #252b36; border-color: #2D3748; }
-[data-theme="dark"] .search-box input { color: #E8EAED; }
-[data-theme="dark"] .search-box input::placeholder { color: #9AA4BF; }
+[data-theme="dark"] .search-input { background: #252B3B !important; border-color: #374151 !important; color: #FFFFFF !important; }
+[data-theme="dark"] .search-input::placeholder { color: #8C99B9; }
+[data-theme="dark"] .search-icon { color: #8C99B9; }
 [data-theme="dark"] .order-tabs { background: #252b36; }
-[data-theme="dark"] .tab.active { background: #1a1f2d; color: #FCA5A5; }
+[data-theme="dark"] .tab.active { background: #1a1f2d; color: #FFFFFF; }
 [data-theme="dark"] .order-card { background: #252b36; border-color: #2D3748; }
 [data-theme="dark"] .order-card:active { background: #1a1f2d; }
 [data-theme="dark"] .pair { color: #E8EAED; }

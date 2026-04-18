@@ -1,24 +1,19 @@
 <template>
   <div class="positions-app">
 
-    <!-- Page Header with Exit All Button -->
-    <div class="page-header">
-      <div class="header-left">
-        <div class="page-title">
-          <i class="fas fa-chart-line"></i> BULL MARGIN
-        </div>
-        <div class="page-subtitle">Position Management • P&L</div>
-      </div>
-      <button 
-         class="exit-all-btn" 
-         id="exitAllBtn"
-         :class="{ 'disabled': positionStore.openPositions.length === 0 }"
-         @click="positionStore.openPositions.length > 0 && (showConfirmationModal = true)"
-      >
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Exit All</span>
-      </button>
-    </div>
+    <AppHeader title="Positions">
+      <template #actions>
+        <button 
+           class="exit-all-btn" 
+           id="exitAllBtn"
+           :class="{ 'disabled': positionStore.openPositions.length === 0 }"
+           @click="positionStore.openPositions.length > 0 && (showConfirmationModal = true)"
+        >
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Exit All</span>
+        </button>
+      </template>
+    </AppHeader>
 
     <!-- Main Navigation Tabs -->
     <div class="main-nav">
@@ -192,6 +187,7 @@ import { useWalletStore } from '@/stores/wallet'
 import PositionExitModal from './PositionExitModal.vue'
 import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import LoaderComponent from '@/components/LoaderComponent.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
 /* ---------- STORES ---------- */
 const positionStore = usePositionStore()
@@ -227,11 +223,13 @@ watch(activePositionTab, tab => {
 const goToNextPage = () => {
     positionStore.params.page++
     positionStore.getPositions()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 const goToPreviousPage = () => {
     positionStore.params.page--
     positionStore.getPositions()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ---------- 🔑 SAME LTP LOGIC ---------- */
@@ -327,54 +325,17 @@ const realizedPnl = computed(() => {
 
 .positions-app {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: #FFFFFF;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  position: relative;
   font-family: 'Inter', sans-serif;
   padding-bottom: 20px;
 }
 
-/* Page Header with Exit All Button */
-.page-header {
-  padding: 16px 20px 12px 20px;
-  border-bottom: 1px solid #EEF2F8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.header-left {
-  display: flex;
-  flex-direction: column;
-}
-
-.page-title {
-  font-size: 20px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #111111 0%, #2A2A35 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.page-title i {
-  background: none;
-  -webkit-background-clip: unset;
-  color: #B22234;
-  font-size: 18px;
-}
-
-.page-subtitle {
-  font-size: 11px;
-  color: #8B98A9;
-  margin-top: 4px;
-}
-
+/* Exit All Button */
 .exit-all-btn {
   background: #B22234;
   border: none;
@@ -447,8 +408,6 @@ const realizedPnl = computed(() => {
 /* Page Content */
 .page-content {
   flex: 1;
-  overflow-y: auto;
-  min-height: 0;
   padding: 16px 16px 20px 16px;
 }
 
@@ -703,9 +662,6 @@ const realizedPnl = computed(() => {
 <style>
 /* Dark Mode Overrides for Positions */
 [data-theme="dark"] .positions-app { background: #1a1f2d; color: #E8EAED; }
-[data-theme="dark"] .page-header { border-bottom-color: #2D3748; background: #1a1f2d; }
-[data-theme="dark"] .page-title { color: #E8EAED; -webkit-text-fill-color: #E8EAED; background: none; }
-[data-theme="dark"] .page-title i { color: #B22234; }
 [data-theme="dark"] .exit-all-btn { background: #B22234; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 [data-theme="dark"] .exit-all-btn.disabled { background: #2D3748; }
 [data-theme="dark"] .main-nav { background: #252b36; }

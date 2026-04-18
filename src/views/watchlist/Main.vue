@@ -1,24 +1,10 @@
 <template>
   <div class="mobile-app">
     <!-- Header -->
-    <div class="app-header">
-      <div class="header-top">
-        <div class="logo-area">
-          <div class="logo-text">Watchlist</div>
-        </div>
-        <div class="nav-right">
-          <div class="wallet-pill" @click="handleWalletClick">
-            <i class="fas fa-wallet"></i><span class="hidden sm:inline ml-1">Wallet</span>
-          </div>
-          <div class="nav-icon theme-toggle-icon" @click="toggleTheme">
-            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
-          </div>
-          <div class="nav-icon" @click="showNotificationModal = true">
-            <i class="fas fa-bell"></i>
-          </div>
-        </div>
-      </div>
+    <AppHeader title="Watchlist" />
 
+    <!-- Segments & Search -->
+    <div class="wl-sub-header">
       <!-- Segments Tab Navigation -->
       <div class="segments-container" v-if="filteredSegments.length">
         <div class="segments-scroll">
@@ -237,7 +223,6 @@
     </div>
 
     <place-order-modal />
-    <NotificationModal />
 
     <!-- Trade Sheet Bottom Modal -->
     <div class="trade-sheet-overlay" :class="{ 'active': showTradeSheet }" @click="closeTradeSheet"></div>
@@ -327,25 +312,17 @@ import { storeToRefs } from 'pinia'
 import PlaceOrderModal from './PlaceOrderModal.vue'
 import { useProfileStore } from '@/stores/profile'
 import { symbolSegment } from '@/utils/symbolsegment'
-import { useRouter } from 'vue-router'
 import { formatNumber } from '@/utils/pnl'
 import LoaderComponent from '@/components/LoaderComponent.vue'
 import { useToastStore } from "@/stores/utils/toast"
-
-import { useNotificationStore } from '@/stores/notifications'
-import { useWalletStore } from '@/stores/wallet'
-import NotificationModal from '@/components/NotificationModal.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
 const watchlistStore = useWatchlistStore()
 const tickerStore = useTickerStore()
 const profileStore = useProfileStore()
-const router = useRouter()
 const toastStore = useToastStore()
-const notificationStore = useNotificationStore()
-const walletStore = useWalletStore()
 
 const { profile } = storeToRefs(profileStore)
-const { showNotificationModal } = storeToRefs(notificationStore)
 const {
     activeSegment,
     selectedWatchlist,
@@ -359,24 +336,6 @@ const {
 /* ---------------- UI STATE ---------------- */
 const showTradeSheet = ref(false)
 const currentTradeScript = ref(null)
-const isDark = ref(localStorage.getItem('app-theme') === 'dark')
-
-const applyTheme = (dark) => {
-    document.body.classList.toggle('dark', dark)
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
-    localStorage.setItem('marginApexTheme', dark ? 'dark' : 'light')
-    localStorage.setItem('app-theme', dark ? 'dark' : 'light')
-}
-
-const toggleTheme = () => {
-    isDark.value = !isDark.value
-    applyTheme(isDark.value)
-    toastStore.addToast("Theme", isDark.value ? "Dark Mode Enabled" : "Light Mode Enabled", "info", 2000)
-}
-
-const handleWalletClick = () => {
-    router.push({ name: 'wallet' })
-}
 
 /* ---------------- SEARCH FUNCTIONALITY ---------------- */
 const searchQueryInput = ref('')
@@ -692,83 +651,18 @@ onMounted(() => {
     background: #FFFFFF;
     font-family: 'Inter', sans-serif;
     position: relative;
-    overflow-x: hidden;
 }
 
-/* Header - White background */
-.app-header {
+/* Sub-header for segments & search */
+.wl-sub-header {
     background: #FFFFFF;
-    padding: 14px 16px;
-    border-bottom: 1px solid #E8ECF0;
+    padding: 0 16px 14px 16px;
     flex-shrink: 0;
     position: sticky;
-    top: 0;
-    z-index: 50;
+    top: 62px;
+    z-index: 49;
 }
 
-.header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.nav-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: #F3F4F6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4B5563;
-    cursor: pointer;
-    border: 1px solid transparent;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-}
-
-:global(body.dark) .nav-icon {
-    background: #1A1F2D !important;
-    color: #E8EAED !important;
-}
-
-.wallet-pill {
-    background: #065F46;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 700;
-    font-size: 0.8rem;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(6, 95, 70, 0.2);
-}
-
-:global(body.dark) .wallet-pill {
-    background: #10B981;
-    color: #111827;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-text {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #1A1E2B;
-}
 
 /* Segments Tabs */
 .segments-container {
@@ -1714,12 +1608,11 @@ onMounted(() => {
 <style>
 /* Dark Mode Overrides for Watchlist */
 [data-theme="dark"] .mobile-app { background: #1a1f2d; }
-[data-theme="dark"] .app-header { background: #1a1f2d; border-color: #2D3748; }
+[data-theme="dark"] .wl-sub-header { background: #1a1f2d; }
 [data-theme="dark"] .segments-container { border-color: transparent; }
 [data-theme="dark"] .segment-tab { color: #8C99B9; }
 [data-theme="dark"] .segment-tab.active { color: #E8EAED; }
 [data-theme="dark"] .segment-tab.active::after { background: #10B981; }
-[data-theme="dark"] .logo-text { color: #E8EAED; }
 [data-theme="dark"] .theme-toggle-btn { background: transparent; border: none; font-size: 1.1rem; margin-left: 10px; cursor:pointer;}
 [data-theme="dark"] .folder-btn { background: #252b36; border-color: #374151; color: #8C99B9; }
 [data-theme="dark"] .search-input { background: #252B3B !important; border-color: #374151 !important; color: #FFFFFF !important; }
