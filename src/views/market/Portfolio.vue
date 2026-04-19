@@ -30,7 +30,7 @@
 
     <div class="portfolio-bottom">
       <span class="stat-label">Total PNL</span>
-      <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'" style="font-size: 1.25rem;">
+      <span class="stat-val" :class="totalPnl >= 0 ? 'green' : 'red'" style="font-size: calc(1.25rem * var(--font-scale));">
         <span v-if="totalPnl > 0">+</span>{{ formatNumber(Math.round(totalPnl)) }}
       </span>
     </div>
@@ -161,7 +161,7 @@ const availableMargin = computed(() => {
 :global(body.dark) .portfolio-card::before { background: #10B981; }
 
 .portfolio-card:active { transform: scale(0.98); box-shadow: var(--shadow-soft, 0 12px 32px rgba(0, 0, 0, 0.08)); }
-.portfolio-title { font-size: 1.25rem; font-weight: 800; color: var(--text-main, #1F4529); margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase; }
+.portfolio-title { font-size: calc(1.25rem * var(--font-scale)); font-weight: 800; color: var(--text-main, #1F4529); margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase; }
 :global(body.dark) .portfolio-title { color: #10B981; }
 
 .portfolio-stats { display: flex; justify-content: space-between; margin-bottom: 28px; gap: 4px; }

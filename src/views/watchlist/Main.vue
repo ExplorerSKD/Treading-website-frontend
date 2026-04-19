@@ -144,7 +144,7 @@
           <div v-else-if="!selectedWatchlist?.symbols?.length" class="empty-watchlist">
             <i class="fas fa-plus-circle text-2xl mb-2"></i>
             <p style="font-weight:600;">Your watchlist is empty</p>
-            <p style="font-size:12px; margin-top:8px;">
+            <p style="font-size: calc(12px * var(--font-scale)); margin-top:8px;">
                 🔍 Search above or tap <strong>Scripts Library</strong> ➕ to add instruments
             </p>
           </div>
@@ -684,7 +684,7 @@ onMounted(() => {
 
 .segment-tab {
     padding: 10px 16px;
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--font-scale));
     font-weight: 700;
     color: #6B7280;
     white-space: nowrap;
@@ -729,7 +729,7 @@ onMounted(() => {
     cursor: pointer;
     font-weight: 600;
     color: var(--custom-primary);
-    font-size: 0.75rem;
+    font-size: var(--fs-sm);
     white-space: nowrap;
 }
 
@@ -751,7 +751,7 @@ onMounted(() => {
     top: 50%;
     transform: translateY(-50%);
     color: #9AA4BF;
-    font-size: 0.9rem;
+    font-size: var(--fs-md);
 }
 
 .search-input {
@@ -760,7 +760,7 @@ onMounted(() => {
     background: #F8F9FC;
     border: 1px solid #E8ECF0;
     border-radius: 30px;
-    font-size: 0.9rem;
+    font-size: var(--fs-md);
     font-family: 'Inter', sans-serif;
 }
 
@@ -777,7 +777,7 @@ onMounted(() => {
     transform: translateY(-50%);
     color: #9AA4BF;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--font-scale));
     display: none;
 }
 
@@ -814,7 +814,7 @@ onMounted(() => {
 }
 
 .search-results-title {
-    font-size: 0.7rem;
+    font-size: var(--fs-sm);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--custom-primary);
@@ -824,7 +824,7 @@ onMounted(() => {
 }
 
 .search-results-count {
-    font-size: 0.6rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: #3B82F6;
     text-transform: uppercase;
@@ -883,13 +883,13 @@ onMounted(() => {
 
 .search-result-name {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: var(--fs-md);
     color: #1A1E2B;
     margin-bottom: 2px;
 }
 
 .search-result-meta {
-    font-size: 0.65rem;
+    font-size: var(--fs-sm);
     color: #8F9BB3;
     white-space: nowrap;
     overflow: hidden;
@@ -905,7 +905,7 @@ onMounted(() => {
 
 .search-result-price {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: var(--fs-md);
     color: #1A1E2B;
 }
 
@@ -915,7 +915,7 @@ onMounted(() => {
     border: none;
     padding: 6px 18px;
     border-radius: 30px;
-    font-size: 0.75rem;
+    font-size: var(--fs-sm);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -940,7 +940,7 @@ onMounted(() => {
     text-align: center;
     padding: 24px;
     color: #AEB5CC;
-    font-size: 0.8rem;
+    font-size: var(--fs-base);
 }
 
 /* Watchlist Section */
@@ -967,12 +967,12 @@ onMounted(() => {
 }
 
 .wl-icon {
-    font-size: 0.85rem;
+    font-size: var(--fs-base);
     color: #6B7280;
 }
 
 .wl-title {
-    font-size: 0.75rem;
+    font-size: var(--fs-sm);
     font-weight: 800;
     text-transform: uppercase;
     color: #1A1E2B;
@@ -980,7 +980,7 @@ onMounted(() => {
 }
 
 .wl-count {
-    font-size: 0.65rem;
+    font-size: var(--fs-sm);
     font-weight: 600;
     color: #6B7280;
     background: #F0F2F5;
@@ -994,7 +994,7 @@ onMounted(() => {
 }
 
 .action-hint {
-    font-size: 0.55rem;
+    font-size: var(--fs-xs);
     color: #9AA4BF;
     white-space: nowrap;
 }
@@ -1043,50 +1043,50 @@ onMounted(() => {
     justify-content: flex-end;
 }
 
-.select-all-btn, .unselect-all-btn {
-    background: none;
+.select-all-btn {
+    background: #F3F5F9;
+    color: #5B677E;
     border: none;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 30px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: var(--fs-sm);
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
-}
-
-.select-all-btn {
-    background: #F0F2F5;
-    color: #4A5568;
+    transition: all 0.2s ease;
 }
 
 .delete-selected-btn {
     background: #C62E2E;
+    color: white;
     border: none;
-    padding: 6px 16px;
+    padding: 6px 18px;
     border-radius: 30px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--fs-sm);
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
-    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(198, 46, 46, 0.2);
 }
 
 .exit-selection-btn {
-    background: #F0F2F5;
+    background: #F3F5F9;
+    color: #5B677E;
     border: none;
-    padding: 6px 16px;
+    padding: 6px 14px;
     border-radius: 30px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: var(--fs-sm);
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #5B677E;
+    transition: all 0.2s ease;
 }
 
 .delete-selected-btn.disabled {
@@ -1095,11 +1095,11 @@ onMounted(() => {
 }
 
 .selected-count {
-    font-size: 0.75rem;
-    color: var(--custom-primary);
-    font-weight: 700;
-    background: #FFF0F0;
-    padding: 4px 10px;
+    font-size: var(--fs-sm);
+    font-weight: 800;
+    color: #C62E2E;
+    background: #FEF2F2;
+    padding: 4px 12px;
     border-radius: 30px;
 }
 
@@ -1162,7 +1162,7 @@ onMounted(() => {
     border-radius: 20px;
     color: white;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--font-scale));
     gap: 6px;
     z-index: 1;
 }
@@ -1190,7 +1190,7 @@ onMounted(() => {
 
 .custom-checkbox.selected i {
     color: #FFFFFF !important;
-    font-size: 11px;
+    font-size: calc(11px * var(--font-scale));
     font-weight: 900;
 }
 
@@ -1201,13 +1201,15 @@ onMounted(() => {
 }
 
 .instrument-symbol {
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    color: #1A1E2B;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-weight: 700;
-    font-size: 0.72rem;
-    color: #1A1E2B;
-    margin-bottom: 4px;
     min-width: 0;
 }
 
@@ -1216,19 +1218,23 @@ onMounted(() => {
 }
 
 .exchange-badge {
-    flex-shrink: 0;
-    font-size: 0.6rem;
-    font-weight: 600;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: #8F9BB3;
     background: #F0F2F5;
-    color: #6B7280;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 4px;
+    text-transform: uppercase;
+    flex-shrink: 0;
     white-space: nowrap;
 }
 
 .instrument-name {
-    font-size: 0.7rem;
-    color: #8C94A8;
+    font-size: var(--fs-sm);
+    color: #AEB5CC;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .instrument-price-area {
@@ -1239,11 +1245,11 @@ onMounted(() => {
 
 .price-value {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: var(--fs-md);
 }
 
 .change-badge {
-    font-size: 0.7rem;
+    font-size: var(--fs-sm);
     font-weight: 600;
     padding: 3px 8px;
     border-radius: 30px;
@@ -1263,12 +1269,23 @@ onMounted(() => {
 
 .empty-watchlist {
     text-align: center;
-    padding: 60px 24px;
-    background: #FFFFFF;
-    border-radius: 32px;
-    border: 1px dashed #DCE3EC;
-    color: #9CA3B9;
+    padding: 40px 20px;
+    color: #AEB5CC;
+    background: white;
+    border-radius: 24px;
+    border: 1px dashed #E2E8F0;
     margin-top: 20px;
+}
+
+.empty-watchlist p:first-of-type {
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: #1A1E2B;
+}
+
+.empty-watchlist p:last-of-type {
+    font-size: var(--fs-sm);
+    color: #8F9BB3;
 }
 
 /* Folder Drawer */
@@ -1302,7 +1319,7 @@ onMounted(() => {
 }
 
 .drawer-header h3 {
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
     font-weight: 700;
     color: var(--custom-primary);
     display: flex;
@@ -1316,7 +1333,7 @@ onMounted(() => {
     width: 34px;
     height: 34px;
     border-radius: 30px;
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
     cursor: pointer;
     color: #5B677E;
 }
@@ -1341,7 +1358,7 @@ onMounted(() => {
 .tree-label-row {
     padding: 14px 16px;
     border-radius: 12px;
-    font-size: 0.95rem;
+    font-size: calc(0.95rem * var(--font-scale));
     font-weight: 500;
     color: #2C313F;
 }
@@ -1352,7 +1369,7 @@ onMounted(() => {
 .drawer-footer {
     padding: 14px 20px;
     border-top: 1px solid #EDF2F7;
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--font-scale));
     color: #AEB5CC;
 }
 
@@ -1437,14 +1454,14 @@ onMounted(() => {
     gap: 12px;
 }
 .sheet-script-name {
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     font-weight: 800;
     color: #1A1E2B;
     margin-bottom: 4px;
 }
 .sheet-segment {
     display: inline-block;
-    font-size: 0.6rem;
+    font-size: calc(0.6rem * var(--font-scale));
     font-weight: 600;
     color: var(--custom-primary); /* Changed to use var directly instead of literal #C62E2E if it matches branding, but #C62E2E is the user's color so let's stick to user color where requested, or fallback */
     background: #FEF0F0;
@@ -1455,18 +1472,18 @@ onMounted(() => {
     text-align: right;
 }
 .sheet-cmp-label {
-    font-size: 0.55rem;
+    font-size: calc(0.55rem * var(--font-scale));
     font-weight: 500;
     color: #8C94A8;
     text-transform: uppercase;
 }
 .sheet-cmp-value {
-    font-size: 1.2rem;
+    font-size: calc(1.2rem * var(--font-scale));
     font-weight: 800;
     line-height: 1.2;
 }
 .sheet-change {
-    font-size: 0.65rem;
+    font-size: calc(0.65rem * var(--font-scale));
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 30px;
@@ -1490,14 +1507,14 @@ onMounted(() => {
     text-align: center;
 }
 .sheet-bidask-label {
-    font-size: 0.6rem;
+    font-size: calc(0.6rem * var(--font-scale));
     font-weight: 500;
     color: #8C94A8;
     text-transform: uppercase;
     margin-bottom: 3px;
 }
 .sheet-bid-value, .sheet-ask-value {
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--font-scale));
     font-weight: 700;
 }
 .sheet-bid-value { color: #2C8E5A; }
@@ -1512,7 +1529,7 @@ onMounted(() => {
     padding: 4px 16px;
 }
 .sheet-ohlc-title {
-    font-size: 0.6rem;
+    font-size: calc(0.6rem * var(--font-scale));
     font-weight: 600;
     color: #5B677E;
     margin-bottom: 8px;
@@ -1532,14 +1549,14 @@ onMounted(() => {
     text-align: center;
 }
 .ohlc-label {
-    font-size: 0.55rem;
+    font-size: calc(0.55rem * var(--font-scale));
     font-weight: 500;
     color: #8C94A8;
     text-transform: uppercase;
     margin-bottom: 4px;
 }
 .ohlc-value {
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
     font-weight: 700;
     color: #1A1E2B;
 }
@@ -1558,7 +1575,7 @@ onMounted(() => {
     border-radius: 16px;
 }
 .sheet-contract-label {
-    font-size: 0.6rem;
+    font-size: calc(0.6rem * var(--font-scale));
     font-weight: 500;
     color: #8C94A8;
     display: flex;
@@ -1566,7 +1583,7 @@ onMounted(() => {
     gap: 5px;
 }
 .sheet-contract-value {
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
     font-weight: 600;
     color: #1A1E2B;
     background: #FFFFFF;
@@ -1584,7 +1601,7 @@ onMounted(() => {
     padding: 14px;
     border: none;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -1613,7 +1630,7 @@ onMounted(() => {
 [data-theme="dark"] .segment-tab { color: #8C99B9; }
 [data-theme="dark"] .segment-tab.active { color: #E8EAED; }
 [data-theme="dark"] .segment-tab.active::after { background: #10B981; }
-[data-theme="dark"] .theme-toggle-btn { background: transparent; border: none; font-size: 1.1rem; margin-left: 10px; cursor:pointer;}
+[data-theme="dark"] .theme-toggle-btn { background: transparent; border: none; font-size: calc(1.1rem * var(--font-scale)); margin-left: 10px; cursor:pointer;}
 [data-theme="dark"] .folder-btn { background: #0f212e; border-color: #374151; color: #8C99B9; }
 [data-theme="dark"] .search-input { background: #252B3B !important; border-color: #374151 !important; color: #FFFFFF !important; }
 [data-theme="dark"] .search-input::placeholder { color: #8C99B9; }

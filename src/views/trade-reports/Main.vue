@@ -3,7 +3,7 @@
         <div class="app-header">
             <div class="header-top">
                 <div class="logo-area">
-                    <button @click="$router.push({ name: 'profile' })" class="header-btn" style="border: none; padding: 0 8px; background: transparent; font-size: 1.1rem; color: #1A1E2B;">
+                    <button @click="$router.push({ name: 'profile' })" class="header-btn" style="border: none; padding: 0 8px; background: transparent; font-size: calc(1.1rem * var(--font-scale)); color: #1A1E2B;">
                         <i class="fas fa-arrow-left"></i>
                     </button>
                     <div class="logo-text">Trade History</div>
@@ -22,7 +22,7 @@
                     <i class="fas fa-calendar-alt"></i>
                     <input type="date" class="date-input-compact" v-model="params.start_date">
                 </div>
-                <span style="color: #C62E2E; font-size: 0.7rem;">→</span>
+                <span style="color: #C62E2E; font-size: calc(0.7rem * var(--font-scale));">→</span>
                 <div class="filter-group">
                     <i class="fas fa-calendar-alt"></i>
                     <input type="date" class="date-input-compact" v-model="params.end_date">
@@ -36,8 +36,8 @@
             <!-- Limit and Pagination control in Header to save space -->
             <div class="flex justify-between items-center px-1 mt-2">
                 <div class="flex items-center gap-2">
-                    <span style="font-size: 0.65rem; font-weight: 600; color: #5B677E;">Results:</span>
-                    <select v-model="params.limit" @change="applyFilters" style="border:1px solid #E8ECF0; border-radius: 4px; padding: 2px; font-size:0.7rem; font-weight:600; outline:none; background: #fff;">
+                    <span style="font-size: calc(0.65rem * var(--font-scale)); font-weight: 600; color: #5B677E;">Results:</span>
+                    <select v-model="params.limit" @change="applyFilters" style="border:1px solid #E8ECF0; border-radius: 4px; padding: 2px; font-size: calc(0.7rem * var(--font-scale)); font-weight:600; outline:none; background: #fff;">
                         <option :value="20">20</option>
                         <option :value="50">50</option>
                         <option :value="100">100</option>
@@ -65,7 +65,7 @@
                         <div class="script-info">
                             <span class="script-name">{{ trade.symbol }}</span>
                             <span class="order-type-badge" :class="trade.side?.toLowerCase() || 'buy'">{{ trade.side?.[0] }}</span>
-                            <span style="font-size: 0.55rem; color: #9AA4BF;">{{ trade.exchange }}</span>
+                            <span style="font-size: calc(0.55rem * var(--font-scale)); color: #9AA4BF;">{{ trade.exchange }}</span>
                         </div>
                         <div class="pnl" :class="Number(trade.realized_pnl) >= 0 ? 'positive' : 'negative'">
                             {{ Number(trade.realized_pnl) >= 0 ? '+' : '' }}₹{{ Math.abs(Number(trade.realized_pnl)).toFixed(2) }}
@@ -85,7 +85,7 @@
                 <!-- PAGINATION -->
                 <div v-if="totalPages > 1 && !loading" class="flex justify-between items-center py-4 px-2">
                     <button @click="prevPage" :disabled="currentPage === 1" class="filter-btn clear disabled:opacity-50">Prev</button>
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #5B677E;">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <span style="font-size: calc(0.75rem * var(--font-scale)); font-weight: 600; color: #5B677E;">Page {{ currentPage }} of {{ totalPages }}</span>
                     <button @click="nextPage" :disabled="currentPage === totalPages" class="filter-btn clear disabled:opacity-50">Next</button>
                 </div>
             </div>
@@ -243,7 +243,7 @@ const exportTradeReport = () => {
 
 .logo-text {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: calc(1.2rem * var(--font-scale));
     color: #1A1E2B;
 }
 
@@ -257,7 +257,7 @@ const exportTradeReport = () => {
     border: 1px solid #E2E6EC;
     border-radius: 40px;
     padding: 6px 14px;
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -295,13 +295,13 @@ const exportTradeReport = () => {
 
 .filter-group i {
     color: #9AA4BF;
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
 }
 
 .date-input-compact {
     border: none;
     background: transparent;
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
     font-family: inherit;
     padding: 5px 0;
     width: 105px;
@@ -318,7 +318,7 @@ const exportTradeReport = () => {
 .filter-btn {
     padding: 5px 14px;
     border-radius: 30px;
-    font-size: 0.65rem;
+    font-size: calc(0.65rem * var(--font-scale));
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -383,12 +383,12 @@ const exportTradeReport = () => {
 
 .script-name {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--font-scale));
     color: #1A1E2B;
 }
 
 .order-type-badge {
-    font-size: 0.55rem;
+    font-size: calc(0.55rem * var(--font-scale));
     padding: 3px 10px;
     border-radius: 30px;
     font-weight: 600;
@@ -407,7 +407,7 @@ const exportTradeReport = () => {
 
 .pnl {
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
 }
 
 .pnl.positive {
@@ -421,7 +421,7 @@ const exportTradeReport = () => {
 .history-card-details {
     display: flex;
     justify-content: space-between;
-    font-size: 0.65rem;
+    font-size: calc(0.65rem * var(--font-scale));
     color: #8C94A8;
     padding-top: 8px;
     border-top: 1px solid #F0F2F8;
@@ -438,7 +438,7 @@ const exportTradeReport = () => {
 
 .detail-item i {
     width: 12px;
-    font-size: 0.6rem;
+    font-size: calc(0.6rem * var(--font-scale));
 }
 
 .history-footer {
@@ -454,7 +454,7 @@ const exportTradeReport = () => {
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--font-scale));
 }
 
 .footer-row:not(:last-child) {
@@ -467,12 +467,12 @@ const exportTradeReport = () => {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--font-scale));
 }
 
 .footer-value {
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
 }
 
 .footer-value.net-profit {
@@ -494,13 +494,13 @@ const exportTradeReport = () => {
 }
 
 .empty-history i {
-    font-size: 2.5rem;
+    font-size: calc(2.5rem * var(--font-scale));
     margin-bottom: 12px;
     opacity: 0.5;
 }
 
 .empty-history p {
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
     font-weight: 500;
 }
 </style>

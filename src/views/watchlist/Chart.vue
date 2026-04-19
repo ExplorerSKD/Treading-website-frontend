@@ -6,9 +6,9 @@ import TradingViewChart from '@/components/TradingViewChart.vue';
 <template>
     <div class="h-screen ">
         <div class="flex items-center gap-2">
-            <button @click="$router.back" class="text-black text-[14px] px-4">
+            <button @click="$router.back" class="text-black text-[calc(14px*var(--font-scale))] px-4">
                 < </button>
-                    <h1 class="text-[29.2px] font-medium text-custom-primary">
+                    <h1 class="text-[calc(29.2px*var(--font-scale))] font-medium text-custom-primary">
                         Chart
                     </h1>
         </div>

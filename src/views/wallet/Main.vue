@@ -14,28 +14,28 @@
         <div class="bg-custom-primary rounded-[2rem] p-6 text-white shadow-xl shadow-black/10">
             <div class="grid grid-cols-2 gap-y-6 gap-x-4 mb-8">
                 <div>
-                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Ledger Balance</p>
+                    <p class="text-white/40 text-[calc(10px*var(--font-scale))] font-black uppercase tracking-widest mb-1">Ledger Balance</p>
                     <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(Number(wallet.balance || 0))) }}
                     </p>
                 </div>
 
                 <div>
-                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Available Margin</p>
+                    <p class="text-white/40 text-[calc(10px*var(--font-scale))] font-black uppercase tracking-widest mb-1">Available Margin</p>
                     <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(availableMargin)) }}
                     </p>
                 </div>
 
                 <div>
-                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Utilised Fund</p>
+                    <p class="text-white/40 text-[calc(10px*var(--font-scale))] font-black uppercase tracking-widest mb-1">Utilised Fund</p>
                     <p class="text-lg font-bold">
                         ₹{{ formatCurrency(Math.round(utilizedFunds)) }}
                     </p>
                 </div>
 
                 <div>
-                    <p class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">MTM (P&L)</p>
+                    <p class="text-white/40 text-[calc(10px*var(--font-scale))] font-black uppercase tracking-widest mb-1">MTM (P&L)</p>
                     <p class="text-lg font-bold" :class="{ 'text-green-400': totalPnl > 0, 'text-red-400': totalPnl < 0 }">
                         ₹{{ formatCurrency(Math.round(totalPnl || 0)) }}
                     </p>

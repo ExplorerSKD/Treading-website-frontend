@@ -76,7 +76,7 @@
 
              <!-- Position List -->
              <div v-if="!positions.length" class="empty-state">
-                <i class="fas fa-chart-simple" style="font-size: 24px; margin-bottom: 6px; opacity: 0.4; display: block;"></i>
+                <i class="fas fa-chart-simple" style="font-size: calc(24px * var(--font-scale)); margin-bottom: 6px; opacity: 0.4; display: block;"></i>
                 No {{ activePositionTab.toLowerCase() }} positions
              </div>
 
@@ -90,7 +90,7 @@
                  <div class="pos-left">
                    <div class="pos-symbol flex items-center gap-2">
                        {{ pos.symbol }} 
-                       <span class="text-[0.6rem] bg-gray-100 text-gray-500 px-1 font-semibold rounded">{{ pos.exchange }}</span>
+                       <span class="text-[calc(0.6rem*var(--font-scale))] bg-gray-100 text-gray-500 px-1 font-semibold rounded">{{ pos.exchange }}</span>
                    </div>
                    <div class="pos-details">
                      <span>Avg Price: <span class="value">{{ formatPrice(pos.average_price) }}</span></span>
@@ -107,7 +107,7 @@
                    
                    <div v-if="activePositionTab === 'CLOSED'" class="ltp-value">
                      Exit: <span>{{ getExitPrice(pos) }}</span>
-                     <div class="text-[0.55rem] mt-1 text-gray-400">Bkg: ₹{{ formatNumber(pos.brokerage) }}</div>
+                     <div class="text-[calc(0.55rem*var(--font-scale))] mt-1 text-gray-400">Bkg: ₹{{ formatNumber(pos.brokerage) }}</div>
                    </div>
                    <div v-else class="ltp-value">
                      LTP: <span>{{ formatPrice(getLive(pos).ltp) }}</span>
@@ -123,28 +123,28 @@
              <div class="section-title-small">Detailed Positions</div>
              
              <div v-if="!positions.length" class="empty-state">
-                <i class="fas fa-chart-line" style="font-size: 20px; margin-bottom: 8px; opacity: 0.4; display: block;"></i>
+                <i class="fas fa-chart-line" style="font-size: calc(20px * var(--font-scale)); margin-bottom: 8px; opacity: 0.4; display: block;"></i>
                 No positions found
              </div>
              
              <div v-else class="individual-positions-list">
                  <div v-for="pos in positions" :key="pos.id" class="individual-pnl-card" @click="openExitModal(pos)">
                     <div class="pnl-left-info" style="flex:1">
-                      <div class="pnl-symbol flex items-center gap-2" style="font-weight:700; font-size:13px; margin-bottom:4px">
+                      <div class="pnl-symbol flex items-center gap-2" style="font-weight:700; font-size: calc(13px * var(--font-scale)); margin-bottom:4px">
                           {{ pos.symbol }} 
-                          <span style="font-size: 10px; color: #8B98A9;" :class="pos.side === 'BUY' ? 'text-[#059669]' : 'text-[#B22234]'">{{ pos.side }}</span>
+                          <span style="font-size: calc(10px * var(--font-scale)); color: #8B98A9;" :class="pos.side === 'BUY' ? 'text-[#059669]' : 'text-[#B22234]'">{{ pos.side }}</span>
                       </div>
-                      <div class="pnl-detail-text" style="font-size:10px; color:#6B7280; display:flex; gap:12px; flex-wrap:wrap">
+                      <div class="pnl-detail-text" style="font-size: calc(10px * var(--font-scale)); color:#6B7280; display:flex; gap:12px; flex-wrap:wrap">
                         <span>Qty: <span style="font-weight:600">{{ pos.net_quantity }}</span></span>
                         <span>Avg: <span style="font-weight:600">{{ formatPrice(pos.average_price) }}</span></span>
                         <span>LTP: <span style="font-weight:600">{{ formatPrice(getLive(pos).ltp) }}</span></span>
                       </div>
                     </div>
                     <div class="pnl-right-value" style="text-align:right">
-                      <div class="individual-pnl-amount" :class="getPnlClass(getDisplayedPnl(pos))" style="font-size:1rem; font-weight:700">
+                      <div class="individual-pnl-amount" :class="getPnlClass(getDisplayedPnl(pos))" style="font-size: calc(1rem * var(--font-scale)); font-weight:700">
                           <span v-if="getDisplayedPnl(pos) >= 0">+</span>{{ formatUSD(getDisplayedPnl(pos)) }}
                       </div>
-                      <div class="order-type-badge-sm" :class="pos.side === 'BUY' ? 'long' : 'short'" style="font-size:0.65rem; font-weight:600; padding:2px 6px; border-radius:30px; display:inline-block; margin-top:4px;">
+                      <div class="order-type-badge-sm" :class="pos.side === 'BUY' ? 'long' : 'short'" style="font-size: calc(0.65rem * var(--font-scale)); font-weight:600; padding:2px 6px; border-radius:30px; display:inline-block; margin-top:4px;">
                           Active
                       </div>
                     </div>
@@ -156,7 +156,7 @@
     </div>
 
     <!-- Pagination -->
-    <div v-if="totalPages > 1 && !loading" class="flex text-[13px] font-semibold justify-center items-center py-2 space-x-4 text-gray-500">
+    <div v-if="totalPages > 1 && !loading" class="flex text-[calc(13px*var(--font-scale))] font-semibold justify-center items-center py-2 space-x-4 text-gray-500">
         <button @click="goToPreviousPage" :disabled="currentPage === 1"
             class="px-3 py-1 bg-gray-100 rounded-lg disabled:opacity-30">
             <i class="fas fa-chevron-left"></i>
@@ -351,12 +351,12 @@ const realizedPnl = computed(() => {
 
 .exit-all-btn i {
   color: white;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale));
 }
 
 .exit-all-btn span {
   color: white;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale));
   font-weight: 600;
 }
 
@@ -390,7 +390,7 @@ const realizedPnl = computed(() => {
   flex: 1;
   text-align: center;
   padding: 10px 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-scale));
   font-weight: 600;
   border-radius: 40px;
   cursor: pointer;
@@ -428,7 +428,7 @@ const realizedPnl = computed(() => {
 }
 
 .summary-header span {
-  font-size: 11px;
+  font-size: calc(11px * var(--font-scale));
   font-weight: 600;
   color: #374151;
   text-transform: uppercase;
@@ -457,7 +457,7 @@ const realizedPnl = computed(() => {
 }
 
 .summary-label {
-  font-size: 9px;
+  font-size: calc(9px * var(--font-scale));
   font-weight: 600;
   color: #8B98A9;
   text-transform: uppercase;
@@ -466,7 +466,7 @@ const realizedPnl = computed(() => {
 }
 
 .summary-value {
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale));
   font-weight: 700;
 }
 
@@ -479,7 +479,7 @@ const realizedPnl = computed(() => {
 }
 
 .center-value {
-  font-size: 22px;
+  font-size: calc(22px * var(--font-scale));
   font-weight: 800;
 }
 
@@ -496,7 +496,7 @@ const realizedPnl = computed(() => {
   flex: 1;
   text-align: center;
   padding: 8px 0;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale));
   font-weight: 600;
   border-radius: 36px;
   cursor: pointer;
@@ -536,7 +536,7 @@ const realizedPnl = computed(() => {
 
 .pos-symbol {
     font-weight: 700;
-    font-size: 0.72rem;
+    font-size: calc(0.72rem * var(--font-scale));
     color: #111827;
     margin-bottom: 4px;
   }
@@ -544,7 +544,7 @@ const realizedPnl = computed(() => {
 .pos-details {
     display: flex;
     gap: 16px;
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
     color: #6B7280;
   }
 
@@ -562,7 +562,7 @@ const realizedPnl = computed(() => {
 }
 
 .order-type-badge {
-    font-size: 0.65rem;
+    font-size: calc(0.65rem * var(--font-scale));
     font-weight: 700;
     padding: 3px 10px;
     border-radius: 20px;
@@ -581,7 +581,7 @@ const realizedPnl = computed(() => {
 }
 
 .pnl-right-value {
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     font-weight: 700;
     margin-bottom: 5px;
   }
@@ -595,7 +595,7 @@ const realizedPnl = computed(() => {
 }
 
 .ltp-value {
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--font-scale));
     font-weight: 500;
     color: #6B7280;
   }
@@ -617,7 +617,7 @@ const realizedPnl = computed(() => {
 }
 
 .section-title-small {
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale));
   font-weight: 700;
   color: #374151;
   margin: 0 0 10px 0;
@@ -644,7 +644,7 @@ const realizedPnl = computed(() => {
   text-align: center;
   padding: 40px 20px;
   color: #9CA3AF;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-scale));
   background: #FAFCFE;
   border-radius: 20px;
   margin-top: 8px;

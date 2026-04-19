@@ -46,8 +46,8 @@ const navItems = [
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: transparent;
 }
-.nav-item i { font-size: 1.25rem; transition: all 0.2s ease; margin-bottom: 3px;}
-.nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px; transition: color 0.2s ease; }
+.nav-item i { font-size: calc(1.25rem * var(--font-scale)); transition: all 0.2s ease; margin-bottom: 3px;}
+.nav-label { font-size: calc(0.65rem * var(--font-scale)); font-weight: 600; letter-spacing: 0.2px; transition: color 0.2s ease; }
 .nav-item:hover { color: var(--brand-dark-green, #1F4529); }
 
 /* Flat Contained Active Button */
@@ -62,7 +62,7 @@ const navItems = [
   box-shadow: 0 4px 10px rgba(31, 69, 41, 0.1); 
   border: none;
 }
-.nav-item.active i { font-size: 1.3rem; color: white; margin-bottom: 2px; }
+.nav-item.active i { font-size: calc(1.3rem * var(--font-scale)); color: white; margin-bottom: 2px; }
 .nav-item.active .nav-label { color: white; margin-bottom: 0px; }
 
 :global(body.dark) .nav-item { color: #9CA3AF; }

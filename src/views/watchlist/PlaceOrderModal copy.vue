@@ -30,7 +30,7 @@
                         <p class="text-base font-semibold" :class="priceColor">
                             {{ live.ltp }}
                         </p>
-                        <p class="text-[11px]" :class="priceColor">
+                        <p class="text-[calc(11px*var(--font-scale))]" :class="priceColor">
                             {{ live.change.toFixed(2) }} ({{ live.changeP.toFixed(2) }}%)
                         </p>
                     </div>
@@ -38,7 +38,7 @@
             </div>
 
             <!-- OHLC -->
-            <div class="grid grid-cols-4 text-[11px] text-custom-grey border-b border-custom-border">
+            <div class="grid grid-cols-4 text-[calc(11px*var(--font-scale))] text-custom-grey border-b border-custom-border">
                 <div class="px-3 py-1 font-semibold">O: {{ live.open }}</div>
                 <div class="px-3 py-1 font-semibold">H: {{ live.high }}</div>
                 <div class="px-3 py-1 font-semibold">L: {{ live.low }}</div>
@@ -164,15 +164,15 @@
                 <!-- calculation -->
                 <div v-if="!side" class="flex items-center justify-between mb-4">
                     <div>
-                        <p class="text-[13.33px] font-semibold text-custom-grey">Avail. Funds = <span
+                        <p class="text-[calc(13.33px*var(--font-scale))] font-semibold text-custom-grey">Avail. Funds = <span
                                 class="text-custom-text">{{ fundCalculation.availFunds }}</span></p>
-                        <p class="text-[13.33px] font-semibold text-custom-grey">Req Margin = <span
+                        <p class="text-[calc(13.33px*var(--font-scale))] font-semibold text-custom-grey">Req Margin = <span
                                 class="text-custom-text">{{ fundCalculation.reqMargin }}</span></p>
                     </div>
                     <div>
-                        <p class="text-[13.33px] font-semibold text-custom-grey">Intraday Margin = <span
+                        <p class="text-[calc(13.33px*var(--font-scale))] font-semibold text-custom-grey">Intraday Margin = <span
                                 class="text-custom-text">{{ fundCalculation.reqFunds }}</span></p>
-                        <p class="text-[13.33px] font-semibold text-custom-grey">Carry Margin = <span
+                        <p class="text-[calc(13.33px*var(--font-scale))] font-semibold text-custom-grey">Carry Margin = <span
                                 class="text-custom-text">{{ fundCalculation.reqCarry }}</span></p>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
                         <p class="text-base font-semibold" :class="getColor(live.change)">
                             {{ formatNumber(live.ltp) }}
                         </p>
-                        <p class="text-[12px]" :class="getColor(live.change)">
+                        <p class="text-[calc(12px*var(--font-scale))]" :class="getColor(live.change)">
                             {{ formatNumber(live.change) }} ({{ formatNumber(live.changeP) }}%)
                         </p>
                     </div>
@@ -51,7 +51,7 @@
             </div>
 
             <!-- OHLC -->
-            <div class="flex justify-between px-2 py-1 text-[12px] text-custom-grey border-b border-custom-border">
+            <div class="flex justify-between px-2 py-1 text-[calc(12px*var(--font-scale))] text-custom-grey border-b border-custom-border">
                 <div class="font-semibold">O: {{ formatNumber(live.open) }}</div>
                 <div class="font-semibold">H: {{ formatNumber(live.high) }}</div>
                 <div class="font-semibold">L: {{ formatNumber(live.low) }}</div>
@@ -59,7 +59,7 @@
             </div>
 
             <!-- LOT INFO -->
-            <div class="flex justify-between px-2 py-1 text-[12px] bg-custom-border/30 rounded">
+            <div class="flex justify-between px-2 py-1 text-[calc(12px*var(--font-scale))] bg-custom-border/30 rounded">
                 <p class="font-semibold">Lot Size: {{ lotSize }}</p>
                 <p class="font-semibold">
                     {{ isLotSelected ? 'Qty' : 'Lots' }}: {{ isLotSelected ? quantity : lots?.toFixed(2) }}
@@ -70,7 +70,7 @@
             <div class="p-4 space-y-3">
                 <!-- ORDER TYPE -->
                 <!-- TABS -->
-                <!-- <div class="flex text-[14px] justify-between border-b border-custom-border">
+                <!-- <div class="flex text-[calc(14px*var(--font-scale))] justify-between border-b border-custom-border">
                     <button @click="activeTab = 'LIMIT'" :class="activeTab === 'LIMIT' ? activeBtn : inactiveBtn">
                         LIMIT
                     </button>
@@ -137,13 +137,13 @@
             <!-- MARGIN CALCULATION -->
             <div class="p-4 border-t border-custom-border">
                 <div class="flex items-center justify-between mb-4">
-                    <p class="text-[12px] font-semibold text-custom-grey">
+                    <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                         Intraday : <span class="text-custom-text">{{ formatNumber(fundCalculation.reqFunds) }}</span>
                     </p>
-                    <p class="text-[12px] font-semibold text-custom-grey">
+                    <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                         Carry : <span class="text-custom-text">{{ formatNumber(fundCalculation.reqCarry) }}</span>
                     </p>
-                    <p class="text-[12px] font-semibold text-custom-grey">
+                    <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                         Avail. Margin = <span class="text-custom-text">{{ formatNumber(availableMargin) }}</span>
                     </p>
                 </div>

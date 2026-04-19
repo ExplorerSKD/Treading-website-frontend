@@ -44,7 +44,7 @@
                                 {{ n.title }}
                             </p>
 
-                            <span class="text-[10px] text-custom-grey">
+                            <span class="text-[calc(10px*var(--font-scale))] text-custom-grey">
                                 {{ formatTime(n.created_at) }}
                             </span>
                         </div>

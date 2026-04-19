@@ -24,39 +24,39 @@
                 <div class="flex-1 min-w-0">
                     <div class="flex justify-between items-start mb-1">
                         <div class="min-w-0">
-                            <p class="text-[15px] font-bold text-custom-primary truncate">
+                            <p class="text-[calc(15px*var(--font-scale))] font-bold text-custom-primary truncate">
                                 {{ item.type }}
                             </p>
-                            <p class="text-[11px] text-gray-500 font-medium">
+                            <p class="text-[calc(11px*var(--font-scale))] text-gray-500 font-medium">
                                 {{ formatDate(item.created_at) }}
                             </p>
                         </div>
 
                         <div class="text-right flex-shrink-0 ml-2">
-                            <p class="font-black text-[15px] text-custom-primary leading-tight">
+                            <p class="font-black text-[calc(15px*var(--font-scale))] text-custom-primary leading-tight">
                                 ₹{{ formatAmount(item.amount) }}
                             </p>
-                            <p class="text-[10px] font-black uppercase tracking-wider mt-0.5" :class="statusClass(item.status)">
+                            <p class="text-[calc(10px*var(--font-scale))] font-black uppercase tracking-wider mt-0.5" :class="statusClass(item.status)">
                                 {{ item.status }}
                             </p>
                         </div>
                     </div>
 
                     <!-- REMARK (ONLY IF PRESENT) -->
-                    <div v-if="item.admin_remark" class="mt-3 text-[11px] text-custom-red bg-red-50/50 p-2.5 rounded-xl border border-red-100/50">
+                    <div v-if="item.admin_remark" class="mt-3 text-[calc(11px*var(--font-scale))] text-custom-red bg-red-50/50 p-2.5 rounded-xl border border-red-100/50">
                         <span class="font-bold opacity-70">Remark:</span> {{ item.admin_remark }}
                     </div>
 
                     <!-- SCREENSHOT AND EDIT BUTTON -->
                     <div class="mt-4 flex flex-wrap items-center gap-2">
                         <a v-if="item.screenshot_url" :href="getScreenshotUrl(item.screenshot_url)" target="_blank"
-                            class="text-[12px] px-4 py-2 bg-custom-primary text-white rounded-xl font-bold transition-all hover:bg-black active:scale-95">
+                            class="text-[calc(12px*var(--font-scale))] px-4 py-2 bg-custom-primary text-white rounded-xl font-bold transition-all hover:bg-black active:scale-95">
                             View Screenshot
                         </a>
 
                         <!-- EDIT BUTTON (Only for PENDING transactions) -->
                         <button v-if="item.status === 'PENDING'" @click="editTransaction(item)"
-                            class="text-[12px] px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-xl font-bold transition-all hover:bg-blue-100 active:scale-95">
+                            class="text-[calc(12px*var(--font-scale))] px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-xl font-bold transition-all hover:bg-blue-100 active:scale-95">
                             Edit Request
                         </button>
                     </div>

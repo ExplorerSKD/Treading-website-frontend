@@ -105,7 +105,7 @@
                 </div>
 
                 <div style="margin-top: 15px;">
-                    <button type="button" @click="$emit('demoLogin')" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
+                    <button type="button" @click="$emit('demoLogin')" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: calc(15px * var(--font-scale)); font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
                         <i class="fas fa-play-circle"></i> Try Demo Account
                     </button>
                 </div>
@@ -328,7 +328,7 @@ const handleSubmit = async () => {
 }
 
 .brand-logo i {
-    font-size: 30px;
+    font-size: calc(30px * var(--font-scale));
     margin-right: 15px;
     background: linear-gradient(to right, #0b3200, #1a5c00);
     color: white;
@@ -341,7 +341,7 @@ const handleSubmit = async () => {
 }
 
 .brand-logo h1 {
-    font-size: 26px;
+    font-size: calc(26px * var(--font-scale));
     font-weight: 700;
     color: #0b3200;
     margin: 0;
@@ -353,7 +353,7 @@ const handleSubmit = async () => {
 }
 
 .register-header h2 {
-    font-size: 28px;
+    font-size: calc(28px * var(--font-scale));
     color: #333;
     margin-bottom: 8px;
     font-weight: 700;
@@ -361,7 +361,7 @@ const handleSubmit = async () => {
 
 .register-header p {
     color: #666;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     margin: 0;
 }
 
@@ -379,7 +379,7 @@ const handleSubmit = async () => {
     margin-bottom: 8px;
     color: #555;
     font-weight: 500;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     text-align: left;
 }
 
@@ -393,7 +393,7 @@ const handleSubmit = async () => {
     top: 50%;
     transform: translateY(-50%);
     color: #777;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     z-index: 10;
 }
 
@@ -402,7 +402,7 @@ const handleSubmit = async () => {
     padding: 14px 20px 14px 50px;
     border: 2px solid #e0e0e0;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     transition: all 0.3s;
     background: #f9f9f9;
 }
@@ -429,7 +429,7 @@ const handleSubmit = async () => {
     border: none;
     color: #777;
     cursor: pointer;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -440,7 +440,7 @@ const handleSubmit = async () => {
     display: flex;
     align-items: flex-start;
     margin-bottom: 25px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     text-align: left;
 }
 
@@ -468,7 +468,7 @@ const handleSubmit = async () => {
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
@@ -506,14 +506,14 @@ const handleSubmit = async () => {
 
 .divider span {
     padding: 0 15px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     font-weight: 500;
 }
 
 .login-link {
     text-align: center;
     margin-top: 15px;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     color: #666;
 }
 
@@ -530,21 +530,21 @@ const handleSubmit = async () => {
 
 .error-message {
     color: #e74c3c;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     margin-top: 5px;
     text-align: left;
 }
 
 /* Benefits section styling */
 .benefits-title {
-    font-size: 30px;
+    font-size: calc(30px * var(--font-scale));
     margin-bottom: 20px;
     font-weight: 700;
     margin-top: 0;
 }
 
 .benefits-description {
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     opacity: 0.9;
     line-height: 1.6;
     margin-bottom: 35px;
@@ -572,7 +572,7 @@ const handleSubmit = async () => {
 }
 
 .benefit-icon {
-    font-size: 20px;
+    font-size: calc(20px * var(--font-scale));
     margin-right: 15px;
     background: rgba(255, 255, 255, 0.2);
     min-width: 45px;
@@ -588,13 +588,13 @@ const handleSubmit = async () => {
 }
 
 .benefit-text h4 {
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     margin: 0 0 5px 0;
     font-weight: 600;
 }
 
 .benefit-text p {
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     opacity: 0.8;
     margin: 0;
 }
@@ -604,7 +604,7 @@ const handleSubmit = async () => {
     padding: 15px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     border-left: 4px solid #4CAF50;
     text-align: left;
 }

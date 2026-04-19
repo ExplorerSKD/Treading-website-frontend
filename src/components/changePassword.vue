@@ -17,7 +17,7 @@
 
       <div class="space-y-4 p-1 mb-2">
         <div>
-          <label class="block text-base text-gray-800 mb-1 text-[11px]">Current Password</label>
+          <label class="block text-base text-gray-800 mb-1 text-[calc(11px*var(--font-scale))]">Current Password</label>
           <div class="bg-gray-100 border border-gray-200 rounded-md p-2.5">
             <input v-model="formData.old_password" type="password" placeholder="Enter Current Password"
               class="w-full bg-transparent text-base font-medium text-gray-900 outline-none" />
@@ -25,7 +25,7 @@
         </div>
 
         <div>
-          <label class="block text-base text-gray-800 mb-1 text-[11px]">New Password</label>
+          <label class="block text-base text-gray-800 mb-1 text-[calc(11px*var(--font-scale))]">New Password</label>
           <div class="bg-gray-100 border border-gray-200 rounded-md p-2.5">
             <input v-model="formData.new_password" type="password" placeholder="Enter New Password"
               class="w-full bg-transparent text-base font-medium text-gray-900 outline-none" />
@@ -33,7 +33,7 @@
         </div>
 
         <div>
-          <label class="block text-base text-gray-800 mb-1 text-[11px]">Confirm Password</label>
+          <label class="block text-base text-gray-800 mb-1 text-[calc(11px*var(--font-scale))]">Confirm Password</label>
           <div class="bg-gray-100 border border-gray-200 rounded-md p-2.5">
             <input v-model="formData.confirm_password" type="password" placeholder="Confirm Password"
               class="w-full bg-transparent text-base font-medium  text-gray-900 outline-none" />

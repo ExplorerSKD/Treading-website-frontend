@@ -58,7 +58,7 @@
 
                         <div class="relative flex items-center gap-4 py-1">
                             <div class="h-px bg-white/10 w-full "></div>
-                            <p class="text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">OR</p>
+                            <p class="text-white/30 text-[calc(10px*var(--font-scale))] font-black uppercase tracking-[0.2em]">OR</p>
                             <div class="h-px bg-white/10 w-full "></div>
                         </div>
 

@@ -54,8 +54,8 @@
       </div>
 
       <div v-else-if="filteredOrders.length === 0" class="empty-state">
-        <i v-if="searchQuery" class="fas fa-search" style="font-size: 28px; margin-bottom: 8px; opacity: 0.4; display: block;"></i>
-        <i v-else class="fas fa-box-open" style="font-size: 28px; margin-bottom: 8px; opacity: 0.4; display: block;"></i>
+        <i v-if="searchQuery" class="fas fa-search" style="font-size: calc(28px * var(--font-scale)); margin-bottom: 8px; opacity: 0.4; display: block;"></i>
+        <i v-else class="fas fa-box-open" style="font-size: calc(28px * var(--font-scale)); margin-bottom: 8px; opacity: 0.4; display: block;"></i>
         {{ searchQuery ? 'No results for "' + searchQuery + '"' : 'No ' + activeOrderTab.toLowerCase() + ' orders found' }}
       </div>
       
@@ -69,7 +69,7 @@
             <div class="order-header-row">
               <div class="flex items-center gap-2">
                  <span class="pair">{{ order.symbol }}</span>
-                 <span class="text-[0.6rem] bg-gray-100 text-gray-500 px-1 font-semibold rounded">
+                 <span class="text-[calc(0.6rem*var(--font-scale))] bg-gray-100 text-gray-500 px-1 font-semibold rounded">
                     {{ order.exchange }}
                  </span>
               </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="compact-row">
-              <span class="compact-label">PRICE <span v-if="order.average_price && order.average_price != '0.00'" class="text-[9px] lowercase opacity-50">(avg)</span></span>
+              <span class="compact-label">PRICE <span v-if="order.average_price && order.average_price != '0.00'" class="text-[calc(9px*var(--font-scale))] lowercase opacity-50">(avg)</span></span>
               <span class="price-value" :class="order.transaction_type === 'BUY' ? 'text-[#059669]' : 'text-[#B22234]'">
                  {{ order.status === 'OPEN' ? getOrderPrice(order) : (formatNumber(order.average_price) !== '0.00' ? formatNumber(order.average_price) : '-') }}
               </span>
@@ -127,7 +127,7 @@
       </div>
 
       <!-- Pagination -->
-      <div v-if="totalPages > 1 && !loading" class="flex text-[13px] font-semibold justify-center items-center py-4 space-x-4 text-gray-500">
+      <div v-if="totalPages > 1 && !loading" class="flex text-[calc(13px*var(--font-scale))] font-semibold justify-center items-center py-4 space-x-4 text-gray-500">
             <button @click="goToPreviousPage" :disabled="currentPage === 1"
                 class="px-3 py-1 bg-gray-100 rounded-lg disabled:opacity-30">
                 <i class="fas fa-chevron-left"></i>
@@ -274,7 +274,7 @@ const getStatusIcon = (status) => {
     top: 50%;
     transform: translateY(-50%);
     color: #9AA4BF;
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--font-scale));
 }
 
 .search-input {
@@ -283,7 +283,7 @@ const getStatusIcon = (status) => {
     background: #F8F9FC;
     border: 1px solid #E8ECF0;
     border-radius: 30px;
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--font-scale));
     font-family: 'Inter', sans-serif;
     color: #1F2937;
 }
@@ -306,7 +306,7 @@ const getStatusIcon = (status) => {
     transform: translateY(-50%);
     color: #9AA4BF;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--font-scale));
     display: none;
 }
 
@@ -328,7 +328,7 @@ const getStatusIcon = (status) => {
   text-align: center;
   padding: 8px 0;
   font-weight: 500;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale));
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.2s;
@@ -370,13 +370,13 @@ const getStatusIcon = (status) => {
 
 .pair {
   font-weight: 800;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale));
   color: #111827;
   letter-spacing: -0.2px;
 }
 
 .position-badge {
-  font-size: 10px;
+  font-size: calc(10px * var(--font-scale));
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 30px;
@@ -401,7 +401,7 @@ const getStatusIcon = (status) => {
 }
 
 .compact-label {
-  font-size: 9px;
+  font-size: calc(9px * var(--font-scale));
   font-weight: 600;
   color: #8B98A9;
   text-transform: uppercase;
@@ -409,7 +409,7 @@ const getStatusIcon = (status) => {
 }
 
 .price-value {
-  font-size: 15px;
+  font-size: calc(15px * var(--font-scale));
   font-weight: 800;
 }
 
@@ -429,14 +429,14 @@ const getStatusIcon = (status) => {
 }
 
 .info-label-sm {
-  font-size: 9px;
+  font-size: calc(9px * var(--font-scale));
   font-weight: 600;
   color: #8B98A9;
   text-transform: uppercase;
 }
 
 .info-value-sm {
-  font-size: 11px;
+  font-size: calc(11px * var(--font-scale));
   font-weight: 700;
   color: #1F2937;
 }
@@ -445,7 +445,7 @@ const getStatusIcon = (status) => {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 10px;
+  font-size: calc(10px * var(--font-scale));
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 20px;
@@ -454,7 +454,7 @@ const getStatusIcon = (status) => {
 }
 
 .order-type-badge-sm i {
-  font-size: 8px;
+  font-size: calc(8px * var(--font-scale));
 }
 
 /* Time row compact */
@@ -466,7 +466,7 @@ const getStatusIcon = (status) => {
 }
 
 .time-value-sm {
-  font-size: 11px;
+  font-size: calc(11px * var(--font-scale));
   font-weight: 600;
   color: #8B98A9;
 }
@@ -476,7 +476,7 @@ const getStatusIcon = (status) => {
   padding: 4px 8px;
   background: #FEF9E7;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: calc(10px * var(--font-scale));
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -498,7 +498,7 @@ const getStatusIcon = (status) => {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 11px;
+  font-size: calc(11px * var(--font-scale));
   font-weight: 700;
 }
 
@@ -520,7 +520,7 @@ const getStatusIcon = (status) => {
   border: 1px solid #E5E9F0;
   border-radius: 30px;
   padding: 5px 14px;
-  font-size: 11px;
+  font-size: calc(11px * var(--font-scale));
   font-weight: 600;
   color: #6B7280;
   cursor: pointer;
@@ -540,7 +540,7 @@ const getStatusIcon = (status) => {
   text-align: center;
   padding: 40px 16px;
   color: #9CA3AF;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-scale));
   background: #FAFCFE;
   border-radius: 20px;
   margin-top: 16px;

@@ -9,8 +9,8 @@
             <i class="fas fa-user"></i>
           </div>
           <div class="nav-title" style="display: flex; flex-direction: column; line-height: 1.2;">
-            <span style="font-size: 11px; font-weight: 500; color: #6B7280; text-transform: none; letter-spacing: 0.3px;">Hello 👋</span>
-            <span style="font-size: 16px; font-weight: 700; color: #065F46; text-transform: capitalize; letter-spacing: 0;">{{ profile.full_name || 'User' }}</span>
+            <span style="font-size: calc(11px * var(--font-scale)); font-weight: 500; color: #6B7280; text-transform: none; letter-spacing: 0.3px;">Hello 👋</span>
+            <span style="font-size: calc(16px * var(--font-scale)); font-weight: 700; color: #065F46; text-transform: capitalize; letter-spacing: 0;">{{ profile.full_name || 'User' }}</span>
           </div>
         </div>
       </template>
@@ -76,7 +76,7 @@
         <div class="lmo-wrapper">
           <div class="section-header" style="margin-bottom: 20px;">
             <div class="section-title"><i class="fas fa-chart-line mr-1"></i> Live Market Overview</div>
-            <span style="font-size: 0.75rem; color: var(--text-sub); font-weight: 700; display:flex; align-items:center; gap:4px;">
+            <span style="font-size: calc(0.75rem * var(--font-scale)); color: var(--text-sub); font-weight: 700; display:flex; align-items:center; gap:4px;">
               <i class="fas fa-sync-alt"></i> LIVE
             </span>
           </div>
@@ -339,7 +339,7 @@ function getChangeIcon(item) {
   color: #4B5563;
   cursor: pointer;
   border: 1px solid transparent;
-  font-size: 0.95rem;
+  font-size: var(--fs-md);
   transition: all 0.2s ease;
 }
 :global(body.dark) .nav-icon-profile { background: #071824 !important; color: #E8EAED !important; }
@@ -408,11 +408,11 @@ function getChangeIcon(item) {
 }
 .banner:active { transform: scale(0.98); }
 
-.banner-icon { font-size: 2.2rem; opacity: 0.9; }
+.banner-icon { font-size: calc(2.2rem * var(--font-scale)); opacity: 0.9; }
 
 .banner-content { flex: 1; margin-left: 16px; }
 .banner-title { font-weight: 800; margin-bottom: 4px; letter-spacing: 0.5px; }
-.banner-sub { font-size: 0.75rem; font-weight: 500; opacity: 0.9; }
+.banner-sub { font-size: var(--fs-xs); font-weight: 500; opacity: 0.9; }
 
 .arrow-circle {
   background: rgba(255, 255, 255, 0.2);
@@ -459,12 +459,12 @@ function getChangeIcon(item) {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: var(--fs-xl);
   transition: all 0.2s;
 }
 
 .qa-item span {
-  font-size: 0.7rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--text-sub, #4B5563);
 }
@@ -476,11 +476,11 @@ function getChangeIcon(item) {
   margin-bottom: 20px;
 }
 .section-title {
-  font-size: 0.85rem; font-weight: 800; color: var(--text-sub, #64748B);
+  font-size: var(--fs-sm); font-weight: 800; color: var(--text-sub, #64748B);
   text-transform: uppercase; letter-spacing: 0.5px;
   display: flex; align-items: center; gap: 8px;
 }
-.section-title i { color: var(--text-icon, #9CA3AF); font-size: 0.9rem;}
+.section-title i { color: var(--text-icon, #9CA3AF); font-size: var(--fs-md);}
 
 /* ===== OPTION CHAIN ===== */
 .chain-segment {
@@ -497,7 +497,7 @@ function getChangeIcon(item) {
 .chain-tab {
   padding: 8px 18px;
   border-radius: 20px;
-  font-size: 0.75rem; font-weight: 700;
+  font-size: var(--fs-sm); font-weight: 700;
   color: var(--text-sub, #4B5563);
   cursor: pointer;
 }
@@ -527,14 +527,14 @@ function getChangeIcon(item) {
   border: 1px solid var(--border-light, #E5E7EB);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; color: var(--brand-dark-green, #1F4529);
+  font-size: var(--fs-2xl); color: var(--brand-dark-green, #1F4529);
 }
 :global(body.dark) .inst-circle { background: #0f212e; border: 1px solid rgba(255, 255, 255, 0.1); color: #10B981; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .inst-item:hover .inst-circle { border-color: var(--brand-dark-green, #1F4529); }
 :global(body.dark) .inst-item:hover .inst-circle { border-color: #10B981; }
 
-.inst-name { font-size: 0.8rem; font-weight: 800; color: var(--text-main, #0F172A); text-align: center; }
-.inst-sub { font-size: 0.65rem; font-weight: 500; color: var(--text-sub, #6B7280); }
+.inst-name { font-size: var(--fs-base); font-weight: 800; color: var(--text-main, #0F172A); text-align: center; }
+.inst-sub { font-size: var(--fs-xs); font-weight: 500; color: var(--text-sub, #6B7280); }
 
 /* ===== EXPIRY TODAY ===== */
 .banner-expiry { background: linear-gradient(135deg, #EF4444 0%, #991B1B 100%); margin-top: 32px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);}
@@ -593,7 +593,7 @@ function getChangeIcon(item) {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.mkt-cmp-icon span { font-size: 0.5rem; font-weight: 800; }
+.mkt-cmp-icon span { font-size: var(--fs-xs); font-weight: 800; }
 
 /* Assign colors to major indices */
 .mkt-cmp-icon.nifty, .mkt-cmp-icon.nifty50 { background: #4F46E5; }
@@ -608,12 +608,12 @@ function getChangeIcon(item) {
   display: flex; justify-content: space-between; align-items: center;
 }
 
-.mkt-cmp-name { font-size: 0.6rem; font-weight: 800; color: var(--text-main, #0F172A); letter-spacing:-0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 2px;}
-.mkt-cmp-price { font-size: 0.65rem; font-weight: 800; color: var(--text-main, #0F172A); letter-spacing:-0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt-cmp-name { font-size: var(--fs-xs); font-weight: 800; color: var(--text-main, #0F172A); letter-spacing:-0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 2px;}
+.mkt-cmp-price { font-size: var(--fs-sm); font-weight: 800; color: var(--text-main, #0F172A); letter-spacing:-0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 :global(body.dark) .mkt-cmp-name, :global(body.dark) .mkt-cmp-price { color: #E8EAED; }
 
-.mkt-cmp-abs { font-size: 0.6rem; font-weight: 800; white-space: nowrap; flex-shrink: 0;}
-.mkt-cmp-pct { font-size: 0.6rem; font-weight: 800; white-space: nowrap; display: flex; align-items: center; gap: 1px; flex-shrink: 0;}
+.mkt-cmp-abs { font-size: var(--fs-xs); font-weight: 800; white-space: nowrap; flex-shrink: 0;}
+.mkt-cmp-pct { font-size: var(--fs-xs); font-weight: 800; white-space: nowrap; display: flex; align-items: center; gap: 1px; flex-shrink: 0;}
 
 .mkt-cmp-abs.up, .mkt-cmp-pct.up { color: #10B981; }
 .mkt-cmp-abs.down, .mkt-cmp-pct.down { color: #EF4444; }
@@ -624,7 +624,7 @@ function getChangeIcon(item) {
   position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%);
   background: rgba(0,0,0,0.85); color: white;
   padding: 10px 20px; border-radius: 30px;
-  font-size: 0.85rem; font-weight: 600;
+  font-size: var(--fs-base); font-weight: 600;
   z-index: 1000; pointer-events: none;
   animation: fadeInOut 2s ease forwards;
 }

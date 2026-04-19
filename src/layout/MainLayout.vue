@@ -16,7 +16,7 @@
                         <img :src="isActive(item.path) ? item.darkIcon : item.lightIcon" alt=""
                             :class="{ 'brightness-0 invert': isActive(item.path) }">
                     </div>
-                    <span class="font-semibold text-[15px]">{{ item.label }}</span>
+                    <span class="font-semibold text-[calc(15px*var(--font-scale))]">{{ item.label }}</span>
                 </router-link>
             </nav>
 

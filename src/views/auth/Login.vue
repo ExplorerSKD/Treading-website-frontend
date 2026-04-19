@@ -45,16 +45,16 @@
 
                 <div class="divider" style="margin: 25px 0 15px 0; display: flex; align-items: center; color: #999;">
                     <span style="flex: 1; height: 1px; background: #e0e0e0;"></span>
-                    <span style="padding: 0 15px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">OR</span>
+                    <span style="padding: 0 15px; font-size: calc(11px * var(--font-scale)); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">OR</span>
                     <span style="flex: 1; height: 1px; background: #e0e0e0;"></span>
                 </div>
 
                 <div class="action-links" style="text-align: center; margin-top: 15px;">
-                    <button type="button" @click="$emit('goToRegister')" style="width: 100%; border: 1.5px solid #0b3200; border-radius: 10px; background: transparent; color: #0b3200; padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                    <button type="button" @click="$emit('goToRegister')" style="width: 100%; border: 1.5px solid #0b3200; border-radius: 10px; background: transparent; color: #0b3200; padding: 14px; font-size: calc(15px * var(--font-scale)); font-weight: 700; cursor: pointer; transition: all 0.3s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 8px;">
                         <i class="fas fa-user-plus"></i> Create New Account
                     </button>
                     
-                    <button type="button" @click="handleDemoLogin" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
+                    <button type="button" @click="handleDemoLogin" style="width: 100%; padding: 14px; background: #fffbeb; color: #d97706; border: 1.5px solid #fde68a; border-radius: 10px; font-size: calc(15px * var(--font-scale)); font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s;">
                         <i class="fas fa-play-circle"></i> Try Demo Account
                     </button>
                 </div>
@@ -162,7 +162,7 @@
                 <div class="form-step" :class="{ 'active': forgotPasswordStep === 2 }">
                     <div class="form-group">
                         <label>Verification Code</label>
-                        <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                        <p style="color: #666; margin-bottom: 15px; font-size: calc(14px * var(--font-scale));">
                             Enter the 6-digit code sent to <strong>{{ forgotPasswordData.email }}</strong>
                         </p>
                         
@@ -679,7 +679,7 @@ function resetForgotPasswordForm() {
     background: none;
     border: none;
     color: #555;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     font-weight: 500;
     cursor: pointer;
     display: flex;
@@ -722,7 +722,7 @@ function resetForgotPasswordForm() {
 }
 
 .brand-logo i {
-    font-size: 32px;
+    font-size: calc(32px * var(--font-scale));
     margin-right: 15px;
     background: linear-gradient(to right, #0b3200, #1a5c00);
     color: white;
@@ -735,7 +735,7 @@ function resetForgotPasswordForm() {
 }
 
 .brand-logo h1 {
-    font-size: 28px;
+    font-size: calc(28px * var(--font-scale));
     font-weight: 700;
     color: #0b3200;
     margin: 0;
@@ -747,14 +747,14 @@ function resetForgotPasswordForm() {
 }
 
 .login-header h2 {
-    font-size: 32px;
+    font-size: calc(32px * var(--font-scale));
     color: #333;
     margin-bottom: 10px;
 }
 
 .login-header p {
     color: #666;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
 }
 
 .input-group {
@@ -768,7 +768,7 @@ function resetForgotPasswordForm() {
     margin-bottom: 8px;
     color: #555;
     font-weight: 500;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
 }
 
 .input-with-icon {
@@ -781,7 +781,7 @@ function resetForgotPasswordForm() {
     top: 50%;
     transform: translateY(-50%);
     color: #777;
-    font-size: 18px;
+    font-size: calc(18px * var(--font-scale));
     z-index: 10;
 }
 
@@ -790,7 +790,7 @@ function resetForgotPasswordForm() {
     padding: 16px 20px 16px 50px;
     border: 2px solid #e0e0e0;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     transition: all 0.3s;
     background: #f9f9f9;
 }
@@ -811,7 +811,7 @@ function resetForgotPasswordForm() {
     border: none;
     color: #777;
     cursor: pointer;
-    font-size: 18px;
+    font-size: calc(18px * var(--font-scale));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -823,7 +823,7 @@ function resetForgotPasswordForm() {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
 }
 
 .remember-me {
@@ -854,7 +854,7 @@ function resetForgotPasswordForm() {
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
@@ -880,7 +880,7 @@ function resetForgotPasswordForm() {
     padding: 15px;
     background: rgba(11, 50, 0, 0.05);
     border-radius: 8px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     color: #0b3200;
     border-left: 4px solid #0b3200;
     text-align: left;
@@ -893,14 +893,14 @@ function resetForgotPasswordForm() {
 
 /* Features section styling */
 .features-title {
-    font-size: 32px;
+    font-size: calc(32px * var(--font-scale));
     margin-bottom: 25px;
     font-weight: 700;
     margin-top: 0;
 }
 
 .features-description {
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     opacity: 0.9;
     line-height: 1.6;
     margin-bottom: 40px;
@@ -928,7 +928,7 @@ function resetForgotPasswordForm() {
 }
 
 .feature-icon {
-    font-size: 22px;
+    font-size: calc(22px * var(--font-scale));
     margin-right: 15px;
     background: rgba(255, 255, 255, 0.2);
     min-width: 50px;
@@ -944,13 +944,13 @@ function resetForgotPasswordForm() {
 }
 
 .feature-text h4 {
-    font-size: 18px;
+    font-size: calc(18px * var(--font-scale));
     margin: 0 0 5px 0;
     font-weight: 600;
 }
 
 .feature-text p {
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     opacity: 0.8;
     margin: 0;
 }
@@ -970,27 +970,27 @@ function resetForgotPasswordForm() {
     }
     
     .features-title {
-        font-size: 28px;
+        font-size: calc(28px * var(--font-scale));
     }
 
     .login-button {
         padding: 14px;
-        font-size: 15px;
+        font-size: calc(15px * var(--font-scale));
     }
 
     .input-with-icon input {
         padding: 12px 15px 12px 45px;
-        font-size: 14px;
+        font-size: calc(14px * var(--font-scale));
     }
 
     .input-with-icon i:not(.password-toggle i) {
         left: 15px;
-        font-size: 16px;
+        font-size: calc(16px * var(--font-scale));
     }
 
     .password-toggle {
         right: 15px;
-        font-size: 16px;
+        font-size: calc(16px * var(--font-scale));
     }
 }
 </style>
@@ -1033,7 +1033,7 @@ function resetForgotPasswordForm() {
 }
 
 .forgot-header h2 {
-    font-size: 32px;
+    font-size: calc(32px * var(--font-scale));
     color: #333;
     margin-bottom: 10px;
     font-weight: 700;
@@ -1041,7 +1041,7 @@ function resetForgotPasswordForm() {
 
 .forgot-header p {
     color: #666;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     line-height: 1.6;
 }
 
@@ -1100,7 +1100,7 @@ function resetForgotPasswordForm() {
 }
 
 .step-text {
-    font-size: 12px;
+    font-size: calc(12px * var(--font-scale));
     color: #999;
     text-align: center;
 }
@@ -1133,7 +1133,7 @@ function resetForgotPasswordForm() {
     margin-bottom: 8px;
     color: #555;
     font-weight: 500;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     text-align: left;
 }
 
@@ -1148,7 +1148,7 @@ function resetForgotPasswordForm() {
     width: 50px;
     height: 60px;
     text-align: center;
-    font-size: 24px;
+    font-size: calc(24px * var(--font-scale));
     font-weight: 600;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
@@ -1164,7 +1164,7 @@ function resetForgotPasswordForm() {
 .resend-code {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
 }
 
 .resend-code a {
@@ -1193,7 +1193,7 @@ function resetForgotPasswordForm() {
 
 .password-strength {
     margin-top: 8px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     display: flex;
     align-items: center;
 }
@@ -1225,7 +1225,7 @@ function resetForgotPasswordForm() {
     padding: 18px;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
@@ -1276,13 +1276,13 @@ function resetForgotPasswordForm() {
 }
 
 .success-icon {
-    font-size: 60px;
+    font-size: calc(60px * var(--font-scale));
     color: #27ae60;
     margin-bottom: 20px;
 }
 
 .success-message h3 {
-    font-size: 24px;
+    font-size: calc(24px * var(--font-scale));
     color: #333;
     margin-bottom: 10px;
 }
@@ -1296,7 +1296,7 @@ function resetForgotPasswordForm() {
 .back-to-login {
     text-align: center;
     margin-top: 30px;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     color: #666;
 }
 
@@ -1313,13 +1313,13 @@ function resetForgotPasswordForm() {
 
 .error-message {
     color: #e74c3c;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     margin-top: 5px;
 }
 
 /* Security section styling */
 .security-title {
-    font-size: 32px;
+    font-size: calc(32px * var(--font-scale));
     margin-bottom: 30px;
     font-weight: 700;
 }
@@ -1340,21 +1340,21 @@ function resetForgotPasswordForm() {
 }
 
 .security-tip i {
-    font-size: 20px;
+    font-size: calc(20px * var(--font-scale));
     margin-right: 15px;
     margin-top: 3px;
     color: #4CAF50;
 }
 
 .security-tip h4 {
-    font-size: 16px;
+    font-size: calc(16px * var(--font-scale));
     margin-bottom: 5px;
     font-weight: 600;
     margin-top: 0;
 }
 
 .security-tip p {
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     opacity: 0.9;
     line-height: 1.5;
     margin: 0;
@@ -1379,7 +1379,7 @@ function resetForgotPasswordForm() {
     }
     
     .security-title {
-        font-size: 28px;
+        font-size: calc(28px * var(--font-scale));
     }
 
     .forgot-header {
@@ -1387,22 +1387,22 @@ function resetForgotPasswordForm() {
     }
 
     .forgot-header h2 {
-        font-size: 24px;
+        font-size: calc(24px * var(--font-scale));
     }
 
     .forgot-header p {
-        font-size: 13px;
+        font-size: calc(13px * var(--font-scale));
     }
 
     .step-circle {
         width: 30px;
         height: 30px;
-        font-size: 14px;
+        font-size: calc(14px * var(--font-scale));
         border-width: 2px;
     }
 
     .step-text {
-        font-size: 10px;
+        font-size: calc(10px * var(--font-scale));
     }
 
     .step-indicator {
@@ -1418,12 +1418,12 @@ function resetForgotPasswordForm() {
     .code-inputs input {
         width: 40px;
         height: 50px;
-        font-size: 20px;
+        font-size: calc(20px * var(--font-scale));
     }
 
     .action-button {
         padding: 10px 8px;
-        font-size: 13px;
+        font-size: calc(13px * var(--font-scale));
         border-radius: 8px;
         line-height: 1.3;
     }
@@ -1435,7 +1435,7 @@ function resetForgotPasswordForm() {
 
     .back-to-login {
         margin-top: 20px;
-        font-size: 14px;
+        font-size: calc(14px * var(--font-scale));
     }
 }
 </style>

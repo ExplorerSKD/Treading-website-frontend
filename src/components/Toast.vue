@@ -27,7 +27,7 @@
           </div>
 
           <!-- Message -->
-          <span class="text-white text-[12px] font-medium tracking-wide break-words">
+          <span class="text-white text-[calc(12px*var(--font-scale))] font-medium tracking-wide break-words">
             {{ item.detail || item.summary }}
           </span>
         </div>

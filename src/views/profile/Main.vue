@@ -280,13 +280,13 @@ onMounted(() => {
     justify-content: center;
     cursor: pointer;
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
 }
 .nav-icon-btn:active { transform: scale(0.94); background: var(--border-card); }
 
 .nav-title {
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
     color: var(--text-primary);
     letter-spacing: 0.5px;
 }
@@ -316,20 +316,20 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: calc(2rem * var(--font-scale));
     font-weight: 800;
     color: #1E2331;
 }
 .profile-info h2 {
     color: #FFFFFF;
-    font-size: 1.3rem;
+    font-size: calc(1.3rem * var(--font-scale));
     font-weight: 800;
     margin-bottom: 4px;
     letter-spacing: 0.5px;
 }
 .profile-info p {
     color: rgba(255, 255, 255, 0.4);
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
     font-weight: 500;
 }
 
@@ -370,7 +370,7 @@ onMounted(() => {
 }
 .settings-icon {
     color: #1E2331;
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--font-scale));
     width: 28px;
     text-align: center;
 }
@@ -378,7 +378,7 @@ onMounted(() => {
     color: var(--text-primary);
 }
 .settings-text {
-    font-size: 1.05rem;
+    font-size: calc(1.05rem * var(--font-scale));
     font-weight: 700;
     color: #1E2331;
 }
@@ -408,7 +408,7 @@ onMounted(() => {
     min-width: 0;
 }
 .wa-icon-large {
-    font-size: 2.4rem;
+    font-size: calc(2.4rem * var(--font-scale));
     color: #25D366;
     flex-shrink: 0;
 }
@@ -418,7 +418,7 @@ onMounted(() => {
     min-width: 0;
 }
 .wa-details h4 {
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
     font-weight: 600;
     color: #8E96A4;
     margin-bottom: 2px;
@@ -427,7 +427,7 @@ onMounted(() => {
     text-overflow: ellipsis;
 }
 .wa-details p {
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
     font-weight: 800;
     color: #1E2331;
     white-space: nowrap;
@@ -440,7 +440,7 @@ onMounted(() => {
     color: #FFFFFF;
     padding: 12px 28px;
     border-radius: 35px;
-    font-size: 0.95rem;
+    font-size: calc(0.95rem * var(--font-scale));
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
@@ -476,7 +476,7 @@ onMounted(() => {
 }
 .logout-icon {
     color: #1E2331;
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--font-scale));
     width: 28px;
     text-align: center;
 }
@@ -484,7 +484,7 @@ onMounted(() => {
     color: var(--text-primary);
 }
 .logout-text {
-    font-size: 1.05rem;
+    font-size: calc(1.05rem * var(--font-scale));
     font-weight: 700;
     color: #1E2331;
 }
@@ -508,11 +508,11 @@ onMounted(() => {
     .profile-avatar {
         width: 60px;
         height: 60px;
-        font-size: 1.6rem;
+        font-size: calc(1.6rem * var(--font-scale));
     }
     
     .profile-info h2 {
-        font-size: 1.15rem;
+        font-size: calc(1.15rem * var(--font-scale));
     }
     
     .settings-group {
@@ -525,12 +525,12 @@ onMounted(() => {
     }
     
     .settings-icon {
-        font-size: 1.1rem;
+        font-size: calc(1.1rem * var(--font-scale));
         width: 24px;
     }
     
     .settings-text {
-        font-size: 0.95rem;
+        font-size: calc(0.95rem * var(--font-scale));
     }
     
     .wa-card {
@@ -545,20 +545,20 @@ onMounted(() => {
     }
     
     .wa-icon-large {
-        font-size: 2rem;
+        font-size: calc(2rem * var(--font-scale));
     }
     
     .wa-details h4 {
-        font-size: 0.75rem;
+        font-size: calc(0.75rem * var(--font-scale));
     }
     
     .wa-details p {
-        font-size: 0.95rem;
+        font-size: calc(0.95rem * var(--font-scale));
     }
     
     .wa-btn {
         padding: 10px 20px;
-        font-size: 0.85rem;
+        font-size: calc(0.85rem * var(--font-scale));
         border-radius: 25px;
     }
     
@@ -568,12 +568,12 @@ onMounted(() => {
     }
     
     .logout-icon {
-        font-size: 1.1rem;
+        font-size: calc(1.1rem * var(--font-scale));
         width: 24px;
     }
     
     .logout-text {
-        font-size: 0.95rem;
+        font-size: calc(0.95rem * var(--font-scale));
     }
 }
 
@@ -584,11 +584,11 @@ onMounted(() => {
     
     .wa-btn {
         padding: 8px 16px;
-        font-size: 0.8rem;
+        font-size: calc(0.8rem * var(--font-scale));
     }
     
     .wa-details p {
-        font-size: 0.85rem;
+        font-size: calc(0.85rem * var(--font-scale));
     }
 }
 
@@ -639,19 +639,19 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
-    font-size: 1.4rem;
+    font-size: calc(1.4rem * var(--font-scale));
     color: #DC2626;
 }
 
 .logout-modal-title {
-    font-size: 1.1rem;
+    font-size: calc(1.1rem * var(--font-scale));
     font-weight: 700;
     color: #1A1A1A;
     margin-bottom: 8px;
 }
 
 .logout-modal-desc {
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--font-scale));
     color: #6B7280;
     line-height: 1.5;
     margin-bottom: 24px;
@@ -666,7 +666,7 @@ onMounted(() => {
     flex: 1;
     padding: 12px 16px;
     border-radius: 16px;
-    font-size: 0.85rem;
+    font-size: calc(0.85rem * var(--font-scale));
     font-weight: 700;
     cursor: pointer;
     border: none;

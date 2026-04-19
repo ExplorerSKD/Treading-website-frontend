@@ -46,7 +46,7 @@
                             {{ formatNumber(live.ltp) }}
                         </p>
 
-                        <p class="text-[12px]" :class="priceColor">
+                        <p class="text-[calc(12px*var(--font-scale))]" :class="priceColor">
                             {{ formatNumber(live.change) }} ({{ formatNumber(live.changeP) }}%)
                         </p>
                     </div>
@@ -54,7 +54,7 @@
             </div>
 
             <!-- OHLC -->
-            <div class="flex justify-between px-2 py-1 text-[12px] text-custom-grey border-b border-custom-border">
+            <div class="flex justify-between px-2 py-1 text-[calc(12px*var(--font-scale))] text-custom-grey border-b border-custom-border">
                 <div class="font-semibold">O: {{ formatNumber(live.open) }}</div>
                 <div class="font-semibold">H: {{ formatNumber(live.high) }}</div>
                 <div class="font-semibold">L: {{ formatNumber(live.low) }}</div>
@@ -63,7 +63,7 @@
 
             <!-- LOT INFO -->
             <div v-if="actionMode && activeSegmentSettings"
-                class="flex justify-between px-2 py-1 text-[12px] bg-custom-border/30 rounded">
+                class="flex justify-between px-2 py-1 text-[calc(12px*var(--font-scale))] bg-custom-border/30 rounded">
 
                 <p class="font-semibold">Max Lot: {{ activeSegmentSettings.max_lot }}</p>
                 <p class="font-semibold">Order Lot: {{ activeSegmentSettings.max_order_lot }}</p>
@@ -89,7 +89,7 @@
                     </div>
 
                     <button @click="showConfirmationModal = true"
-                        class="px-4 py-2 rounded-lg text-[14px] text-white bg-custom-red hover:bg-custom-red/90 transition">
+                        class="px-4 py-2 rounded-lg text-[calc(14px*var(--font-scale))] text-white bg-custom-red hover:bg-custom-red/90 transition">
                         Exit All
                     </button>
                 </div>
@@ -191,21 +191,21 @@
 
                     <div class="flex items-center justify-between w-full">
 
-                        <p class="text-[12px] font-semibold text-custom-grey">
+                        <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                             Intraday :
                             <span class="text-custom-text">
                                 {{ formatNumber(fundCalculation.reqFunds) }}
                             </span>
                         </p>
 
-                        <p class="text-[12px] font-semibold text-custom-grey">
+                        <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                             Carry :
                             <span class="text-custom-text">
                                 {{ formatNumber(fundCalculation.reqCarry) }}
                             </span>
                         </p>
 
-                        <p class="text-[12px] font-semibold text-custom-grey">
+                        <p class="text-[calc(12px*var(--font-scale))] font-semibold text-custom-grey">
                             Avail. Margin =
                             <span class="text-custom-text">
                                 {{ formatNumber(availableMargin) }}

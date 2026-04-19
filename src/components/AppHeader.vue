@@ -91,7 +91,7 @@ const handleWalletClick = () => {
 
 .header-bar-title {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: calc(1.2rem * var(--font-scale));
   color: #1A1E2B;
 }
 
@@ -112,7 +112,7 @@ const handleWalletClick = () => {
   color: #4B5563;
   cursor: pointer;
   border: 1px solid transparent;
-  font-size: 0.9rem;
+  font-size: calc(0.9rem * var(--font-scale));
   transition: all 0.2s ease;
 }
 
@@ -125,7 +125,7 @@ const handleWalletClick = () => {
   align-items: center;
   gap: 4px;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: calc(0.8rem * var(--font-scale));
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(6, 95, 70, 0.2);
 }
